@@ -10,10 +10,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_090241) do
+ActiveRecord::Schema.define(version: 2019_11_04_104446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "board_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "board_id", null: false
+    t.boolean "admin"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["board_id"], name: "index_board_users_on_board_id"
+    t.index ["user_id"], name: "index_board_users_on_user_id"
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.string "place"
+    t.string "longitude"
+    t.string "latitude"
+    t.string "title"
+    t.string "description"
+    t.string "current_weather"
+    t.string "current_exchange_rate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "day_schedules", force: :cascade do |t|
+    t.date "date"
+    t.text "notes"
+    t.bigint "experience_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["experience_id"], name: "index_day_schedules_on_experience_id"
+  end
+
+  create_table "experiences", force: :cascade do |t|
+    t.string "longitude"
+    t.string "latitude"
+    t.string "title"
+    t.string "description"
+    t.string "photo"
+    t.bigint "board_id", null: false
+    t.integer "vote"
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["board_id"], name: "index_experiences_on_board_id"
+    t.index ["category_id"], name: "index_experiences_on_category_id"
+    t.index ["user_id"], name: "index_experiences_on_user_id"
+  end
+
+  create_table "friends", force: :cascade do |t|
+    t.bigint "user_one_id"
+    t.bigint "user_two_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_one_id"], name: "index_friends_on_user_one_id"
+    t.index ["user_two_id"], name: "index_friends_on_user_two_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +90,12 @@ ActiveRecord::Schema.define(version: 2019_11_04_090241) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "board_users", "boards"
+  add_foreign_key "board_users", "users"
+  add_foreign_key "day_schedules", "experiences"
+  add_foreign_key "experiences", "boards"
+  add_foreign_key "experiences", "categories"
+  add_foreign_key "experiences", "users"
+  add_foreign_key "friends", "users", column: "user_one_id"
+  add_foreign_key "friends", "users", column: "user_two_id"
 end
