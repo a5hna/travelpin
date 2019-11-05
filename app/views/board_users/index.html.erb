@@ -1,2 +1,7 @@
-<h1>BoardUsers#index</h1>
-<p>Find me in app/views/board_users/index.html.erb</p>
+<div class="users_list">
+  <h1>Board users list</h1>
+  <ul><% @users.each do |board_user| %>
+    <li><%= board_user.name %></li>
+  <% end %>
+  </ul>
+</div>

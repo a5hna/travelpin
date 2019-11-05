@@ -1,2 +1,5 @@
-<h1>Friends#new</h1>
-<p>Find me in app/views/friends/new.html.erb</p>
+<%= simple_form_for @connection do |f|%>
+<%= f.input :user_one, collection: User.all %>
+<%= f.input :user_two, collection: User.all %>
+<%= f.submit %>
+<% end %>
