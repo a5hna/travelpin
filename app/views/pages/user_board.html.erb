@@ -11,12 +11,12 @@
     <h3>Welcome <%= current_user.name %>, these are your boards!</h3>
     <ul class="list-unstyled">
     <% current_user.boards.each do |board| %>
-    <li><a class="btn btn-ghost" href="#"><%= board.title %></a></li>
+      <li><%= link_to board.title, board_path(board) %></li>
     <% end %>
     </ul>
     <ul class="list-unstyled">
-    <li><a class="btn btn-gradient" href="#">Create new board</a></li>
-    <li><a class="btn btn-gradient" href="#">Be inspired</a></li>
+      <li><%= link_to "Create New Board", new_board_path %></li>
+      <li><a class="btn btn-gradient" href="#">Be inspired</a></li>
     </ul>
   </div>
 
