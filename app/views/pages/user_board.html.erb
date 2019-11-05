@@ -8,11 +8,11 @@
 <div class="profile">
   <img class="avatar-large" alt="avatar-large" src="https://kitt.lewagon.com/placeholder/users/arthur-littm" />
   <div class="content">
-    <h3>Welcome current user, these are your boards!</h3>
+    <h3>Welcome <%= current_user.name %>, these are your boards!</h3>
     <ul class="list-unstyled">
-    <li><a class="btn btn-ghost" href="#">Barcelona</a></li>
-    <li><a class="btn btn-flat" href="#">Tokyo</a></li>
-    <li><a class="btn btn-last" href="#">New Dehli</a></li>
+    <% current_user.boards.each do |board| %>
+    <li><a class="btn btn-ghost" href="#"><%= board.title %></a></li>
+    <% end %>
     </ul>
     <ul class="list-unstyled">
     <li><a class="btn btn-gradient" href="#">Create new board</a></li>
