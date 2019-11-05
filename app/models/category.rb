@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-  belongs_to :experience
+  has_many :experiences
 end
