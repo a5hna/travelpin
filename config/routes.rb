@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :board_users, only: [:destroy]
   resources :experiences, only: [:edit, :update, :destroy]
   resources :day_schedules, only: [:destroy]
-  resources :friends, only: [:index, :new, :create, :destroy]
+  resources :connections, only: [:index, :new, :create, :destroy]
 
   get 'dashboard', to: "pages#dashboard"
   get 'board', to: "pages#user_board", as: :user_boards
