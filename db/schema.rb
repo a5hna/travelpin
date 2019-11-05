@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_034030) do
+ActiveRecord::Schema.define(version: 2019_11_05_052600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2019_11_05_034030) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.bigint "user_one_id"
+    t.bigint "user_two_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_one_id"], name: "index_connections_on_user_one_id"
+    t.index ["user_two_id"], name: "index_connections_on_user_two_id"
   end
 
   create_table "day_schedule_items", force: :cascade do |t|
@@ -76,15 +85,6 @@ ActiveRecord::Schema.define(version: 2019_11_05_034030) do
     t.index ["user_id"], name: "index_experiences_on_user_id"
   end
 
-  create_table "friends", force: :cascade do |t|
-    t.bigint "user_one_id"
-    t.bigint "user_two_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_one_id"], name: "index_friends_on_user_one_id"
-    t.index ["user_two_id"], name: "index_friends_on_user_two_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -103,11 +103,11 @@ ActiveRecord::Schema.define(version: 2019_11_05_034030) do
 
   add_foreign_key "board_users", "boards"
   add_foreign_key "board_users", "users"
+  add_foreign_key "connections", "users", column: "user_one_id"
+  add_foreign_key "connections", "users", column: "user_two_id"
   add_foreign_key "day_schedule_items", "day_schedules"
   add_foreign_key "day_schedule_items", "experiences"
   add_foreign_key "experiences", "boards"
   add_foreign_key "experiences", "categories"
   add_foreign_key "experiences", "users"
-  add_foreign_key "friends", "users", column: "user_one_id"
-  add_foreign_key "friends", "users", column: "user_two_id"
 end
