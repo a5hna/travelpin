@@ -9,12 +9,16 @@
 
 # USERS
 puts "destroying everything"
-Experience.destroy_all
-Board.destroy_all
-BoardUser.destroy_all
-Connection.destroy_all
-User.destroy_all
-Category.destroy_all
+system "rails db:drop db:create db:migrate"
+# db:drop
+# db:create
+# db:migrate
+# Experience.destroy_all
+# Board.destroy_all
+# BoardUser.destroy_all
+# Connection.destroy_all
+# User.destroy_all
+# Category.destroy_all
 
 puts "Generating user seeds"
 i = 1
@@ -23,7 +27,8 @@ i = 1
   User.create!(
     name: "name#{i}",
     email: "email#{i}@lewagon.com",
-    password: "password")
+    password: "password",
+    avatar: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
   i += 1
 end
 
@@ -48,10 +53,10 @@ i = 1
 5.times do
   puts "creating board: #{i}"
   Board.create!(
-    place: "place#{i}",
-    title: "title#{i}",
-    longitude: "123",
-    latitude: "123")
+    place: "board-place#{i}",
+    title: "Board Title#{i}",
+    longitude: "51.507351",
+    latitude: "-0.127758")
   i += 1
 end
 
@@ -98,10 +103,10 @@ i = 1
     Experience.create!(
       user_id: user.id,
       board_id: board.id,
-      title: "Experience#{i}",
-      longitude: "123",
-      latitude: "123",
-      photo: "https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
+      title: "Experience Title:#{i}",
+      longitude: "51.507351",
+      latitude: "-0.127758",
+      photo: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
       category_id: @categories.sample.id)
   end
   i += 1

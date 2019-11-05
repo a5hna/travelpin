@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
   def show
     @board = Board.find(params[:id])
-    @board_users = @board.board_users
+    @board_users = @board.users
     @experiences = @board.experiences
 
 
