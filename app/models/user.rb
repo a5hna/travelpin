@@ -9,6 +9,6 @@ class User < ApplicationRecord
   has_many :boards, through: :board_users
   has_many :experiences
 
-  validates :name, presence: true
-  validates :home_location, presence: true
+  # validates :name, presence: true
+  # validates :home_location, presence: true
 end
