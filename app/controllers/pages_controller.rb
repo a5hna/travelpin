@@ -3,4 +3,9 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def user_board
+    @user = current_user
+    @boards = Board.where(user: @user)
+  end
 end

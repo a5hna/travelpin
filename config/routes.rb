@@ -1,17 +1,5 @@
 Rails.application.routes.draw do
-  get 'day_schedule/show'
-  get 'day_schedule/new'
-  get 'day_schedule/create'
-  get 'experiences/new'
-  get 'experiences/create'
-  get 'experiences/edit'
-  get 'experiences/update'
-  get 'boards/show'
-  get 'boards/new'
-  get 'boards/create'
-  get 'boards/edit'
-  get 'boards/update'
-  get 'boards/destroy'
+
   devise_for :users
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -27,4 +15,5 @@ Rails.application.routes.draw do
   resources :friends, only: [:index, :new, :create, :destroy]
 
   get 'dashboard', to: "pages#dashboard"
+  get 'board', to: "pages#user_board", as: :user_boards
 end
