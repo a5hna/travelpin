@@ -8,4 +8,7 @@ class User < ApplicationRecord
   has_many :board_users, dependent: :destroy
   has_many :boards, through: :board_users
   has_many :experiences
+
+  validates :name, presence: true
+  validates :home_location, presence: true
 end
