@@ -23,9 +23,6 @@
   <!-- End of Map Button-->
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;">
     <script>
-      console.log('<%= raw @markers.length %>')
-    console.log('<%= @map_center %>')
-    console.log()
     var map;
     function initMap() {
       let mapCenter = new google.maps.LatLng(<%= @map_center[0] %>, <%= @map_center[1] %>);
@@ -57,6 +54,21 @@
     </script>
   </div>
 </div>
+
+<!-- Summary of board location -->
+<div>
+
+</div>
+<div class="d-flex">
+  <div class="d-flex justify-content-center align-items-center"style="width: 50vw">
+    <h2><%= (@data['main']['temp'].to_f - 273.15).round(0)%> °C</h2>
+  </div>
+  <div class="weather-icon" style="width: 50vw">
+    <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
+    <%= @data['weather'][0]['main'] %>
+  </div>
+</div>
+<!-- Experience Cards -->
 <div class="row justify-content-center">
   <% @experiences.each do |experience| %>
   <div class="col-xs-6 m-0">
@@ -117,5 +129,5 @@
     </div>
   </div>
 </div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqh7gsRVNiLmZ0L_iOn6Dz22i3tPk3i60&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
 </script>
