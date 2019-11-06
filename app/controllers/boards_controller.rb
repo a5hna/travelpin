@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'nokogiri'
+
 class BoardsController < ApplicationController
   before_action :set_board
 
@@ -14,10 +17,20 @@ class BoardsController < ApplicationController
       @markers << [e.latitude.to_f, e.longitude.to_f]
     end
 
+    url = "http://api.openweathermap.org/data/2.5/weather?lat=#{@board.latitude}&lon=#{@board.longitude}&APPID=#{ENV['OPENWEATHER']}"
+    file = open(url).read
+    @data = JSON.parse(file)
   end
 
   def new
     @board = Board.new
+    country_url = "https://www.lonelyplanet.com/#{board_params[:country]}"
+    city_url = "https://www.lonelyplanet.com/#{board_params[:country]}/#{board_params[:city]}"
+
+
+    lonelyplanet_html = open(city_url).read
+    lonelyplanet_data = Nokogiri::HTML(lonelyplanet_html)
+    caption = lonelyplanet_data.search('.featured p').text.strip
   end
 
   def create
