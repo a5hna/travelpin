@@ -8,8 +8,8 @@
     <img class="avatar" alt="avatar" src=<%=user.avatar %> />
     <% end %>
     <% end %>
-    <%= link_to connections_path do %>
-    <i class="fas fa-plus-circle avatar"></i>
+    <%= link_to connections_path(board_id: @board.id) do %>
+      <i class="fas fa-plus-circle avatar"></i>
     <% end %>
   </div>
   <!-- Map Button -->

@@ -1,5 +1,5 @@
 class BoardsController < ApplicationController
-  before_action :set_board
+  before_action :set_board, except: [:new]
 
   def show
     @board_users = @board.users

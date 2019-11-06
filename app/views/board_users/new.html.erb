@@ -1,2 +1,5 @@
-<h1>BoardUsers#new</h1>
-<p>Find me in app/views/board_users/new.html.erb</p>
+<%= simple_form_for @board_user do |f|%>
+<%= f.association :board, collection: current_user.boards %>
+<%= f.association :user, collection: User.all %>
+<%= f.submit %>
+<% end %>
