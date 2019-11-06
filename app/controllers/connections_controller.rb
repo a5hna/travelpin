@@ -1,7 +1,11 @@
 class ConnectionsController < ApplicationController
   def index
+    if params[:board_id]
+      @board = Board.find(params[:board_id])
+      board_users = @board.users
+    end
     @connections = current_user.connections
-    @friends = friends(@connections)
+    @friends = friends(@connections).filter { |friend| !board_users.include?(friend) }
   end
 
   def new

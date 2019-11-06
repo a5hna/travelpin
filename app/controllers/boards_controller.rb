@@ -2,7 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 
 class BoardsController < ApplicationController
-  before_action :set_board
+  before_action :set_board, except: [:new]
 
   def show
     session[:language] = 'en'

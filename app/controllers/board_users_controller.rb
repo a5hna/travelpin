@@ -9,9 +9,9 @@ class BoardUsersController < ApplicationController
   end
 
   def create
-    @board_user = BoardUuser.new(board_user.params)
-    if board_user.save
-      redirect_to board_users_path
+    @board_user = BoardUser.new(board_user_params)
+    if @board_user.save
+      redirect_to board_path(@board_user.board)
     else
       render :new
     end
@@ -27,6 +27,6 @@ class BoardUsersController < ApplicationController
   private
 
   def board_user_params
-    params.require(:board_user).permit(:user_id, :board_id)
+    params.require(:board_user).permit(:user_id, :board_id, :admin)
   end
 end
