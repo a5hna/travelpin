@@ -1,24 +1,14 @@
 // Specific CSS for your home-page
-.experience-card {
-  width: 100px;
-  padding: 5px;
-  border: 1px solid white;
-  margin-bottom: 0px;
-  border-radius: 0%;
-  background-color: white;
+
+.purple {
+  background-color: #fc7978;
+  height: 50vh;
+  padding-top: 230px;
 }
 
-.experience-card > img {
-  width: 100%;
-  height: auto;
-  object-fit:  cover;
-  border-radius: 5%;
-  background-color: teal;
-  box-shadow: 2px 2px 2px gray;
+.map-homepage-placeholder {
+  height: 50vh;
+  background-color: #96d1c7;
 }
 
-.experience-card > p {
-  margin: 0;
-  font-size: 10px;
-  padding: 0;
-}
+
