@@ -1,7 +1,7 @@
 class BoardUsersController < ApplicationController
   def index
-    @users = Board.find(params[:board_id]).users
-    # @board_users = BoardUser.where(board_id: @board.id).map(&:user).uniq
+    # @users = Board.find(params[:board_id]).users
+    @board_users = BoardUser.where(board_id: params[:board_id])
   end
 
   def new
@@ -19,7 +19,9 @@ class BoardUsersController < ApplicationController
 
   def destroy
     @board_user = BoardUser.find(params[:id])
+    board = @board_user.board
     @board_user.destroy
+    redirect_to board_board_users_path(board)
   end
 
   private

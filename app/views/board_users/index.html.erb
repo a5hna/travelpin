@@ -1,7 +1,19 @@
 <div class="users_list">
   <h1>Board users list</h1>
-  <ul><% @users.each do |board_user| %>
-    <li><%= board_user.name %></li>
+  <ul><% @board_users.each do |board_user| %>
+    <li>
+    <div>
+      <% if board_user.user.avatar %>
+        <%= image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
+      <% else %>
+        <%= image_tag current_user.avatar, class: "avatar", alt: "avatar" %>
+      <% end %>
+      <%= board_user.user.name %>
+        <%= link_to board_user_path(board_user), method: :delete do  %>
+          <i class="fas fa-user-minus"></i>
+        <% end %>
+    </div>
+    </li>
   <% end %>
   </ul>
 </div>

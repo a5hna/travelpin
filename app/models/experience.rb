@@ -5,6 +5,7 @@ class Experience < ApplicationRecord
   has_many :day_schedule_items
   has_many :day_schedules, through: :day_schedule_items
 
+
   validates :longitude, presence: true
   validates :latitude, presence: true
   validates :title, presence: true

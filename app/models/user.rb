@@ -4,10 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :connections, dependent: :destroy
+  # has_many :connections, dependent: :destroy
   has_many :board_users, dependent: :destroy
   has_many :boards, through: :board_users
   has_many :experiences
+  has_many :connections, class_name: 'Connection', foreign_key: 'user_two'
+    has_many :connections, class_name: 'Connection', foreign_key: 'user_one'
+
+
 
   # validates :name, presence: true
   # validates :home_location, presence: true
