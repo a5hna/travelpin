@@ -37,13 +37,13 @@ end
 # CONNECTIONS
 
 puts "Generating connection seeds"
-x = 1
+i = 1
 15.times do
   puts "creating connections: #{i}"
   Connection.create(
     user_one_id: @users.sample.id,
     user_two_id: @users.sample.id)
-  x += 1
+  i += 1
 end
 
 # BOARDS
@@ -55,8 +55,8 @@ i = 1
   Board.create!(
     place: "board-place#{i}",
     title: "Board Title#{i}",
-    longitude: "51.507351",
-    latitude: "-0.127758")
+    longitude: -0.127758,
+    latitude: 51.507351)
   i += 1
 end
 
@@ -101,15 +101,16 @@ i = 1
   users.each do |user|
     puts "creating experience for board: #{i}"
       3.times do
-    Experience.create!(
-      user_id: user.id,
-      board_id: board.id,
-      title: "Experience Title:#{i}",
-      longitude: "51.507351",
-      latitude: "-0.127758",
-      photo: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
-      category_id: @categories.sample.id,
-      vote: 0)
+        exp = Experience.new(
+          user_id: user.id,
+          board_id: board.id,
+          title: "Experience Title:#{i}",
+          photo: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
+          category_id: @categories.sample.id,
+          vote: 0)
+          exp.latitude = rand((exp.board.latitude.to_f - 0.5)..(exp.board.latitude.to_f + 0.5))
+          exp.longitude = rand((exp.board.longitude.to_f - 0.5)..(exp.board.longitude.to_f + 0.5))
+          exp.save!
       end
   end
   i += 1
