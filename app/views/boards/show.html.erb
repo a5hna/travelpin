@@ -23,9 +23,6 @@
   <!-- End of Map Button-->
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;">
     <script>
-      console.log('<%= raw @markers.length %>')
-    console.log('<%= @map_center %>')
-    console.log()
     var map;
     function initMap() {
       let mapCenter = new google.maps.LatLng(<%= @map_center[0] %>, <%= @map_center[1] %>);
@@ -117,5 +114,5 @@
     </div>
   </div>
 </div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqh7gsRVNiLmZ0L_iOn6Dz22i3tPk3i60&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
 </script>

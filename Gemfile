@@ -18,6 +18,8 @@ gem 'webpacker'
 gem 'geocoder'
 gem 'carrierwave'
 gem 'cloudinary'
+  gem 'dotenv-rails'
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'

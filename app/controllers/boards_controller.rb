@@ -2,6 +2,7 @@ class BoardsController < ApplicationController
   before_action :set_board
 
   def show
+    session[:language] = 'en'
     @board_users = @board.users
     @experiences = @board.experiences
     @experience = Experience.new
