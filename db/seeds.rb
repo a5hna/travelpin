@@ -100,6 +100,7 @@ i = 1
   users = board.users
   users.each do |user|
     puts "creating experience for board: #{i}"
+      3.times do
     Experience.create!(
       user_id: user.id,
       board_id: board.id,
@@ -107,7 +108,9 @@ i = 1
       longitude: "51.507351",
       latitude: "-0.127758",
       photo: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
-      category_id: @categories.sample.id)
+      category_id: @categories.sample.id,
+      vote: 0)
+      end
   end
   i += 1
 end

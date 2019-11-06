@@ -1,6 +1,7 @@
 class ConnectionsController < ApplicationController
   def index
-    @connections = Connection.all
+    @connections = current_user.connections
+    @friends = friends(@connections)
   end
 
   def new
@@ -25,5 +26,15 @@ class ConnectionsController < ApplicationController
 
   def connection_params
     params.require(:connection).permit(:user_one, :user_two)
+  end
+
+  def friends(connections)
+    connections.map do |connection|
+      if connection.user_one == current_user
+        connection.user_two
+      else
+        connection.user_one
+      end
+    end
   end
 end
