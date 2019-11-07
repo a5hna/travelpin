@@ -56,7 +56,9 @@ i = 1
     place: "board-place#{i}",
     title: "Board Title#{i}",
     longitude: -0.127758,
-    latitude: 51.507351)
+    latitude: 51.507351,
+    city: "London",
+    country: "United Kingdom")
   i += 1
 end
 
