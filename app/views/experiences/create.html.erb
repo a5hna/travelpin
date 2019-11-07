@@ -2,24 +2,10 @@
 <div class="card experience-card">
         <%= image_tag @photos[i], alt: "alttext", size: "400x200" %>
         <div class="card-body">
-          <p>Name:
-            <%= each["name"] %>
-          </p>
-          <h5 class="card-title">
-          </h5>
+          <h2 class="card-title">
+          </h2>
           <p class="card-text"></p>
-          <p>Address:</p>
-          <%= each["vicinity"] %>
-          <p>Price Level:
-            <%= each["price_level"] %>
-          </p>
-          <%= button_to "Create", board_experiences_path, class: "btn-warning",
-          params: {
-                    board: @experience.board_id,
-                    title: @experience.title,
-                    description: @experience.description,
-                    place_id: each["place_id"]
-                    }  %>
+
         </div>
       </div>
 </div>
