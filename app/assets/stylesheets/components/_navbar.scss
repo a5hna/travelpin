@@ -11,4 +11,22 @@
   width: 40px;
 }
 
+#navbarSupportedContent, .navbar-line{
+  display: flex;
+  justify-content: flex-end;
+}
 
+.navbar-line {
+  flex-direction: row;
+  margin-right: 0 !important;
+  justify-content: flex-end;
+}
+
+.navbar-box{
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.dropdown-menu {
+  position: absolute !important;
+}

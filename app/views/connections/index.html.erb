@@ -1,15 +1,13 @@
-<div class="wrap">
+
+
+<% if @board_users != nil %>
+<h3 class="text-center mt-2">Add friends to Board</h3>
   <div class="search">
-    <input type="text" class="searchTerm" placeholder="Friend's name">
+    <input id="friends-search" type="text" class="searchTerm" placeholder="Friend's name">
     <button type="submit" class="searchButton">
       <i class="fa fa-search"></i>
     </button>
   </div>
-</div>
-
-<% if @board_users != nil %>
-<h3 class="text-center mt-2">Add friends to Board</h3>
-
   <% @friends.each do |friend| %>
 
     <% unless @board_users.include?(friend) %>
