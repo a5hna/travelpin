@@ -1,16 +1,57 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
+</script>
 <h1>Experiences#create</h1>
 <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="" alt="Card image cap">
   <div class="card-body">
-    <h5 class="card-title"><%= @experience.title %></h5>
-    <p class="card-text">We have found <%= @count %> results matching your request.</p>
+    <h5 class="card-title">
+      <%= @experience.title %>
+    </h5>
+    <p class="card-text">We have found these options for you.</p>
     <% @list.each do |each|  %>
-    <p><%= each["name"] %></p>
+    <p>Name:
+      <%= each["name"] %>
+    </p>
+    <p>Address:</p>
     <%= each["formatted_address"] %>
+    <p>Price Level:
+      <%= each["price_level"] %>
+    </p>
     <% end %>
     <%= image_tag @photo, alt: "alttext", style: "width: 500px;" %>
-
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
 
+  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;">
+ <script>
+    var map;
+    function initMap() {
+      let mapCenter = new google.maps.LatLng(<%= @map_center[0] %>, <%= @map_center[1] %>);
+      map = new google.maps.Map(
+        document.getElementById('map'), {
+          center: mapCenter,
+          zoom: 12
+        });
+      const experiences = document.querySelectorAll('.experience-card')
+      <% @markers.each_with_index do |coords, index| %>
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(<%= coords[0]%>, <%= coords[1] %>),
+        map: map,
+      });
+        marker.addListener('mouseover', (event) => {
+        experiences[<%= index %>].classList.add('selected')
+      });
+        marker.addListener('mouseout', (event) => {
+        experiences[<%= index %>].classList.remove('selected')
+      });
+        marker.addListener('click', (event) => {
+        console.log(event);
+      });
+      <% end %>
+      var controlDiv = document.querySelector('.control-div');
+      controlDiv.index = 1;
+      map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(controlDiv);
+    }
+    </script>
+</div>

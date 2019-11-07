@@ -18,7 +18,9 @@ gem 'webpacker'
 gem 'geocoder'
 gem 'carrierwave'
 gem 'cloudinary'
-  gem 'dotenv-rails'
+gem 'dotenv-rails'
+gem 'gon'
+
 
 
 group :development do

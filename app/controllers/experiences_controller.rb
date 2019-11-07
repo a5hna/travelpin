@@ -8,14 +8,12 @@ class ExperiencesController < ApplicationController
    @experience.board_id = params[:board_id]
    board_location = [@experience.board.latitude, @experience.board.longitude]
    query = @experience.title
-   places_endpoint = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{query}&inputtype=textquery&language=#{session[:language]}&fields=place_id,name,photos,formatted_address&locationbias=circle:100000@#{board_location[0]},#{board_location[1]}&key=#{ENV['GOOGLE_MAPS_KEY']}"
+   places_endpoint = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{board_location[0]},#{board_location[1]}&radius=50000&keyword=#{query}&key=#{ENV['GOOGLE_MAPS_KEY']}&language=#{session[:language]}"
    api_response = open(places_endpoint).read
    results = JSON.parse(api_response)
-   @count = results["candidates"].length
-   @list = results["candidates"]
-   photoref = results["candidates"][0]["photos"][0]["photo_reference"]
-   photos_endpoint = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{photoref}&key=#{ENV['GOOGLE_MAPS_KEY']}"
-   @photo = photos_endpoint
+   @list = results["results"][0..4]
+   photo_refs = @list.map {|each| each["photos"][0]["photo_reference"]}
+   @photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
   end
 
   def edit
