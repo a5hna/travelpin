@@ -1,12 +1,20 @@
 <h1>Experiences#create</h1>
 <div class="container">
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 40rem;">
   <img class="card-img-top" src="" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">
-     So we're going
+     So we're going to: <%= experience.title %>
     </h5>
-    <p class="card-text"></p>
+    <p class="card-text">
+    Tell your friends! <%= @experience.description %>
+    </p>
+   <p> Address: <%= @experience.address  %></p>
+   <p> Phone: <%= @experience.phone_number %></p>
+   <p> Rating: <%= @experience.rating  %></p>
+   <p> Reviews: <%=  @experience.google_url  %></p>
+   <p> Price level:  <%=  @experience.price_level  %></p>
+   <p> <%= link_to "Website", @experience.website  %></p>
   </div>
 </div>
 </div>

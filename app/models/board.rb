@@ -7,6 +7,10 @@ class Board < ApplicationRecord
 
   validates :place, presence: true
   validates :title, presence: true
-  validates :latitude, presence: true
-  validates :longitude, presence: true
+  # validates :latitude, presence: true
+  # validates :longitude, presence: true
+
+  geocoded_by :place
+  after_validation :geocode, if: :will_save_change_to_place?
+
 end
