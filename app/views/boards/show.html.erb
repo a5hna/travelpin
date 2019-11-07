@@ -137,7 +137,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for [@board, @experience] do |f| %>
+        <%= simple_form_for [@board, @experience], method: :get do |f| %>
         <%= f.input :title, label: "What are we doing?" %>
         <%= f.input :description, label: "Convince your friends!" %>
         <%= f.button :submit %>
