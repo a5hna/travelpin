@@ -8,7 +8,11 @@
     <div class="row">
       <% @list.each_with_index do |each, i|  %>
       <div class="card experience-card" style="width: 16.6%;">
+        <% if @photos[i] %>
         <%= image_tag @photos[i], alt: "alttext", size: "400x200" %>
+        <% else %>
+        <p> No pic</p>
+        <% end %>
         <div class="card-body">
           <p>Name:
             <%= each["name"] %>

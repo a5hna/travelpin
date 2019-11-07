@@ -1,13 +1,15 @@
 <h1>Experiences#create</h1>
 <div class="container">
 <div class="card" style="width: 40rem;">
-  <img class="card-img-top" src="" alt="Card image cap">
+  <% @photos.each do |pic| %>
+  <%= image_tag pic, alt: "alttext", size: "400x200"%>
+  <% end %>
   <div class="card-body">
     <h5 class="card-title">
-     So we're going to: <%= experience.title %>
+     So we're going to: <%= @experience.title %>
     </h5>
     <p class="card-text">
-    Tell your friends! <%= @experience.description %>
+    Tell your friends!: " <%= @experience.description %>"
     </p>
    <p> Address: <%= @experience.address  %></p>
    <p> Phone: <%= @experience.phone_number %></p>
