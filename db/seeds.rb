@@ -38,7 +38,7 @@ end
 
 puts "Generating connection seeds"
 i = 1
-15.times do
+45.times do
   puts "creating connections: #{i}"
   Connection.create(
     user_one_id: @users.sample.id,
@@ -100,17 +100,50 @@ i = 1
   users = board.users
   users.each do |user|
     puts "creating experience for board: #{i}"
-      3.times do
+      1.times do
         exp = Experience.new(
           user_id: user.id,
           board_id: board.id,
-          title: "Experience Title:#{i}",
+          title: "Rice Paddies:#{i}",
           photo: "https://images.unsplash.com/photo-1555400038-63f5ba517a47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
           category_id: @categories.sample.id,
           vote: 0)
           exp.latitude = rand((exp.board.latitude.to_f - 0.5)..(exp.board.latitude.to_f + 0.5))
           exp.longitude = rand((exp.board.longitude.to_f - 0.5)..(exp.board.longitude.to_f + 0.5))
           exp.save!
+
+        exp2 = Experience.new(
+          user_id: user.id,
+          board_id: board.id,
+          title: "Swing:#{i}",
+          photo: "https://images.unsplash.com/photo-1554481923-a6918bd997bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=802&q=80",
+          category_id: @categories.sample.id,
+          vote: 0)
+          exp2.latitude = rand((exp2.board.latitude.to_f - 0.5)..(exp2.board.latitude.to_f + 0.5))
+          exp2.longitude = rand((exp2.board.longitude.to_f - 0.5)..(exp2.board.longitude.to_f + 0.5))
+          exp2.save!
+
+        exp3 = Experience.new(
+          user_id: user.id,
+          board_id: board.id,
+          title: "Monkey Forest:#{i}",
+          photo: "https://images.unsplash.com/photo-1536146021566-627ce3c4d813?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+          category_id: @categories.sample.id,
+          vote: 0)
+          exp3.latitude = rand((exp3.board.latitude.to_f - 0.5)..(exp3.board.latitude.to_f + 0.5))
+          exp3.longitude = rand((exp3.board.longitude.to_f - 0.5)..(exp3.board.longitude.to_f + 0.5))
+          exp3.save!
+
+        exp4 = Experience.new(
+          user_id: user.id,
+          board_id: board.id,
+          title: "Floating Breakfast:#{i}",
+          photo: "https://images.unsplash.com/photo-1543668900-9124915a121f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+          category_id: @categories.sample.id,
+          vote: 0)
+          exp4.latitude = rand((exp4.board.latitude.to_f - 0.5)..(exp4.board.latitude.to_f + 0.5))
+          exp4.longitude = rand((exp4.board.longitude.to_f - 0.5)..(exp4.board.longitude.to_f + 0.5))
+          exp3.save!
       end
   end
   i += 1
