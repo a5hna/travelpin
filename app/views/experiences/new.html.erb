@@ -1,2 +1,89 @@
-<h1>Experiences#new</h1>
-<p>Find me in app/views/experiences/new.html.erb</p>
+<div class="lol-container">
+  <h1>
+    <%= @experience.title %>
+  </h1>
+  <p>We have found these options for you.</p>
+  <div class="card-container">
+    <div class="row">
+      <% @list.each_with_index do |each, i|  %>
+      <div class="card experience-card" style="width: 16.6%;">
+        <%= image_tag @photos[i], alt: "alttext", size: "400x200" %>
+        <div class="card-body">
+          <p>Name:
+            <%= each["name"] %>
+          </p>
+          <h5 class="card-title">
+          </h5>
+          <p class="card-text"></p>
+          <p>Address:</p>
+          <%= each["vicinity"] %>
+          <p>Price Level:
+            <%= each["price_level"] %>
+          </p>
+          <%= button_to "Create", board_experiences_path, class: "btn-warning",
+          params: {
+                    board: @experience.board_id,
+                    title: @experience.title,
+                    description: @experience.description,
+                    place_id: each["place_id"]
+                    }  %>
+        </div>
+      </div>
+      <% end %>
+      <div class="card experience-card" style="width: 16%;">
+        <h1>  ¿?</h1>
+        <div class="card-body">
+          <p>None of these?
+          </p>
+          <h5 class="card-title">
+          </h5>
+          <p class="card-text"></p>
+          <p>Click below to make your own</p>
+          <%= button_to "Create", board_experiences_path, class: "btn-danger",
+          params: {
+                    board: @experience.board_id,
+                    title: @experience.title,
+                    description: @experience.description
+                    }  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
+    <script>
+    var map;
+
+    function initMap() {
+      const experiences = document.querySelectorAll('.experience-card')
+      const mapElement = document.getElementById('map')
+      const centerCoords = JSON.parse(mapElement.dataset.center)
+      const markers = JSON.parse(mapElement.dataset.markers)
+      let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
+      map = new google.maps.Map(
+        document.getElementById('map'), {
+          center: mapCenter,
+          zoom: 10
+        });
+      markers.forEach(function(pin, i) {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(pin[0], pin[1]),
+          map: map,
+        });
+        marker.addListener('mouseover', (event) => {
+          experiences[i].classList.add('selected')
+        });
+        marker.addListener('mouseout', (event) => {
+          experiences[i].classList.remove('selected')
+        });
+        marker.addListener('click', (event) => {
+          console.log(i);
+          console.log(experiences[i])
+          console.log(experiences)
+        });
+      });
+    }
+    </script>
+  </div>
+</div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
+</script>
