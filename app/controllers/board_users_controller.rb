@@ -2,6 +2,7 @@ class BoardUsersController < ApplicationController
   def index
     # @users = Board.find(params[:board_id]).users
     @board_users = BoardUser.where(board_id: params[:board_id])
+
   end
 
   def new

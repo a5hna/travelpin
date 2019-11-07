@@ -5,6 +5,7 @@
   margin-bottom: 0px;
   border-radius: 0%;
   background-color: white;
+  display: inline-block;
 }
 
 .experience-card > img {
@@ -41,6 +42,15 @@
 
 .fa-user-minus, .add-bu {
   margin: 12px;
+  color: red;
+}
+
+.fa-user-plus {
+  color: green;
+}
+
+.fa-user {
+  color: #96d1c7;
 }
 .selected {
   border-style: solid;
@@ -63,6 +73,19 @@
 }
 
 .weather-icon {
-  background-color: black;
+  background-color: rgb(150, 209, 199);
   color: white;
+}
+
+.card-columns {
+  @include media-breakpoint-only(xs) {
+    column-count: 2;
+  }
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
+
 }

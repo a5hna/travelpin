@@ -1,19 +1,34 @@
 <div class="users_list">
-  <h1>Board users list</h1>
-  <ul><% @board_users.each do |board_user| %>
-    <li>
-    <div>
-      <% if board_user.user.avatar %>
-        <%= image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
+  <h3 class="text-center mt-2">Board Users List</h3>
+  <!-- <ul class="list-unstyled"> -->
+    <% @board_users.each do |board_user| %>
+   <!--  <li> -->
+    <div class="card p-2">
+      <% if board_user.user == current_user %>
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
+            <%= board_user.user.name %>
+          </div>
+          <a href="#" id="current-user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+        </div>
       <% else %>
-        <%= image_tag current_user.avatar, class: "avatar", alt: "avatar" %>
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
+            <%= board_user.user.name %>
+          </div>
+          <%= link_to board_user_path(board_user), method: :delete do  %>
+            <i class="fas fa-user-minus"></i>
+          <% end %>
+        </div>
       <% end %>
-      <%= board_user.user.name %>
-        <%= link_to board_user_path(board_user), method: :delete do  %>
-          <i class="fas fa-user-minus"></i>
-        <% end %>
     </div>
-    </li>
-  <% end %>
-  </ul>
+ <!--    </li> -->
+    <% end %>
+ <!--  </ul> -->
+  <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+  <p class="text-center pt-1"><%= link_to "(leave board)", user_boards_path(current_user) %></p>
 </div>

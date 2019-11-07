@@ -1,17 +1,59 @@
-<div class="text center">
-<h1>Connections</h1>
-<p>Friends List</p>
-<ul>
+<% if @board_users != nil %>
+<h3 class="text-center mt-2">Add friends to Board</h3>
+
   <% @friends.each do |friend| %>
-  <li class="list-unstyled">
-  <div>
-  <%= image_tag current_user.avatar, class: "avatar", alt: "avatar" %>
-  <%= friend.name %>
-  <%= link_to board_users_path(board_user: { board_id: params[:board_id], user_id: friend.id, admin: false }), method: :post do %>
-  <i class="fas fa-user-plus add-bu"></i>
+
+    <% unless @board_users.include?(friend) %>
+      <div class="card p-2">
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= image_tag friend.avatar, class: "avatar", alt: "avatar" %>
+            <%= friend.name %>
+          </div>
+          <%= link_to board_users_path(board_user: { board_id: params[:board_id], user_id: friend.id, admin: false }), method: :post do %>
+            <i class="fas fa-user-plus add-bu"></i>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   <% end %>
-  </div>
-  </li>
-</ul>
-</div>
+
+<p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+
+<% else %>
+
+    <% @friends.each do |friend| %>
+
+      <div class="card p-2">
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= image_tag friend.avatar, class: "avatar", alt: "avatar" %>
+            <%= friend.name %>
+          </div>
+          <div>
+          <a href="#" id="current-user-icon">
+            <i class="fas fa-user"></i>
+          </a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% @users.each do |user| %>
+      <% if !@friends.include?(user) && user != current_user %>
+
+      <div class="card p-2">
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= image_tag user.avatar, class: "avatar", alt: "avatar" %>
+            <%= user.name %>
+          </div>
+          <%= link_to connections_path(connection: { user_one: current_user, user_two: user}), method: :post do %>
+            <i class="fas fa-user-plus add-bu"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <% end %>
+    <% end %>
+<% end %>
