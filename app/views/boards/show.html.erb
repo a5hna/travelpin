@@ -73,11 +73,13 @@
     </div>
   </div>
 </div>
+<!-- end of board summary -->
+
 
 <!-- start of iteration for experience cards and modal pop-ups -->
 <div class="card-columns">
   <% @experiences.each do |experience| %>
-<!-- Experience Cards -->
+  <!-- Experience Cards -->
     <div class="card experience-card">
       <%= image_tag experience.photo, alt: "alttext" %>
       <p class="d-flex justify-content-between">
@@ -91,6 +93,7 @@
         </i>
       </p>
     </div>
+  <!-- experience card end -->
 
   <!-- modal experience card pop-up -->
   <div class="modal fade" id="experience<%= experience.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -115,11 +118,11 @@
       </div>
     </div>
   </div>
-<!--   end of modal pop-up -->
+  <!--   end of modal pop-up -->
   <% end %>
+</div>
 <!-- end of experience cards and modal pop-up iteration  -->
 
-</div>
 </div>
 
 <div class="modal fade" id="add-experience-form" tabindex="-1" role="dialog">
