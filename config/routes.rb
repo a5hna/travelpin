@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :boards, except: [:index] do
     resources :board_users, only: [:index]
     resources :experiences, only: [:create]
-    resources :day_schedules, only: [:show, :new, :create]
+    resources :day_schedules, only: [:index,:show, :new, :create]
   end
 
   resources :board_users, only: [:destroy,:new, :create]
