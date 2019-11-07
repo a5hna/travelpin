@@ -1,18 +1,33 @@
 <div class="d-flex flex-column text-center board-new-wrapper">
 <div class="text-center">
-<h1>Where are you going</h1>
+<h3>Where are you going?</h3>
 </div>
 
-<div>
+<!-- <div>
   <div class="search">
     <input type="text" class="searchTerm" placeholder="City name">
     <button type="submit" class="searchButton">
       <i class="fa fa-search"></i>
     </button>
   </div>
-</div>
-
-<div class="botton">
+</div> -->
+<!--     <div class="search-form d-block">
+      <form action="/boards" method="post" >
+        <input class="form-control string required" type="text" name="query" id="place" placeholder="city" />
+        <button name="button" type="submit" class="btn btn-flat"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+ -->
+<!-- <div class="botton">
   <a class="btn btn-gradient" href="#">Create New Board</a>
 </div>
+</div> -->
+
+
+<div>
+  <%= simple_form_for @board do |f| %>
+    <%= f.input :place %>
+    <%= f.input :title %>
+    <%= f.submit "Create Board", class: "btn btn-primary" %>
+  <% end %>
 </div>
