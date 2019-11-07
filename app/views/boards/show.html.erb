@@ -2,7 +2,6 @@
   <h3 class="text-center pt-2">
     <%= @board.title %>
   </h3>
-
   <div class="user-avatars d-flex">
     <%= link_to board_board_users_path(@board) do  %>
     <% @board_users.each do |user| %>
@@ -10,10 +9,9 @@
     <% end %>
     <% end %>
     <%= link_to connections_path(board_id: @board.id) do %>
-      <i class="fas fa-plus-circle avatar"></i>
+    <i class="fas fa-plus-circle avatar"></i>
     <% end %>
   </div>
-
   <!-- Map Button -->
   <div id="control-div" class="control-div" data-toggle="modal" data-target="#add-experience-form">
     <div id="control-ui" class="control-ui" title="Add an Experience">
@@ -23,32 +21,37 @@
     </div>
   </div>
   <!-- End of Map Button-->
-  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;">
+  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
     <script>
-    var map;
-    function initMap() {
-      let mapCenter = new google.maps.LatLng(<%= @map_center[0] %>, <%= @map_center[1] %>);
+      var map;
+      function initMap() {
+      const experiences = document.querySelectorAll('.experience-card')
+      const mapElement = document.getElementById('map')
+      const centerCoords = JSON.parse(mapElement.dataset.center)
+      const markers = JSON.parse(mapElement.dataset.markers)
+      let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
       map = new google.maps.Map(
         document.getElementById('map'), {
           center: mapCenter,
           zoom: 12
         });
-      const experiences = document.querySelectorAll('.experience-card')
-      <% @markers.each_with_index do |coords, index| %>
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(<%= coords[0]%>, <%= coords[1] %>),
-        map: map,
-      });
+      markers.forEach(function (pin, i) {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(pin[0], pin[1]),
+          map: map,
+        });
         marker.addListener('mouseover', (event) => {
-        experiences[<%= index %>].classList.add('selected')
-      });
+          experiences[i].classList.add('selected')
+        });
         marker.addListener('mouseout', (event) => {
-        experiences[<%= index %>].classList.remove('selected')
-      });
+          experiences[i].classList.remove('selected')
+        });
         marker.addListener('click', (event) => {
-        console.log(event);
+          console.log(i);
+          console.log(experiences[i])
+          console.log(experiences)
+        });
       });
-      <% end %>
       var controlDiv = document.querySelector('.control-div');
       controlDiv.index = 1;
       map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(controlDiv);
@@ -56,41 +59,38 @@
     </script>
   </div>
 </div>
-
 <!-- Summary of board location -->
 <div>
-
 </div>
 <div class="d-flex">
-  <div class="d-flex justify-content-center align-items-center"style="width: 50vw">
-
+  <div class="d-flex justify-content-center align-items-center" style="width: 50vw">
   </div>
   <div class="weather-icon d-flex justify-content-center align-items-center" style="width: 50vw">
     <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
     <div>
-    <h3><%= (@data['main']['temp'].to_f - 273.15).round(0)%> °C</h3>
-    <%= @data['weather'][0]['main'] %>
+      <h3>
+        <%= (@data['main']['temp'].to_f - 273.15).round(0)%> °C</h3>
+      <%= @data['weather'][0]['main'] %>
     </div>
   </div>
 </div>
-
 <!-- Experience Cards -->
 <div class="card-columns">
   <% @experiences.each do |experience| %>
   <!-- <div class="col-xs-6 m-0"> -->
-    <div class="card experience-card">
-      <%= image_tag experience.photo, alt: "alttext" %>
-      <p class="d-flex justify-content-between">
-        <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-          <%= experience.title %>
-        </button>
-        <i class="fas fa-heart">
-          <% if experience.vote > 0 %>(
-          <%= experience.vote %>)
-          <% end %>
-        </i>
-      </p>
-    </div>
+  <div class="card experience-card">
+    <%= image_tag experience.photo, alt: "alttext" %>
+    <p class="d-flex justify-content-between">
+      <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <%= experience.title %>
+      </button>
+      <i class="fas fa-heart">
+        <% if experience.vote > 0 %>(
+        <%= experience.vote %>)
+        <% end %>
+      </i>
+    </p>
+  </div>
   <!-- </div> -->
   <% end %>
 </div>
