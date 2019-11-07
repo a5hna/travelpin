@@ -6,6 +6,7 @@ class BoardsController < ApplicationController
 
   def show
     session[:language] = 'en'
+    @coords = [@board.latitude.to_f, @board.longitude.to_f]
     @board_users = @board.users
     @experiences = @board.experiences
     @experience = Experience.new

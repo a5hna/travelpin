@@ -11,3 +11,4 @@ input.addEventListener("keyup", (event) => {
 
 // make allt the users display none
 // inside the event listener, change to display block if user name matches what the current user typed
+

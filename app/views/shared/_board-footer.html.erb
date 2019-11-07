@@ -1,0 +1,19 @@
+<div class="board-footer d-flex justify-content-center">
+  <div class="board-footer-links">
+    <%= link_to new_board_day_schedule_path(params[:id]) do %>
+      <i class="far fa-calendar-plus"></i>
+    <% end %>
+    <%= link_to board_day_schedules_path(board_id: params[:id]) do  %>
+      <i class="fas fa-route"></i>
+    <% end %>
+    <div id="control-div" class="control-div" data-toggle="modal" data-target="#add-experience-form">
+      <a><i class="fas fa-plus"></i></a>
+    </div>
+    <%= link_to connections_path(board_id: @board.id) do %>
+      <i class="fas fa-user-plus"></i>
+    <% end %>
+    <a href="#"><i class="fas fa-heart"></i></a>
+  </div>
+</div>
+
+
