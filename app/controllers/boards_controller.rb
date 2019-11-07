@@ -2,7 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 
 class BoardsController < ApplicationController
-  before_action :set_board, except: [:new]
+  before_action :set_board, except: [:new, :create]
 
   def show
     session[:language] = 'en'
@@ -25,6 +25,7 @@ class BoardsController < ApplicationController
 
   def new
     @board = Board.new
+
     # country_url = "https://www.lonelyplanet.com/#{board_params[:country]}"
     # city_url = "https://www.lonelyplanet.com/#{board_params[:country]}/#{board_params[:city]}"
 
@@ -35,7 +36,12 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @board = Board
+    @board = Board.new
+    @board.place = params[:board]["place"]
+    @board.title = params[:board]["title"]
+    @board.save!
+    @board_user = BoardUser.create(board_id: @board.id, user_id: current_user.id, admin: true)
+    redirect_to board_path(@board)
   end
 
   def edit
