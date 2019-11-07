@@ -1,6 +1,12 @@
 <div class="users_list">
   <h3 class="text-center mt-2">Board Users List</h3>
   <!-- <ul class="list-unstyled"> -->
+      <div class="search">
+    <input type="text" class="searchTerm" placeholder="Friend's name">
+    <button type="submit" class="searchButton">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
     <% @board_users.each do |board_user| %>
    <!--  <li> -->
     <div class="card p-2">
@@ -18,7 +24,7 @@
         <div class="d-flex justify-content-between">
           <div>
             <%= image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
-            <%= board_user.user.name %>
+            <p><%= board_user.user.name %></p>
           </div>
           <%= link_to board_user_path(board_user), method: :delete do  %>
             <i class="fas fa-user-minus"></i>
