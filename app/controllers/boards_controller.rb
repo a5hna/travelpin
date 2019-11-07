@@ -25,13 +25,13 @@ class BoardsController < ApplicationController
 
   def new
     @board = Board.new
-    country_url = "https://www.lonelyplanet.com/#{board_params[:country]}"
-    city_url = "https://www.lonelyplanet.com/#{board_params[:country]}/#{board_params[:city]}"
+    # country_url = "https://www.lonelyplanet.com/#{board_params[:country]}"
+    # city_url = "https://www.lonelyplanet.com/#{board_params[:country]}/#{board_params[:city]}"
 
 
-    lonelyplanet_html = open(city_url).read
-    lonelyplanet_data = Nokogiri::HTML(lonelyplanet_html)
-    caption = lonelyplanet_data.search('.featured p').text.strip
+    # lonelyplanet_html = open(city_url).read
+    # lonelyplanet_data = Nokogiri::HTML(lonelyplanet_html)
+    # caption = lonelyplanet_data.search('.featured p').text.strip
   end
 
   def create
