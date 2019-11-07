@@ -13,9 +13,15 @@ class ExperiencesController < ApplicationController
    results = JSON.parse(api_response)
    @list = results["results"][0..4]
    @markers = @list.map {|each| [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f] }
-   photo_refs = @list.map {|each| each["photos"][0]["photo_reference"]}
-   @photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
-  end
+   @photo_refs = @list.map do |each|
+    if each["photos"]
+       each["photos"][0]["photo_reference"]
+    end
+   end
+   @photo_refs.delete(nil)
+   @photos = @photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
+
+end
 
   def create
     @experience = Experience.new
@@ -35,8 +41,9 @@ class ExperiencesController < ApplicationController
     @experience.google_url = results["url"]
     @experience.website = results["website"]
     @experience.price_level = results["price_level"]
-    photos_refs = results["photos"].map {|each| each["photo_reference"]}
-    @experience.photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
+    photo_refs = results["photos"].map {|each| each["photo_reference"]}[0..4]
+    @experience.photo = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
+    @photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
 
   end
 
