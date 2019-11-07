@@ -27,11 +27,16 @@ class ExperiencesController < ApplicationController
     language = "&language=#{session["language"]}"
     uri = open(details_endpoint+query_fields+language).read
     results = JSON.parse(uri)["result"]
-    # @experience.latitude =
-    # @experience.longitude =
-    # @experience.photo =
-
-    byebug
+    @experience.latitude = results["geometry"]["location"]["lat"]
+    @experience.longitude = results["geometry"]["location"]["lng"]
+    @experience.address = results["formatted_address"]
+    @experience.phone_number = results["international_phone_number"]
+    @experience.rating = results["rating"]
+    @experience.google_url = results["url"]
+    @experience.website = results["website"]
+    @experience.price_level = results["price_level"]
+    photos_refs = results["photos"].map {|each| each["photo_reference"]}
+    @experience.photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
 
   end
 
