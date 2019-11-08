@@ -1,3 +1,5 @@
+require 'faker'
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -7,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-# USERS
+
 puts "destroying everything"
 system "rails db:drop db:create db:migrate"
 # db:drop
@@ -20,15 +22,28 @@ system "rails db:drop db:create db:migrate"
 # User.destroy_all
 # Category.destroy_all
 
+# USERS
 puts "Generating user seeds"
 i = 1
+avatar_pics = [
+  "https://images.unsplash.com/photo-1546538994-4f15d0aa966f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"]
+
 10.times do
   puts "creating user #{i}"
   User.create!(
-    name: "name#{i}",
+    name: Faker::Name.first_name,
     email: "email#{i}@lewagon.com",
     password: "password",
-    avatar: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
+    avatar: avatar_pics[i - 1] )
   i += 1
 end
 
@@ -51,10 +66,12 @@ end
 puts "Generating board seeds"
 i = 1
 10.times do
+  destination = ["London", "Beijing", "Singapore", "Paris", "Bali"].sample
+  title_ending = ["Trip", "Adventure", "Girls On Tour", "Board"].sample
   puts "creating board: #{i}"
   Board.create!(
-    place: ["London", "Beijing", "Singapore", "Paris", "Bali"].sample,
-    title: "Board Title#{i}",
+    place: destination,
+    title: "#{destination} #{title_ending}"
     )
   i += 1
 end

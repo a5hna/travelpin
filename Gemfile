@@ -20,7 +20,7 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'dotenv-rails'
 gem 'gon'
-
+gem 'faker'
 
 
 group :development do
