@@ -1,7 +1,8 @@
+<h1 class="text-center"> <%= @board.city %></h1>
 <div class="container">
 <% @day_schedules.each do |day_schedule| %>
 <div>
-  <p class="text-center"><%= day_schedule.date.strftime("%A, %d %b %Y ") %></p>
+  <p class="text-center "><%= day_schedule.date.strftime("%A, %d %b %Y ") %></p>
     <p><%= day_schedule.notes %></p>
     <div class="card-columns">
   <% day_schedule.experiences.each do |experience| %>
@@ -24,7 +25,9 @@
 <% end %>
 </div>
 
-<h1></h1>
+
+
+
 
 
 <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
