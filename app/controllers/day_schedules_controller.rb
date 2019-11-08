@@ -1,5 +1,7 @@
 class DaySchedulesController < ApplicationController
   def index
+    @day_schedules = Board.find(params[:board_id]).day_schedules
+
   end
 
   def show
