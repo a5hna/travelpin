@@ -1,2 +1,6 @@
 @import "show";
 @import "new";
+
+.experience-card.active {
+  border: 1px solid pink;
+}
