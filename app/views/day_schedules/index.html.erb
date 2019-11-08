@@ -1,30 +1,58 @@
-<div class="container">
-<% @day_schedules.each do |day_schedule| %>
-<div>
-  <p class="text-center"><%= day_schedule.date.strftime("%A, %d %b %Y ") %></p>
-    <p><%= day_schedule.notes %></p>
-    <div class="card-columns">
-  <% day_schedule.experiences.each do |experience| %>
-  <!-- Experience Cards -->
-    <div class="experience-card mb-2" data-id="<%= experience.id %>">
-      <%= image_tag experience.photo, alt: "alttext" %>
-      <p class="d-flex justify-content-between mt-1">
-        <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
-          <%= experience.title %>
-        </button>
-        <i class="fas fa-heart">
-          <% if experience.vote > 0 %>(
-          <%= experience.vote %>)
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+
+
+
+
+
+
+    <div class="carousel-item active">
+
+      <div>
+        <p class="text-center "><%= @day_schedules.first.date.strftime("%A, %d %b %Y ") %></p>
+        <p><%= @day_schedules.first.notes %></p>
+        <div class="card-columns">
+          <% @day_schedules.first.experiences.each do |experience| %>
+          <!-- Experience Cards -->
+          <%= render partial: "experience_card", locals:{ experience: experience} %>
+
           <% end %>
-        </i>
-      </p>
+        </div>
+      </div>
     </div>
-<% end %>
-</div>
-<% end %>
-</div>
-
-<h1></h1>
 
 
-<p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+    <% @day_schedules[1..-1].each do |day_schedule| %>
+      <div class="carousel-item">
+
+      <p class="text-center "><%= day_schedule.date.strftime("%A, %d %b %Y ") %></p>
+      <p><%= day_schedule.notes %></p>
+      <div class="card-columns">
+        <% day_schedule.experiences.each do |experience| %>
+        <!-- Experience Cards -->
+        <%= render partial: "experience_card", locals:{ experience: experience} %>
+
+        <% end %>
+      </div>
+
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+      <% end %>
+
+      </div>
+
+
+
+
+
+
+    <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
