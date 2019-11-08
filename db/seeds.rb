@@ -66,7 +66,7 @@ end
 puts "Generating board seeds"
 i = 1
 10.times do
-  destination = ["London", "Beijing", "Singapore", "Paris", "Bali"].sample
+  destination = ["London", "Beijing", "Singapore", "Bali"].sample
   title_ending = ["Trip", "Adventure", "Girls On Tour", "Board"].sample
   puts "creating board: #{i}"
   Board.create!(

@@ -1,4 +1,3 @@
-
 <div class="lol-container">
   <h1>
     <%= @experience.title %>
@@ -11,7 +10,7 @@
         <% if @photos[i] %>
         <%= image_tag @photos[i], alt: "alttext", size: "400x200" %>
         <% else %>
-        <p> No pic</p>
+        <h2> No pic</h2>
         <% end %>
         <div class="card-body">
           <p>Name:
@@ -25,8 +24,8 @@
           <p>Price Level:
             <%= each["price_level"] %>
           </p>
-          <%= button_to "Create", board_experiences_path, class: "btn-warning",
-          params: {
+          <%= link_to "Create", "#", class: "btn-warning", data: {toggle: "modal", target: "#confirm-experience"},
+           params: {
                     board: @experience.board_id,
                     title: @experience.title,
                     description: @experience.description,
@@ -34,9 +33,63 @@
                     }  %>
         </div>
       </div>
+        <!-- modal -->
+  <div class="modal fade" id="confirm-experience" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Please Confirm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="width: 40rem;">
+            <%# @photos.each do |pic| %>
+            <%#= image_tag pic, alt: "alttext", size: "400x200"%>
+            <%# end %>
+            <div class="card-body">
+              <h5 class="card-title">
+                So we're going to:
+                <%= @experience.title %>
+              </h5>
+              <p>Place ID: <%= each["place_id"] %>
+                <%=  %>
+              </p>
+              <p class="card-text">
+                Tell your friends!: "
+                <%= @experience.description %>"
+              </p>
+              <p> Address:
+                <%= @experience.address  %>
+              </p>
+              <p> Phone:
+                <%= @experience.phone_number %>
+              </p>
+              <p> Rating:
+                <%= @experience.rating  %>
+              </p>
+              <p> Reviews:
+                <%=  @experience.google_url  %>
+              </p>
+              <p> Price level:
+                <%=  @experience.price_level  %>
+              </p>
+              <p>
+                <%= link_to "Website", @experience.website  %>
+              </p>
+              <%= button_to "Confirm", board_experiences_path  %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of modal shit -->
+  <!-- End of loop -->
       <% end %>
       <div class="card experience-card" style="width: 16%;">
-        <h1>  ¿?</h1>
+        <h1> ¿?</h1>
         <div class="card-body">
           <p>None of these?
           </p>
@@ -54,8 +107,11 @@
       </div>
     </div>
   </div>
+
+  <!-- map shit -->
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
-    <script>
+  </div>
+  <script>
     var map;
 
     function initMap() {
@@ -73,6 +129,7 @@
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(pin[0], pin[1]),
           map: map,
+          icon: "/assets/_triangle-marker.svg",
         });
         marker.addListener('mouseover', (event) => {
           experiences[i].classList.add('selected')
@@ -88,7 +145,7 @@
       });
     }
     </script>
-  </div>
+  <!-- end of map shit -->
 </div>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
 </script>
