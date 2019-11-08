@@ -89,14 +89,20 @@
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
     <div class="experience-card mb-2">
+      <% if experience.photo %>
       <%= image_tag experience.photo, alt: "alttext" %>
+      <% else %>
+      <%= image_tag "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", alt: "alttext" %>
+      <% end %>
       <p class="d-flex justify-content-between mt-1">
         <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
           <%= experience.title %>
         </button>
         <i class="fas fa-heart">
+          <% if experience.vote != nil %>
           <% if experience.vote > 0 %>(
           <%= experience.vote %>)
+          <% end %>
           <% end %>
         </i>
       </p>
@@ -157,5 +163,7 @@
 <%= render 'shared/board-footer' %>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
 </script>
+
+
 
 
