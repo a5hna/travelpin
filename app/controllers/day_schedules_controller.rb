@@ -1,6 +1,7 @@
 class DaySchedulesController < ApplicationController
   def index
-    @day_schedules = Board.find(params[:board_id]).day_schedules
+    @board = Board.find(params[:board_id])
+    @day_schedules = @board.day_schedules
 
   end
 
