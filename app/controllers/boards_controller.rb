@@ -18,7 +18,7 @@ class BoardsController < ApplicationController
       @markers << [e.latitude.to_f, e.longitude.to_f]
     end
 
-    url = "http://api.openweathermap.org/data/2.5/weather?lat=#{@board.latitude}&lon=#{@board.longitude}&APPID=#{ENV['OPENWEATHER']}"
+    url = "https://api.openweathermap.org/data/2.5/weather?lat=#{@board.latitude}&lon=#{@board.longitude}&APPID=#{ENV['OPENWEATHER']}"
     file = open(url).read
     @data = JSON.parse(file)
 
