@@ -69,6 +69,7 @@
   </div>
   <div class="weather-icon d-flex justify-content-center align-items-center" style="width: 50vw">
     <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
+
   <div>
     <h3>
     <%= (@data['main']['temp'].to_f - 273.15).round(0)%> °C
@@ -86,7 +87,7 @@
 <div class="card-columns">
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
-    <div class="experience-card mb-2" data-id="<%= experience.id %>">
+    <div class="experience-card mb-2">
       <%= image_tag experience.photo, alt: "alttext" %>
       <p class="d-flex justify-content-between mt-1">
         <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
