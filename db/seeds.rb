@@ -11,16 +11,18 @@ require 'faker'
 
 
 puts "destroying everything"
-system "rails db:drop db:create db:migrate"
+# system "rails db:drop db:create db:migrate"
 # db:drop
 # db:create
 # db:migrate
-# Experience.destroy_all
-# Board.destroy_all
-# BoardUser.destroy_all
-# Connection.destroy_all
-# User.destroy_all
-# Category.destroy_all
+DayScheduleItem.destroy_all
+DaySchedule.destroy_all
+Experience.destroy_all
+Board.destroy_all
+BoardUser.destroy_all
+Connection.destroy_all
+User.destroy_all
+Category.destroy_all
 
 # USERS
 puts "Generating user seeds"
