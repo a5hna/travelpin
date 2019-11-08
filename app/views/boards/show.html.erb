@@ -85,7 +85,7 @@
 <div class="card-columns">
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
-    <div class="experience-card mb-2">
+    <div class="experience-card mb-2" data-id="<%= experience.id %>">
       <%= image_tag experience.photo, alt: "alttext" %>
       <p class="d-flex justify-content-between mt-1">
         <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>

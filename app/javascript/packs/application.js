@@ -1,14 +1,24 @@
 import "bootstrap";
 
+const experienceCard = document.querySelectorAll(".experience-card");
+
+const calendar = document.querySelector("#experiences");
+const toggleActiveClass = (event) => {
+  if (event.currentTarget.classList.contains('active')) {
+    event.currentTarget.classList.remove('active');
+  } else {
+    event.currentTarget.classList.add('active');
+    const id = event.currentTarget.dataset.id;
+    const initialLink = calendar.getAttribute('href');
+    calendar.value = calendar.value + `${id}&`
+  }
+  console.log(calendar)
+};
+
+const toggleActiveOnClick = (element) => {
+  element.addEventListener("click", toggleActiveClass);
+};
 
 
 
-// const input = document.querySelector("#friends-search");
-// input.addEventListener("keyup", (event) => {
-//   console.log(event.currentTarget.value)// what the current user typed
-// });
-
-
-// make allt the users display none
-// inside the event listener, change to display block if user name matches what the current user typed
-
+experienceCard.forEach(toggleActiveOnClick);

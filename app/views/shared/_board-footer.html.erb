@@ -1,7 +1,13 @@
 <div class="board-footer d-flex justify-content-center">
   <div class="board-footer-links">
-    <%= link_to new_board_day_schedule_path(params[:id]) do %>
-      <i class="far fa-calendar-plus"></i>
+    <% if params[:controller] == 'boards' && params[:action] == 'show' %>
+      <%= link_to '#', id: 'new-sched', data: { toggle:'modal', target:'#new-schedule'} do %>
+        <i class="far fa-calendar-plus"></i>
+      <% end %>
+    <% else %>
+      <%= link_to new_board_day_schedule_path(params[:board_id]), id: 'new-sched' do %>
+        <i class="far fa-calendar-plus"></i>
+      <% end %>
     <% end %>
     <%= link_to board_day_schedules_path(board_id: params[:id]) do  %>
       <i class="fas fa-route"></i>
@@ -16,4 +22,22 @@
   </div>
 </div>
 
-
+<div class="modal fade" id="new-schedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= simple_form_for [@board, DaySchedule.new] do |f| %>
+            <%= f.input :date, html5: true, as: :date %>
+            <%= hidden_field_tag 'experiences', 'ids=' %>
+            <%= f.submit %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
