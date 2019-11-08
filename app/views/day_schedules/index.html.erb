@@ -1,4 +1,30 @@
-<h1>Day Schedules</h1>
+<div class="container">
+<% @day_schedules.each do |day_schedule| %>
+<div>
+  <p class="text-center"><%= day_schedule.date.strftime("%A, %d %b %Y ") %></p>
+    <p><%= day_schedule.notes %></p>
+    <div class="card-columns">
+  <% day_schedule.experiences.each do |experience| %>
+  <!-- Experience Cards -->
+    <div class="experience-card mb-2" data-id="<%= experience.id %>">
+      <%= image_tag experience.photo, alt: "alttext" %>
+      <p class="d-flex justify-content-between mt-1">
+        <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
+          <%= experience.title %>
+        </button>
+        <i class="fas fa-heart">
+          <% if experience.vote > 0 %>(
+          <%= experience.vote %>)
+          <% end %>
+        </i>
+      </p>
+    </div>
+<% end %>
+</div>
+<% end %>
+</div>
+
+<h1></h1>
 
 
 <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
