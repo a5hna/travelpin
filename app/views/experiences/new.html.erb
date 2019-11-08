@@ -24,13 +24,12 @@
           <p>Price Level:
             <%= each["price_level"] %>
           </p>
-          <%= link_to "Create", "#", class: "btn-warning", data: {toggle: "modal", target: "#confirm-experience"},
-           params: {
-                    board: @experience.board_id,
-                    title: @experience.title,
-                    description: @experience.description,
-                    place_id: each["place_id"]
-                    }  %>
+          <%= link_to "Create", "#", class: "btn-warning",
+           data: {
+            toggle: "modal",
+            target: "#confirm-experience"
+            }
+           %>
         </div>
       </div>
         <!-- modal -->
@@ -44,6 +43,8 @@
           </button>
         </div>
         <div class="modal-body">
+          <% modelo = details_api(each["place_id"]) %>
+          <%=  %>
           <div class="card" style="width: 40rem;">
             <%# @photos.each do |pic| %>
             <%#= image_tag pic, alt: "alttext", size: "400x200"%>
@@ -53,32 +54,30 @@
                 So we're going to:
                 <%= @experience.title %>
               </h5>
-              <p>Place ID: <%= each["place_id"] %>
-                <%=  %>
-              </p>
               <p class="card-text">
                 Tell your friends!: "
                 <%= @experience.description %>"
               </p>
               <p> Address:
-                <%= @experience.address  %>
+                <%= modelo[:address]  %>
               </p>
               <p> Phone:
-                <%= @experience.phone_number %>
+                <%= modelo[:phone_number] %>
               </p>
               <p> Rating:
-                <%= @experience.rating  %>
+                <%= modelo[:rating]  %>
               </p>
               <p> Reviews:
-                <%=  @experience.google_url  %>
+                <%=  modelo[:google_url]  %>
               </p>
               <p> Price level:
-                <%=  @experience.price_level  %>
+                <%=  modelo[:price_level]  %>
               </p>
               <p>
                 <%= link_to "Website", @experience.website  %>
               </p>
-              <%= button_to "Confirm", board_experiences_path  %>
+              <%= button_to "Confirm", board_experiences_path ,
+              params: { experience: modelo} %>
             </div>
           </div>
         </div>
@@ -130,6 +129,7 @@
           position: new google.maps.LatLng(pin[0], pin[1]),
           map: map,
           icon: "/assets/_triangle-marker.svg",
+          draggable: true
         });
         marker.addListener('mouseover', (event) => {
           experiences[i].classList.add('selected')

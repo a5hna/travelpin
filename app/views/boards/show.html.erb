@@ -31,6 +31,7 @@
           position: new google.maps.LatLng(pin[0], pin[1]),
           map: map,
           icon: "/assets/_triangle-marker.svg",
+          draggable: true
         });
         marker.addListener('mouseover', (event) => {
           experiences[i].classList.add('selected')
