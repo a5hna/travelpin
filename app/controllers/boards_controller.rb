@@ -21,6 +21,10 @@ class BoardsController < ApplicationController
     url = "http://api.openweathermap.org/data/2.5/weather?lat=#{@board.latitude}&lon=#{@board.longitude}&APPID=#{ENV['OPENWEATHER']}"
     file = open(url).read
     @data = JSON.parse(file)
+
+    @country_code = @data["sys"]["country"]
+    @city = @data["name"]
+
   end
 
   def new
