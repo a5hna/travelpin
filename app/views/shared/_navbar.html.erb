@@ -41,7 +41,7 @@
           <i class="fas fa-users"></i>
           <% end %>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-flex align-items-center">
           <%= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>

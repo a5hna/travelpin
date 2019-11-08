@@ -1,20 +1,25 @@
 .experience-card {
-  width: 180px;
+  width: 100%;
   padding: 8px;
   border: 1px solid white;
   margin-bottom: 0px;
   border-radius: 0%;
   background-color: white;
   display: inline-block;
+  // box-shadow: 3px 3px 3px gray;
+}
+
+.experience-card:hover {
+  box-shadow: 3px 3px 3px gray;
 }
 
 .experience-card > img {
   width: 100%;
   height: auto;
   object-fit:  cover;
-  border-radius: 5%;
+  border-radius: 0%;
   background-color: teal;
-  box-shadow: 2px 2px 2px gray;
+
 }
 
 .experience-card > p {
@@ -73,13 +78,14 @@
 }
 
 .weather-icon {
-  background-color: rgb(150, 209, 199);
-  color: white;
+  background-color: white;
+  color: black;
 }
 
 .card-columns {
   @include media-breakpoint-only(xs) {
     column-count: 2;
+    width: 100%
   }
   @include media-breakpoint-only(lg) {
     column-count: 4;
@@ -88,4 +94,11 @@
     column-count: 5;
   }
 
+  background-color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-top: 15px;
+  background: #96d1c7;
+  padding: 12px;
 }

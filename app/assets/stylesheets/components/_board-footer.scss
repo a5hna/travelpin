@@ -1,5 +1,5 @@
 .board-footer {
-  background: #96d1c7;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7,8 +7,8 @@
   padding: 0px 50px;
   position: sticky;
   bottom: 0;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  // border-top-left-radius: 8px;
+  // border-top-right-radius: 8px;
 }
 .board-footer-links {
   display: flex;
