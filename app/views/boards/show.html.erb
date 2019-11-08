@@ -1,17 +1,7 @@
-<div class="container">
-  <h3 class="text-center pt-2">
-    <%= @board.title %>
-  </h3>
-  <div class="user-avatars d-flex">
-    <%= link_to board_board_users_path(@board) do  %>
-    <% @board_users.each do |user| %>
-    <img class="avatar" alt="avatar" src=<%=user.avatar %> />
-    <% end %>
-    <% end %>
-    <%= link_to connections_path(board_id: @board.id) do %>
-    <i class="fas fa-plus-circle avatar"></i>
-    <% end %>
-  </div>
+<!-- <div class="container"> -->
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
+  <%= @board.title %>
+</div>
   <!-- Map Button -->
   <div id="control-div" class="control-div d-none" data-toggle="modal" data-target="#add-experience-form">
     <div id="control-ui" class="control-ui" title="Add an Experience">
@@ -21,6 +11,7 @@
     </div>
   </div>
   <!-- End of Map Button-->
+<div class="p-3 py-4" style="background-color: #ffa69e">
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
     <script>
       var map;
@@ -59,9 +50,19 @@
     </script>
   </div>
 </div>
+<!-- </div> -->
 <!-- Summary of board location -->
-<div>
-</div>
+<div style="background: white">
+  <div class="user-avatars d-flex px-3 mb-3 pt-3 align-items-centers" >
+    <%= link_to board_board_users_path(@board) do  %>
+    <% @board_users.each do |user| %>
+    <img class="avatar" alt="avatar" src=<%=user.avatar %> />
+    <% end %>
+    <% end %>
+    <%= link_to connections_path(board_id: @board.id) do %>
+    <i class="fas fa-plus-circle avatar"></i>
+    <% end %>
+  </div>
 <div class="d-flex">
   <div class="d-flex justify-content-center align-items-center" style="width: 50vw">
   </div>
@@ -74,6 +75,7 @@
     </div>
   </div>
 </div>
+</div>
 
 <!-- end of board summary -->
 
@@ -82,9 +84,9 @@
 <div class="card-columns">
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
-    <div class="card experience-card">
+    <div class="experience-card mb-2">
       <%= image_tag experience.photo, alt: "alttext" %>
-      <p class="d-flex justify-content-between">
+      <p class="d-flex justify-content-between mt-1">
         <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
           <%= experience.title %>
         </button>

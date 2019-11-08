@@ -103,7 +103,7 @@ i = 1
   users = board.users
   users.each do |user|
     puts "creating experience for board: #{i}"
-      1.times do
+      rand(1..3).times do
         exp = Experience.new(
           user_id: user.id,
           board_id: board.id,
@@ -147,6 +147,18 @@ i = 1
           exp4.latitude = rand((exp4.board.latitude.to_f - 0.05)..(exp4.board.latitude.to_f + 0.05))
           exp4.longitude = rand((exp4.board.longitude.to_f - 0.05)..(exp4.board.longitude.to_f + 0.05))
           exp3.save!
+
+        exp5 = Experience.new(
+          user_id: user.id,
+          board_id: board.id,
+          title: "Traditional Dance:#{i}",
+          photo: "https://images.unsplash.com/photo-1540776398900-46755652c969?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+          category_id: @categories.sample.id,
+          vote: 0)
+          exp5.latitude = rand((exp5.board.latitude.to_f - 0.05)..(exp5.board.latitude.to_f + 0.05))
+          exp5.longitude = rand((exp5.board.longitude.to_f - 0.05)..(exp5.board.longitude.to_f + 0.05))
+          exp5.save!
+
       end
   end
   i += 1
