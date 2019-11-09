@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container peach pb-3">
   <div class="row justify-content-center align-item-center">
     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
       <div class="login-form">
@@ -7,26 +7,37 @@
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= f.error_notification %>
 
-            <div class="form-inputs">
+            <div class="form-inputs text-center">
+              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= f.input :name,
+                          required: true,
+                          input_html: { autocomplete: "name"} %>
+              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= f.input :home_location,
+                          required: true,
+                          input_html: { autocomplete: "home location"} %>
+              <%= image_tag "_triangle-marker", alt: "alttext" %>
               <%= f.input :email,
                           required: true,
                           autofocus: true,
                           input_html: { autocomplete: "email" }%>
+              <%= image_tag "_triangle-marker", alt: "alttext" %>
               <%= f.input :password,
                           required: true,
                           hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                           input_html: { autocomplete: "new-password" } %>
+              <%= image_tag "_triangle-marker", alt: "alttext" %>
               <%= f.input :password_confirmation,
                           required: true,
                           input_html: { autocomplete: "new-password" } %>
             </div>
 
             <div class="form-actions">
-              <%= f.button :submit, "Sign up", class: "btn btn-primary" %>
+              <%= f.button :submit, "Sign up", class: "btn btn-ghost" %>
             </div>
           <% end %>
           <%= render "devise/shared/links" %>
-       </div>
+        </div>
     </div>
   </div>
 </div>

@@ -49,7 +49,7 @@
 }
 
 .destinations {
-  // background-color: #ffa69e;
+  // background-color: $peach;
 
   a {
     color: black;
@@ -58,7 +58,7 @@
 }
 
 .destinations:hover {
-  // background-color: #ffa69e;
+  // background-color: $peach;
   box-shadow: 4px 4px 4px #f46258;
   a {
     color: black;
@@ -67,11 +67,11 @@
 }
 
 .destinations-container {
-  background-color: #ffa69e;
+  background-color: $peach;
 }
 
 .destinations-btn {
-  background-color: #96d1c7;
+  background-color: $turquoise;
   border-radius: 10px;
   display: flex;
   box-shadow: 1px 1px 1px gray;

@@ -43,9 +43,13 @@ class BoardsController < ApplicationController
     @board = Board.new
     @board.place = params[:board]["place"]
     @board.title = params[:board]["title"]
-    @board.save!
+    if @board.valid?
+    @board.save
     @board_user = BoardUser.create(board_id: @board.id, user_id: current_user.id, admin: true)
     redirect_to board_path(@board)
+    else
+    render "new"
+    end
   end
 
   def edit

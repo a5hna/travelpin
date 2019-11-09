@@ -9,8 +9,13 @@
   // box-shadow: 3px 3px 3px gray;
 }
 
-.experience-card:hover {
-  box-shadow: 3px 3px 3px gray;
+.experience-card > p >button {
+  border: none;
+  background: none;
+}
+
+.experience-card > p >button:hover {
+  font-weight: bolder;
 }
 
 .experience-card > img {
@@ -24,7 +29,7 @@
 
 .experience-card > p {
   margin: 0;
-  font-size: 10px;
+  font-size: 12px;
   padding: 0;
 }
 
@@ -99,6 +104,6 @@
   padding-right: 5px;
   padding-bottom: 10px;
   padding-top: 15px;
-  background: #96d1c7;
+  background: $turquoise;
   padding: 12px;
 }
