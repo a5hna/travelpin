@@ -14,6 +14,13 @@ class BoardsController < ApplicationController
     @experience.user_id = current_user
     @map_center = [@board.latitude.to_f, @board.longitude.to_f]
     @markers = []
+    @places = @experiences.map do |each|
+      {title: each.title,
+       description: each.description,
+       coords: [each.latitude.to_f, each.longitude.to_f],
+       category_id: each.category_id,
+       id: each.id}
+    end
     @experiences.each do |e|
       @markers << [e.latitude.to_f, e.longitude.to_f]
     end

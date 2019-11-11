@@ -34,7 +34,7 @@
           marker2 = new google.maps.Marker({
           position: location,
           map: map2,
-          icon: "/assets/_triangle-marker.svg",
+          icon: "/assets/triangle1.svg",
           draggable: true,
           animation: google.maps.Animation.DROP
         });
@@ -43,7 +43,7 @@
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(pin[0], pin[1]),
           map: map,
-          icon: "/assets/_triangle-marker.svg",
+          icon: "/assets/triangle2.svg",
           draggable: true
         });
         marker.addListener('mouseover', (event) => {

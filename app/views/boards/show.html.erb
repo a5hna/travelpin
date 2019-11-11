@@ -52,7 +52,7 @@
   <!--   </div> -->
 </div>
 <div class="p-3 py-4 peach">
-  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
+  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
   </div>
 </div>
 <!-- </div> -->
@@ -71,7 +71,7 @@
       <% end %>
         <div class="d-flex justify-content-between">
       <p class="d-flex justify-content-between mt-1">
-        <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
+        <button type="button" id="<%= "button#{experience.id}" %>" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
           <%= experience.title %>
         </button>
               </p>
