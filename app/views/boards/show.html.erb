@@ -71,18 +71,20 @@
       <% experience.photo = "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" %>
       <% experience.save %>
       <% end %>
-        <div class="d-flex justify-content-between">
-      <p class="d-flex justify-content-between mt-1">
-        <button type="button" id="<%= "button#{experience.id}" %>" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
-          <%= experience.title %>
-        </button>
-              </p>
-
-        <div class="d-flex">  <p data-id="<%= experience.id %>"><%= experience.votes_for.count %></p>
-        <%= link_to experience_upvote_path(experience),class:"fas fa-heart heart-like",method: :post, remote: true, style:"display: block" do %>
-         <% end %>
-       </div>
-       </div>
+ <!--      <div class="d-flex justify-content-between"> -->
+        <div class="d-flex justify-content-between mt-1">
+          <button style="font-size: 12px" type="button" id="<%= "button#{experience.id}" %>" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
+            <%= experience.title %>
+          </button>
+        <!--   <div class="d-flex align-items-center" style="font-size: 12px"> -->
+            <p data-id="<%= experience.id %>" class="d-flex align-items-center m-0" style="font-size: 12px">
+              <%= experience.votes_for.count %>
+              <%= link_to experience_upvote_path(experience),class:"fas fa-heart heart-like ml-1",method: :post, remote: true, style:"display: block" do %>
+              <% end %>
+            </p>
+       <!--    </div> -->
+        </div>
+<!--       </div> -->
 
 
     </div>
@@ -91,23 +93,86 @@
   <div class="modal fade" id="experience<%= experience.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">title</h5>
+        <div class="modal-header peach">
+          <h5 class="modal-title d-flex justify-content-between align-items-center w-100" id="exampleModalLongTitle"><div class="d-flex flex-column"><%= image_tag "_triangle-marker.svg", alt: "alttext" %> <%= experience.title %></div><div><%= cl_image_tag experience.user.avatar, alt: "alttext", class: "avatar" %></div></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src=<%=experience.photo %> >
+        <div class="modal-body d-flex justify-content-center">
+          <div class="experience-card shadow p-3 mb-5 bg-white" style="width: 18rem;">
+            <%= image_tag experience.photo, alt: "alttext" %>
+
             <div class="card-body">
-              <h5 class="card-title">
-                <%= experience.title %>
-              </h5>
-              <p class="card-text">
+              <ul class="list-unstyled ">
+                <li class="my-1 pb-3 border-bottom text-center">
                 <%= experience.description %>
-              </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+                </li>
+
+                <% if experience.category %>
+                  <li class="d-flex justify-content-between my-1 text-right border-bottom">
+                    <i class="fas fa-th-large"></i>
+                    <%= experience.category.name %>
+                  </li>
+                <% end %>
+
+                <% if experience.address %>
+                <li class="d-flex justify-content-between my-1 text-right border-bottom">
+                  <i class="fas fa-map-pin mr-1"></i>
+                  <%= experience.address %>
+                </li>
+                <% end %>
+
+                <% if experience.opening_hours %>
+                <li class="d-flex justify-content-between my-1 border-bottom">
+                  <i class="far fa-clock"></i>
+                  <%= experience.opening_hours %>
+                </li>
+                <% end %>
+
+                <% if experience.rating %>
+                <li class="border-bottom">
+                  <%= experience.rating.to_i.round(0).times do %>
+                  <i class="fas fa-star"></i>
+                <% end %>
+                </li>
+                <% end %>
+
+                <% if experience.price_level && experience.price_level.to_i > 0 %>
+                <li class="border-bottom py-1 my-1">
+                  <%= experience.price_level.to_i.times do %>
+                    <i class="fas fa-dollar-sign"></i>
+                  <% end %>
+                </li>
+                <% end %>
+
+                <% if experience.phone_number %>
+                <li class="d-flex justify-content-between align-items-center my-1 py-1 border-bottom">
+                  <i class="fas fa-phone"></i>
+                  <%= experience.phone_number %>
+                </li>
+                <% end %>
+
+                <% if experience.google_url %>
+                <li class="d-flex justify-content-between align-items-center border-bottom my-1 py-1">
+                <i class="far fa-comments"></i>
+                <%= link_to "reviews", experience.google_url %>
+                </li>
+                <% end %>
+
+                <% if experience.website %>
+                <li class="d-flex justify-content-between align-items-center border-bottom my-1 py-1">
+                  <i class="fas fa-globe"></i>
+                  <%= link_to "website", experience.website %>
+                </li>
+                <% end %>
+
+                <li class="d-flex justify-content-between align-items-center border-bottom my-1 py-1">
+                  <i class="fas fa-heart"></i>
+                  <%= experience.vote %>
+                </li>
+              </ul>
+
             </div>
           </div>
         </div>
@@ -122,13 +187,14 @@
 <div class="modal fade" id="add-experience-form" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header turquoise  d-flex flex-column align-items-center justify-content-center">
+        <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
         <h5 class="modal-title" id="add-experience-title">Add Experience</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center">
         <%= simple_form_for [@board, @experience], method: :get, url: new_board_experience_path(@board) do |f| %>
         <%= f.input :title, label: "What are we doing?" %>
         <%= f.input :description, label: "Convince your friends!" %>
