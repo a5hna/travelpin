@@ -53,6 +53,12 @@ class ExperiencesController < ApplicationController
    @coords = [@board.latitude, @board.longitude]
    query = @experience.title
    @list = places_api(query, @coords)
+   @places = @list.map do |each|
+     { title:  @experience.title,
+       category_id: @experience.category_id,
+       coords: [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f],
+       photos: each["photos"][0]["photo_reference"] }
+   end
    @markers = @list.map {|each| [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f] }
    @photo_refs = @list.map do |each|
      if each["photos"]

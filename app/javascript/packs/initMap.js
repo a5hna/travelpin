@@ -3,6 +3,7 @@ var map;
   const mapElement = document.getElementById('map')
   const centerCoords = JSON.parse(mapElement.dataset.center)
   const markers = JSON.parse(mapElement.dataset.markers)
+  const places = JSON.parse(mapElement.dataset.places)
   let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
   map = new google.maps.Map(
     document.getElementById('map'), {
@@ -30,12 +31,11 @@ var map;
     }
   }
 
-  markers.forEach(function(pin, i) {
+  places.forEach(function(pin, i) {
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(pin[0], pin[1]),
+      position: new google.maps.LatLng(pin.coords[0], pin.coords[1]),
       map: map,
-      icon: "/assets/_triangle-marker.svg",
-      draggable: true
+      icon: `/assets/triangle${pin.category_id}.svg`,
     });
     marker.addListener('mouseover', (event) => {
       experiences[i].classList.add('selected')
@@ -44,8 +44,6 @@ var map;
       experiences[i].classList.remove('selected')
     });
     marker.addListener('click', (event) => {
-      console.log(i);
-      console.log(experiences[i])
-      console.log(experiences)
+      document.getElementById(`button${pin.id}`).click()
     });
   });
