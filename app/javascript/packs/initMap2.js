@@ -3,8 +3,9 @@
     const mapElement = document.getElementById('map')
     const centerCoords = JSON.parse(mapElement.dataset.center)
     const markers = JSON.parse(mapElement.dataset.markers)
-    const latForm = document.getElementById('experience_latitude')
-    const lngForm = document.getElementById('experience_longitude')
+    const location = document.getElementById('exp-location')
+    const formLat = document.getElementById('experience_latitude')
+    const formLng = document.getElementById('experience_longitude')
     let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
     map = new google.maps.Map(
       document.getElementById('map'), {
@@ -21,8 +22,9 @@
       placeMarker(event.latLng);
       console.log(event.latLng.lat());
       console.log(event.latLng.lng());
-      latForm.value = event.latLng.lat();
-      lngForm.value = event.latLng.lng();
+      location.value = `${event.latLng.lat()},${event.latLng.lng()} `
+      formLat.value = event.latLng.lat();
+      formLng.value = event.latLng.lng();
     });
     var marker2;
     function placeMarker(location) {

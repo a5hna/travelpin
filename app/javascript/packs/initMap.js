@@ -12,8 +12,8 @@ var map;
 
   google.maps.event.addListener(map, 'click', function(event) {
     placeMarker(event.latLng);
-    function openModal(){$('#add-experience-form').modal('show')}
-    setTimeout(openModal, 1000)
+    function openModal(){document.getElementById('add-experience-link').click()}
+    setTimeout(openModal, 1000);
   });
 
   var ownMarker;
@@ -49,6 +49,3 @@ var map;
       console.log(experiences)
     });
   });
-  var controlDiv = document.querySelector('.control-div');
-  controlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(controlDiv);

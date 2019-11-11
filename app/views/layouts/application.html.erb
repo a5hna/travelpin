@@ -18,7 +18,7 @@
   <%= yield %>
    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>">
   </script>
-  <%= yield :map_js %>
+    <%= yield :map_js %>
   <%= javascript_pack_tag 'application' %>
   <%= javascript_include_tag 'application' %>
 </body>

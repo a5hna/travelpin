@@ -43,33 +43,31 @@
               </button>
             </div>
             <div class="modal-body">
-              <% details_api(each["place_id"]) %>
-              <%=  %>
               <div class="card" style="width: 40rem;">
                 <%# @photos.each do |pic| %>
                 <%#= image_tag pic, alt: "alttext", size: "400x200"%>
                 <%# end %>
                 <div class="card-body">
                   <%= simple_form_for [@board, @experience] do |f| %>
+                  <% modelo = details_api(each["place_id"]) %>
                   <h5 class="card-title">
-                    So we're going to:
-                    <%= f.input :title, label: nil, value: @experience.title %>
+                    <%= f.input :title, label: "So we're going to:" %>
                   </h5>
                   <p class="card-text">
-                    <%= f.input :description, label: "Tell your friends!:", value: @experience.description %>
-                    <%= f.input :address, value: @experience.address, readonly: true %>
-                    <%= f.input :phone_number, value: @experience.phone_number, readonly: true %>
-                    <%= f.input :rating, value: "☆" * @experience.rating.to_i, readonly: true %>
+                    <%= f.input :description, label: "Tell your friends!:" %>
+                    <%= f.association :category %>
+                    <%= f.input :address, input_html: {value: modelo[:address]}, readonly: true %>
+                    <%= f.input :phone_number, input_html: {value: modelo[:phone_number]}, readonly: true %>
+                    <%= f.input :rating, input_html: {value: "☆" * modelo[:rating].to_i}, readonly: true %>
                   </p>
                   <p>Reviews:
-                     <%= f.input :google_url, value: @experience.google_url, readonly: true %>
-                    <% price =  @experience.price_level ? "$" * @experience.price_level.to_i : "n/a"  %>
-                    <%= f.input :price_level, value: price, readonly: true %>
+                     <%= f.input :google_url,input_html: { value: modelo[:google_url]}, readonly: true %>
+                    <% price =  modelo[:price_level] ? "$" * modelo[:price_level].to_i : "n/a"  %>
+                    <%= f.input :price_level, input_html: {value: price}, readonly: true %>
                   </p>
-                    <%= f.input :website, value: @experience.website, readonly: true %>
-                    <%= f.association :category, value: @experience.category %>
-                  <%= f.hidden_field :latitude, value: @experience.latitude %>
-                  <%= f.hidden_field :longitude, value: @experience.latitude %>
+                    <%= f.input :website, input_html: {value: modelo[:website]}, readonly: true %>
+                  <%= f.input :latitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
+                  <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
 
                    <%= f.button :submit, "Confirm", class: "btn-danger" %>
                       <% end %>
@@ -121,8 +119,10 @@
                       <%= f.input :title, placeholder: @experience.title %>
                       <%= f.input :description, placeholder: @experience.description  %>
                       <%= f.input :opening_hours, placeholder: "9 to 22" %>
-                      <%= f.input :latitude, as: :float %>
-                      <%= f.input :longitude, as: :float %>
+                      <%= f.input :latitude, as: :hidden %>
+                      <%= f.input :longitude, as: :hidden %>
+                      <%= f.label "location" %>
+                      <input type="text" class="form-control" id="exp-location">
                       <%= f.input :price_level, label: "price", hint: "1 to 4" %>
                       <%= f.association :category %>
                       <%= f.input :photo %>
