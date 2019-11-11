@@ -144,76 +144,10 @@
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
   </div>
   <script>
-  var map;
 
-  function initMap() {
-    function clearMarkers() {
-        setMapOnAll(null);
-      }
-    const experiences = document.querySelectorAll('.experience-card')
-    const mapElement = document.getElementById('map')
-    const centerCoords = JSON.parse(mapElement.dataset.center)
-    const markers = JSON.parse(mapElement.dataset.markers)
-    const latForm = document.getElementById('experience_latitude')
-    const lngForm = document.getElementById('experience_longitude')
-    let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
-    map = new google.maps.Map(
-      document.getElementById('map'), {
-        center: mapCenter,
-        zoom: 10
-      });
-    map2 = new google.maps.Map(
-      document.getElementById('small-map'), {
-        center: mapCenter,
-        zoom: 12
-      });
-    google.maps.event.addListener(map2, 'click', function(event) {
-      placeMarker(event.latLng);
-      console.log(event.latLng.lat());
-      console.log(event.latLng.lng());
-      console.log(marker2.getPosition().lat());
-      console.log(marker2.getPosition().lng());
-      latForm.value = event.latLng.lat();
-      lngForm.value = event.latLng.lng();
-    });
-    var marker2;
-
-    function placeMarker(location) {
-      if (marker2) {
-        marker2.setPosition(location);
-      } else {
-          marker2 = new google.maps.Marker({
-          position: location,
-          map: map2,
-          icon: "/assets/_triangle-marker.svg",
-          draggable: true,
-          animation: google.maps.Animation.DROP
-        });
-      }}
-
-
-      markers.forEach(function(pin, i) {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(pin[0], pin[1]),
-          map: map,
-          icon: "<%= asset_path '_triangle-marker.svg' %>",
-          draggable: true
-        });
-        marker.addListener('mouseover', (event) => {
-          experiences[i].classList.add('selected')
-        });
-        marker.addListener('mouseout', (event) => {
-          experiences[i].classList.remove('selected')
-        });
-        marker.addListener('click', (event) => {
-          console.log(i);
-          console.log(experiences[i])
-          console.log(experiences)
-        });
-      });
-    }
   </script>
   <!-- end of map shit -->
 </div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
-</script>
+<%= content_for :map_js do  %>
+<%= javascript_pack_tag 'initMap2' %>
+<% end %>

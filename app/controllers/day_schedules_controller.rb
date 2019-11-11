@@ -1,6 +1,5 @@
 class DaySchedulesController < ApplicationController
   def index
-
     @board = Board.find(params[:board_id])
     # raise
     @day_schedules = @board.day_schedules.order(date: :ASC)

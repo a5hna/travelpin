@@ -18,7 +18,6 @@ const toggleActiveClass = (event) => {
 const toggleActiveOnClick = (element) => {
   element.addEventListener("click", toggleActiveClass);
 };
-
-
-
 experienceCard.forEach(toggleActiveOnClick);
+
+
