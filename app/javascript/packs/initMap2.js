@@ -4,8 +4,8 @@
     const centerCoords = JSON.parse(mapElement.dataset.center)
     const markers = JSON.parse(mapElement.dataset.markers)
     const location = document.getElementById('exp-location')
-    const formLat = document.getElementById('experience_latitude')
-    const formLng = document.getElementById('experience_longitude')
+    const formLat = document.getElementById('formLat')
+    const formLng = document.getElementById('formLng')
     let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
     map = new google.maps.Map(
       document.getElementById('map'), {
