@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :boards, except: [:index] do
     resources :board_users, only: [:index]
-    resources :experiences, only: [:create]
+    resources :experiences, only: [:create, :new]
     resources :day_schedules, only: [:index,:show, :new, :create]
   end
 
@@ -15,5 +15,4 @@ Rails.application.routes.draw do
 
   get 'dashboard', to: "pages#dashboard"
   get 'board', to: "pages#user_board", as: :user_boards
-  get '/boards/:board_id/experiences/', to: "experiences#new", as: :new_experience
 end

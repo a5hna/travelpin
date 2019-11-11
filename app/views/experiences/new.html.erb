@@ -32,60 +32,56 @@
            %>
         </div>
       </div>
-        <!-- modal -->
-  <div class="modal fade" id="confirm-experience" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Please Confirm</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <% modelo = details_api(each["place_id"]) %>
-          <%=  %>
-          <div class="card" style="width: 40rem;">
-            <%# @photos.each do |pic| %>
-            <%#= image_tag pic, alt: "alttext", size: "400x200"%>
-            <%# end %>
-            <div class="card-body">
-              <h5 class="card-title">
-                So we're going to:
-                <%= @experience.title %>
-              </h5>
-              <p class="card-text">
-                Tell your friends!: "
-                <%= @experience.description %>"
-              </p>
-              <p> Address:
-                <%= modelo[:address]  %>
-              </p>
-              <p> Phone:
-                <%= modelo[:phone_number] %>
-              </p>
-              <p> Rating:
-                <%= modelo[:rating]  %>
-              </p>
-              <p> Reviews:
-                <%=  modelo[:google_url]  %>
-              </p>
-              <p> Price level:
-                <%=  modelo[:price_level]  %>
-              </p>
-              <p>
-                <%= link_to "Website", @experience.website  %>
-              </p>
-              <%= button_to "Confirm", board_experiences_path ,
-              params: { experience: modelo} %>
+      <!-- Confirm modal -->
+      <div class="modal fade" id="confirm-experience" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Please Confirm</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <% details_api(each["place_id"]) %>
+              <%=  %>
+              <div class="card" style="width: 40rem;">
+                <%# @photos.each do |pic| %>
+                <%#= image_tag pic, alt: "alttext", size: "400x200"%>
+                <%# end %>
+                <div class="card-body">
+                  <%= simple_form_for [@board, @experience] do |f| %>
+                  <h5 class="card-title">
+                    So we're going to:
+                    <%= f.input :title, label: nil, value: @experience.title %>
+                  </h5>
+                  <p class="card-text">
+                    <%= f.input :description, label: "Tell your friends!:", value: @experience.description %>
+                    <%= f.input :address, value: @experience.address, readonly: true %>
+                    <%= f.input :phone_number, value: @experience.phone_number, readonly: true %>
+                    <%= f.input :rating, value: "☆" * @experience.rating.to_i, readonly: true %>
+                  </p>
+                  <p>Reviews:
+                     <%= f.input :google_url, value: @experience.google_url, readonly: true %>
+                    <% price =  @experience.price_level ? "$" * @experience.price_level.to_i : "n/a"  %>
+                    <%= f.input :price_level, value: price, readonly: true %>
+                  </p>
+                    <%= f.input :website, value: @experience.website, readonly: true %>
+                    <%= f.association :category, value: @experience.category %>
+                  <%= f.hidden_field :latitude, value: @experience.latitude %>
+                  <%= f.hidden_field :longitude, value: @experience.latitude %>
+
+                   <%= f.button :submit, "Confirm", class: "btn-danger" %>
+                      <% end %>
+                  <%#= button_to "Confirm", board_experiences_path %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- end of modal shit -->
-  <!-- End of loop -->
+      <!-- end of modal shit -->
+      <!-- End of loop -->
       <% end %>
       <div class="card experience-card" style="width: 16%;">
         <h1> ¿?</h1>
@@ -96,34 +92,106 @@
           </h5>
           <p class="card-text"></p>
           <p>Click below to make your own</p>
-          <%= button_to "Create", board_experiences_path, class: "btn-danger",
-          params: {
-                    board: @experience.board_id,
-                    title: @experience.title,
-                    description: @experience.description
-                    }  %>
+          <%= link_to "Create", "#", class: "btn-danger",
+          data: {
+            toggle: "modal",
+            target: "#create-experience"
+            } %>
         </div>
       </div>
+      <!-- Confirm modal -->
+      <div class="modal fade" id="create-experience" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-huge modal-dialog-centered" style="max-width: 1600px; width: 1600px" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Please Confirm</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="card" style="width: 50%;">
+                  <%# @photos.each do |pic| %>
+                  <%#= image_tag pic, alt: "alttext", size: "400x200"%>
+                  <%# end %>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%= simple_form_for [@board, @experience] do |f| %>
+                      <%= f.input :title, placeholder: @experience.title %>
+                      <%= f.input :description, placeholder: @experience.description  %>
+                      <%= f.input :opening_hours, placeholder: "9 to 22" %>
+                      <%= f.input :latitude, as: :float %>
+                      <%= f.input :longitude, as: :float %>
+                      <%= f.input :price_level, label: "price", hint: "1 to 4" %>
+                      <%= f.association :category %>
+                      <%= f.input :photo %>
+                      <%= f.button :submit %>
+                      <% end %>
+                  </div>
+                </div>
+                <div id="small-map" style="width: 50%">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of modal shit -->
     </div>
   </div>
-
   <!-- map shit -->
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
   </div>
   <script>
-    var map;
+  var map;
 
-    function initMap() {
-      const experiences = document.querySelectorAll('.experience-card')
-      const mapElement = document.getElementById('map')
-      const centerCoords = JSON.parse(mapElement.dataset.center)
-      const markers = JSON.parse(mapElement.dataset.markers)
-      let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
-      map = new google.maps.Map(
-        document.getElementById('map'), {
-          center: mapCenter,
-          zoom: 10
+  function initMap() {
+    function clearMarkers() {
+        setMapOnAll(null);
+      }
+    const experiences = document.querySelectorAll('.experience-card')
+    const mapElement = document.getElementById('map')
+    const centerCoords = JSON.parse(mapElement.dataset.center)
+    const markers = JSON.parse(mapElement.dataset.markers)
+    const latForm = document.getElementById('experience_latitude')
+    const lngForm = document.getElementById('experience_longitude')
+    let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
+    map = new google.maps.Map(
+      document.getElementById('map'), {
+        center: mapCenter,
+        zoom: 10
+      });
+    map2 = new google.maps.Map(
+      document.getElementById('small-map'), {
+        center: mapCenter,
+        zoom: 12
+      });
+    google.maps.event.addListener(map2, 'click', function(event) {
+      placeMarker(event.latLng);
+      console.log(event.latLng.lat());
+      console.log(event.latLng.lng());
+      console.log(marker2.getPosition().lat());
+      console.log(marker2.getPosition().lng());
+      latForm.value = event.latLng.lat();
+      lngForm.value = event.latLng.lng();
+    });
+    var marker2;
+
+    function placeMarker(location) {
+      if (marker2) {
+        marker2.setPosition(location);
+      } else {
+          marker2 = new google.maps.Marker({
+          position: location,
+          map: map2,
+          icon: "/assets/_triangle-marker.svg",
+          draggable: true,
+          animation: google.maps.Animation.DROP
         });
+      }}
+
+
       markers.forEach(function(pin, i) {
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(pin[0], pin[1]),
@@ -144,7 +212,7 @@
         });
       });
     }
-    </script>
+  </script>
   <!-- end of map shit -->
 </div>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">

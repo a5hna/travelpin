@@ -25,32 +25,32 @@ class ExperiencesController < ApplicationController
    uri = open(details_endpoint+query_fields+language).read
    results = JSON.parse(uri)["result"]
    model = {}
-   model[:user_id] = current_user.id
-   model[:title] = @experience[:title]
-   model[:description] = @experience[:description]
-   model[:board_id] = @experience[:board_id]
-   model[:latitude] = results["geometry"]["location"]["lat"] || nil
-   model[:longitude] = results["geometry"]["location"]["lng"] || nil
-   model[:address] = results["formatted_address"] || nil
-   model[:opening_hours] = results["opening_hours"] ? results["opening_hours"]["weekday_text"] : nil
-   model[:phone_number] = results["international_phone_number"] || nil
-   model[:rating] = results["rating"] || nil
-   model[:google_url] = results["url"] || nil
-   model[:website] = results["website"] || nil
-   model[:price_level] = results["price_level"] || nil
+   @experience.user_id = current_user.id
+   @experience.board_id = @experience[:board_id]
+   @experience.category_id = @experience[:category_id]
+   @experience.title = @experience[:title]
+   @experience.description = @experience[:description]
+   @experience.latitude = results["geometry"]["location"]["lat"] || nil
+   @experience.longitude = results["geometry"]["location"]["lng"] || nil
+   @experience.address = results["formatted_address"] || nil
+   @experience.opening_hours = results["opening_hours"] ? results["opening_hours"]["weekday_text"] : nil
+   @experience.phone_number = results["international_phone_number"] || nil
+   @experience.rating = results["rating"] || nil
+   @experience.google_url = results["url"] || nil
+   @experience.website = results["website"] || nil
+   @experience.price_level = results["price_level"] || nil
    photo_refs = results["photos"].map {|each| each["photo_reference"]}[0..4] if results["photos"]
-   model[:photos] = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"} if photo_refs
-   return model
+   @photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"} if photo_refs
+   return @experience
   end
 
    helper_method :details_api
 
 
   def new
-    #choose panel
+   @board = Board.find(params[:board_id])
    @experience = Experience.new(experience_params)
-   @experience.board_id = params[:board_id]
-   @coords = [@experience.board.latitude, @experience.board.longitude]
+   @coords = [@board.latitude, @board.longitude]
    query = @experience.title
    @list = places_api(query, @coords)
    @markers = @list.map {|each| [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f] }
@@ -61,26 +61,12 @@ class ExperiencesController < ApplicationController
    end
    @photo_refs.delete(nil)
    @photos = @photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
-  # confirm panel
   end
 
   def create
-    exp = Experience.new()
-    exp.user_id = params[:experience][:user_id]
-    exp.title = params[:experience][:title]
-    exp.description = params[:experience][:description]
-    exp.address = params[:experience][:address]
-    exp.longitude = params[:experience][:longitude]
-    exp.latitude = params[:experience][:latitude]
-    exp.photo = params[:experience][:photo]
-    exp.rating = params[:experience][:address]
-    exp.opening_hours = params[:experience][:opening_hours]
-    exp.price_level = params[:experience][:price_level]
-    exp.phone_number = params[:experience][:phone_number]
-    exp.website = params[:experience][:website]
-    exp.google_url = params[:experience][:google_url]
-    exp.board_id = params[:experience][:board_id]
-    exp.category_id = 1
+    exp = Experience.new(experience_params)
+    exp.user = current_user
+    exp.board_id = params[:board_id]
     exp.save
     redirect_to board_path(exp.board)
   end
