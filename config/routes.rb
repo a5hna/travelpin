@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :day_schedules, only: [:index,:show, :new, :create]
   end
 
-  resources :board_users, only: [:destroy,:new, :create]
+  resources :board_users, only: [:destroy, :new, :create]
   resources :experiences, only: [:edit, :update, :destroy]
   resources :day_schedules, only: [:destroy]
   resources :connections, only: [:index, :new, :create, :destroy]
