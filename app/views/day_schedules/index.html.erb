@@ -12,24 +12,27 @@
       <div class="carousel-item <%= date ? 'active' : nil %>">
      <!--  <h3 class="text-center"> <%= @board.title %></h3> -->
       <h5 class="text-center "><%= day_schedule.date.strftime("%A, %d %b %Y ") %></h5>
-      <p><%= day_schedule.notes %></p>
       <div class="col-xs-12 d-flex flex-column justify-content-center align-items-center">
-      <% day_schedule.experiences.each do |experience| %>
+      <% day_schedule.day_schedule_items.each do |day_schedule_item| %>
           <!-- Experience Cards -->
-        <div class="experience-card mb-2 w-75" data-id="<%= experience.id %>">
-          <%= image_tag experience.photo, alt: "alttext" %>
+        <div class="experience-card mb-2 w-75" data-id="<%= day_schedule_item.experience.id %>">
+          <%= image_tag day_schedule_item.experience.photo, alt: "alttext" %>
           <p class="d-flex justify-content-between mt-1">
-            <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
-              <%= experience.title %>
+            <button type="button" data-toggle="modal" data-target=<%= "#experience#{day_schedule_item.experience.id}" %>>
+              <%= day_schedule_item.experience.title %>
             </button>
-
           </p>
         </div>
-        <%= link_to board_day_schedules_path(@board), method: :delete do %>
+        <%= link_to day_schedule_item_path(day_schedule_item), method: :delete do %>
         <i class="fas fa-minus-circle"></i>
         <% end %>
       <% end %>
       </div>
+        <p><%= day_schedule.notes %></p>
+        <%= simple_form_for day_schedule do |f| %>
+          <%= f.input :notes %>
+          <%= f.submit %>
+        <% end %>
       <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
       </div>
       <% end %>

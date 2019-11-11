@@ -10,9 +10,10 @@ Rails.application.routes.draw do
     resources :day_schedules, only: [:index,:show, :new, :create]
   end
 
+  resources :day_schedules, only: [:destroy, :update]
+  resources :day_schedule_items, only: [:destroy]
   resources :board_users, only: [:destroy, :new, :create]
   resources :experiences, only: [:edit, :update, :destroy]
-  resources :day_schedules, only: [:destroy]
   resources :connections, only: [:index, :new, :create, :destroy]
 
   get 'dashboard', to: "pages#dashboard"
