@@ -17,4 +17,5 @@ Rails.application.routes.draw do
 
   get 'dashboard', to: "pages#dashboard"
   get 'board', to: "pages#user_board", as: :user_boards
+  post 'experiences/:id/upvote', to: "experiences#upvote", as: :experience_upvote
 end

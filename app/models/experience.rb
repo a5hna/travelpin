@@ -1,4 +1,5 @@
 class Experience < ApplicationRecord
+  acts_as_votable
   belongs_to :board
   belongs_to :user
   belongs_to :category
