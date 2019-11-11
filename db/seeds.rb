@@ -67,6 +67,11 @@ avatar_pics = [
   i += 1
 end
 
+User.all.each_with_index do |user, i|
+  user.remote_avatar_url = avatar_pics[i]
+  user.save
+end
+
 @users = User.all
 
 # CONNECTIONS
