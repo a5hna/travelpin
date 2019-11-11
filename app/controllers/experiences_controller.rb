@@ -24,24 +24,24 @@ class ExperiencesController < ApplicationController
    language = "&language=#{session["language"]}"
    uri = open(details_endpoint+query_fields+language).read
    results = JSON.parse(uri)["result"]
-   model = {}
-   @experience.user_id = current_user.id
-   @experience.board_id = @experience[:board_id]
-   @experience.category_id = @experience[:category_id]
-   @experience.title = @experience[:title]
-   @experience.description = @experience[:description]
-   @experience.latitude = results["geometry"]["location"]["lat"] || nil
-   @experience.longitude = results["geometry"]["location"]["lng"] || nil
-   @experience.address = results["formatted_address"] || nil
-   @experience.opening_hours = results["opening_hours"] ? results["opening_hours"]["weekday_text"] : nil
-   @experience.phone_number = results["international_phone_number"] || nil
-   @experience.rating = results["rating"] || nil
-   @experience.google_url = results["url"] || nil
-   @experience.website = results["website"] || nil
-   @experience.price_level = results["price_level"] || nil
+   details = {}
+   details[:user_id] = current_user.id
+   details[:board_id] = @experience[:board_id]
+   details[:category_id] = @experience[:category_id]
+   details[:title] = @experience[:title]
+   details[:description] = @experience[:description]
+   details[:latitude] = results["geometry"]["location"]["lat"] || nil
+   details[:longitude] = results["geometry"]["location"]["lng"] || nil
+   details[:address] = results["formatted_address"] || nil
+   details[:opening_hours] = results["opening_hours"] ? results["opening_hours"]["weekday_text"] : nil
+   details[:phone_number] = results["international_phone_number"] || nil
+   details[:rating] = results["rating"] || nil
+   details[:google_url] = results["url"] || nil
+   details[:website] = results["website"] || nil
+   details[:price_level] = results["price_level"] || nil
    photo_refs = results["photos"].map {|each| each["photo_reference"]}[0..4] if results["photos"]
    @photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"} if photo_refs
-   return @experience
+   return details
   end
 
    helper_method :details_api
@@ -68,7 +68,11 @@ class ExperiencesController < ApplicationController
     exp.user = current_user
     exp.board_id = params[:board_id]
     exp.save
+    if exp.save!
     redirect_to board_path(exp.board)
+  else
+    raise
+  end
   end
 
 
