@@ -78,6 +78,16 @@ class ExperiencesController < ApplicationController
   def update
   end
 
+  def upvote
+    @experience = Experience.find(params[:id])
+    @experience.vote_by :voter => current_user
+    respond_to do |format|
+        # format.html { redirect_to restaurant_path(@restaurant) }
+        format.js
+      end
+
+  end
+
   private
 
   def experience_params

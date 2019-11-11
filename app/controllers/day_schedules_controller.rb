@@ -1,7 +1,11 @@
 class DaySchedulesController < ApplicationController
   def index
     @board = Board.find(params[:board_id])
-    @day_schedules = @board.day_schedules
+    # raise
+    @day_schedules = @board.day_schedules.order(date: :ASC)
+    @first_day_schedule = @day_schedules[0]
+    @rest_day_schedules = @day_schedules[1..-1]
+    # raise
   end
 
   def show
@@ -11,7 +15,6 @@ class DaySchedulesController < ApplicationController
   end
 
   def create
-
     board = Board.find(params[:board_id])
     experience_ids = params[:experiences].gsub('ids=', '').split('&')
     day_schedule = DaySchedule.where(date: params[:day_schedule][:date], board: board).first
@@ -19,7 +22,7 @@ class DaySchedulesController < ApplicationController
        day_schedule = DaySchedule.create(date: params[:day_schedule][:date], board: board)
     end
     experience_ids.each do |id|
-    DayScheduleItem.create(experience_id: id, day_schedule: day_schedule)
+      DayScheduleItem.create(experience_id: id, day_schedule: day_schedule)
     end
 
     redirect_to board_day_schedules_path
