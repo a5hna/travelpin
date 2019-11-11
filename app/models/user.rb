@@ -9,9 +9,9 @@ class User < ApplicationRecord
   has_many :boards, through: :board_users
   has_many :experiences
   has_many :connections, class_name: 'Connection', foreign_key: 'user_two'
-    has_many :connections, class_name: 'Connection', foreign_key: 'user_one'
+  has_many :connections, class_name: 'Connection', foreign_key: 'user_one'
 
-
+  mount_uploader :avatar, PhotoUploader
 
   # validates :name, presence: true
   # validates :home_location, presence: true
