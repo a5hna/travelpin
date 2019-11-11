@@ -68,6 +68,8 @@
       <%= image_tag experience.photo, alt: "alttext" %>
       <% else %>
       <%= image_tag "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", alt: "alttext" %>
+      <% experience.photo = "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" %>
+      <% experience.save %>
       <% end %>
         <div class="d-flex justify-content-between">
       <p class="d-flex justify-content-between mt-1">
