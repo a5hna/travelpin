@@ -14,6 +14,12 @@ class DaySchedulesController < ApplicationController
   def new
   end
 
+  def update
+    @day_schedule = DaySchedule.find(params[:id])
+    @day_schedule.update(notes: params[:day_schedule][:notes])
+    redirect_to board_day_schedules_path(@day_schedule.board)
+  end
+
   def create
     board = Board.find(params[:board_id])
     experience_ids = params[:experiences].gsub('ids=', '').split('&')
