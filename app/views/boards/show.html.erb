@@ -174,9 +174,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for [@board, @experience], method: :get do |f| %>
+        <%= simple_form_for [@board, @experience], method: :get, url: new_board_experience_path(@board) do |f| %>
         <%= f.input :title, label: "What are we doing?" %>
         <%= f.input :description, label: "Convince your friends!" %>
+        <%= f.association :category %>
         <%= f.button :submit %>
         <% end %>
       </div>
