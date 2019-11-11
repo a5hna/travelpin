@@ -22,7 +22,7 @@ class BoardUsersController < ApplicationController
     @board_user = BoardUser.find(params[:id])
     board = @board_user.board
     @board_user.destroy
-    redirect_to board_board_users_path(board)
+    redirect_to user_boards_path(current_user)
   end
 
   private
