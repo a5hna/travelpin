@@ -2,23 +2,23 @@
   <div class="board-footer-links">
     <% if params[:controller] == 'boards' && params[:action] == 'show' %>
       <%= link_to '#', id: 'new-sched', data: { toggle:'modal', target:'#new-schedule'} do %>
-        <i class="far fa-calendar-plus"></i>
+        <i class="far fa-calendar-plus footer-link"></i>
       <% end %>
     <% else %>
       <%= link_to new_board_day_schedule_path(params[:board_id]), id: 'new-sched' do %>
-        <i class="far fa-calendar-plus"></i>
+        <i class="far fa-calendar-plus footer-link"></i>
       <% end %>
     <% end %>
     <%= link_to board_day_schedules_path(board_id: params[:id]) do  %>
-      <i class="fas fa-route"></i>
+      <i class="fas fa-route footer-link"></i>
     <% end %>
     <div id="control-div" class="control-div" data-toggle="modal" data-target="#add-experience-form">
-      <a><i class="fas fa-plus"></i></a>
+      <a><i class="fas fa-plus footer-link"></i></a>
     </div>
     <%= link_to connections_path(board_id: @board.id) do %>
-      <i class="fas fa-user-plus"></i>
+      <i class="fas fa-user-plus footer-link"></i>
     <% end %>
-    <a href="#"><i class="fas fa-heart"></i></a>
+    <a href="#"><i class="fas fa-heart footer-link"></i></a>
   </div>
 </div>
 

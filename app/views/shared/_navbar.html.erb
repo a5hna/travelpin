@@ -33,16 +33,17 @@
       <% if user_signed_in? %>
         <li class="nav-item active">
           <%= link_to user_boards_path(current_user), class: "nav-link" do %>
-              <i class="fas fa-home"></i>
+              <i class="fas fa-home navbar-link"></i>
           <% end %>
         </li>
         <li class="nav-item mx-3">
           <%= link_to connections_path, class: "nav-link" do %>
-          <i class="fas fa-users"></i>
+          <i class="fas fa-users navbar-link"></i>
           <% end %>
         </li>
         <li class="nav-item dropdown d-flex align-items-center">
-          <%= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <%= cl_image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <%#= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>

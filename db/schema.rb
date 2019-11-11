@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_08_050955) do
+ActiveRecord::Schema.define(version: 2019_11_09_141720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(version: 2019_11_08_050955) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_one_id"], name: "index_connections_on_user_one_id"
     t.index ["user_two_id"], name: "index_connections_on_user_two_id"
+  end
+
+  create_table "country_codes", force: :cascade do |t|
+    t.string "country"
+    t.string "country_code"
+    t.string "currency_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "day_schedule_items", force: :cascade do |t|

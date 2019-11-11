@@ -2,6 +2,57 @@
 <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
   <%= @board.title %>
 </div>
+  <div class="d-flex px-3 py-3 align-items-center" style="background: white">
+    <%= link_to board_board_users_path(@board) do  %>
+      <% @board_users.each do |user| %>
+        <%= cl_image_tag user.avatar, class: "avatar" %>
+ <!--        <img class="avatar" alt="avatar" src=<%=user.avatar %> /> -->
+      <% end %>
+    <% end %>
+    <%= link_to connections_path(board_id: @board.id) do %>
+      <i class="fas fa-plus-circle avatar"></i>
+    <% end %>
+  </div>
+
+<!--   <div class="turquoise p-3"> -->
+    <div class="text-center p-3" style="background: white">
+    <% if @caption %>
+    <h6><%= @caption %></h6>
+    <% end %>
+    </div>
+<!--   </div> -->
+<div style="background: white">
+
+  <!-- <div class="white p-3"> -->
+  <div class="d-flex justify-content-center" style="background: white">
+
+    <div class="p-3" style="width: 50vw">
+<!--       <h6 class="text-center">Currency</h6> -->
+      <div class="d-flex justify-content-around align-items-center flex-column p-2">
+        <h6>1 GBP</h6>
+        <h6> = </h6>
+        <h6><%= @conversion["GBP_#{@currency_code}"].to_f.round(2) %><%=" #{@currency_code}"%></h6>
+      </div>
+    </div>
+
+    <div class="p-3" style="width: 50vw">
+     <!--  <h6 class="text-center">Weather</h6> -->
+      <div class="weather-icon d-flex justify-content-around align-items-center p-2" >
+        <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
+        <div>
+          <h5>
+            <%= (@data['main']['temp'].to_f - 273.15).round(0)%> °C
+          </h5>
+          <%= @data['weather'][0]['main'] %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<!--   </div> -->
+
+</div>
+
   <!-- Map Button -->
   <div id="control-div" class="control-div d-none" data-toggle="modal" data-target="#add-experience-form">
     <div id="control-ui" class="control-ui" title="Add an Experience">
@@ -54,32 +105,6 @@
 </div>
 <!-- </div> -->
 <!-- Summary of board location -->
-<div style="background: white">
-  <div class="user-avatars d-flex px-3 mb-3 pt-3 align-items-centers" >
-    <%= link_to board_board_users_path(@board) do  %>
-    <% @board_users.each do |user| %>
-    <img class="avatar" alt="avatar" src=<%=user.avatar %> />
-    <% end %>
-    <% end %>
-    <%= link_to connections_path(board_id: @board.id) do %>
-    <i class="fas fa-plus-circle avatar"></i>
-    <% end %>
-  </div>
-<div class="d-flex">
-  <div class="d-flex justify-content-center align-items-center" style="width: 50vw">
-  </div>
-  <div class="weather-icon d-flex justify-content-center align-items-center" style="width: 50vw">
-    <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
-
-  <div>
-    <h3>
-    <%= (@data['main']['temp'].to_f - 273.15).round(0)%> °C
-    </h3>
-    <%= @data['weather'][0]['main'] %>
-  </div>
-  </div>
-</div>
-</div>
 
 <!-- end of board summary -->
 
@@ -98,7 +123,7 @@
         <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
           <%= experience.title %>
         </button>
-        <i class="fas fa-heart">
+        <i class="fas fa-heart heart-like">
           <% if experience.vote != nil %>
           <% if experience.vote > 0 %>(
           <%= experience.vote %>)
@@ -106,6 +131,7 @@
           <% end %>
         </i>
       </p>
+
     </div>
   <!-- experience card end -->
 
@@ -136,7 +162,6 @@
   <% end %>
 </div>
 <!-- end of experience cards and modal pop-up iteration  -->
-
 </div>
 
 <div class="modal fade" id="add-experience-form" tabindex="-1" role="dialog">

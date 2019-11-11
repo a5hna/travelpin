@@ -44,7 +44,7 @@
   padding-bottom: 5px;
 }
 
-.fa-heart {
+.heart-like {
   position: relative;
   top: 5px;
 }
@@ -85,6 +85,10 @@
 .weather-icon {
   background-color: white;
   color: black;
+}
+
+.weather-icon img {
+  width: 50%;
 }
 
 .card-columns {

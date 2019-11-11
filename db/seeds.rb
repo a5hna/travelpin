@@ -1,4 +1,5 @@
 require 'faker'
+require 'csv'
 
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
@@ -23,6 +24,23 @@ BoardUser.destroy_all
 Connection.destroy_all
 User.destroy_all
 Category.destroy_all
+
+# COUNTRY_CODES
+
+filepath = File.join(__dir__, 'data/country_codes.csv')
+
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+
+CSV.foreach(filepath) do |row|
+   CountryCode.create!(country: row[0], country_code: row[1], currency_code: row[2])
+end
+
+
+
+
+
+
+
 
 # USERS
 puts "Generating user seeds"

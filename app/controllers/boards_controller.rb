@@ -25,18 +25,26 @@ class BoardsController < ApplicationController
     @country_code = @data["sys"]["country"]
     @city = @data["name"]
 
+    @currency_code = CountryCode.where(country_code: @country_code).first.currency_code
+    @country = CountryCode.where(country_code: @country_code).first.country
+    country_url = "https://www.lonelyplanet.com/#{@country}"
+
+    lonelyplanet_html = open(country_url).read
+    lonelyplanet_data = Nokogiri::HTML(lonelyplanet_html)
+    @caption = lonelyplanet_data.search('.featured p').text.strip
+
+    curr_conv_url ="https://free.currconv.com/api/v7/convert?q=GBP_#{@currency_code}&compact=ultra&apiKey=#{ENV['CURR_CONV_KEY']}"
+    curr_conv_file = open(curr_conv_url).read
+    @conversion = JSON.parse(curr_conv_file)
   end
 
   def new
     @board = Board.new
 
-    # country_url = "https://www.lonelyplanet.com/#{board_params[:country]}"
-    # city_url = "https://www.lonelyplanet.com/#{board_params[:country]}/#{board_params[:city]}"
 
 
-    # lonelyplanet_html = open(city_url).read
-    # lonelyplanet_data = Nokogiri::HTML(lonelyplanet_html)
-    # caption = lonelyplanet_data.search('.featured p').text.strip
+
+
   end
 
   def create
