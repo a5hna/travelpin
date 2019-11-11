@@ -5,7 +5,7 @@ class DaySchedulesController < ApplicationController
     @day_schedules = @board.day_schedules.order(date: :ASC)
     @first_day_schedule = @day_schedules[0]
     @rest_day_schedules = @day_schedules[1..-1]
-    # raise
+     # raise
   end
 
   def show

@@ -49,3 +49,10 @@
   </a>
 </div>
 
+
+<% if @board.day_schedule_ids == [] %>
+<p>You have not created any itineries yet! Go back to your board to add experiences to a day schedule.</p>
+<p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+<% end %>
+
+
