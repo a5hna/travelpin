@@ -22,6 +22,7 @@ class DaySchedulesController < ApplicationController
     experience_ids.each do |id|
     DayScheduleItem.create(experience_id: id, day_schedule: day_schedule)
     end
+
     redirect_to board_day_schedules_path
   end
 end

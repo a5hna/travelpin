@@ -113,7 +113,7 @@
 <div class="card-columns">
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
-    <div class="experience-card mb-2">
+    <div class="experience-card mb-2" data-id="<%= experience.id %>">
       <% if experience.photo %>
       <%= image_tag experience.photo, alt: "alttext" %>
       <% else %>
