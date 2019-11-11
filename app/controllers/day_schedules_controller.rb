@@ -25,7 +25,7 @@ class DaySchedulesController < ApplicationController
     experience_ids.each do |id|
       DayScheduleItem.create(experience_id: id, day_schedule: day_schedule)
     end
-
+    session[:date_item] = day_schedule.date
     redirect_to board_day_schedules_path
   end
 end
