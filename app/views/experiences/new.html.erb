@@ -119,8 +119,8 @@
                       <%= f.input :title, placeholder: @experience.title %>
                       <%= f.input :description, placeholder: @experience.description  %>
                       <%= f.input :opening_hours, placeholder: "9 to 22" %>
-                      <%= f.input :latitude, as: :hidden %>
-                      <%= f.input :longitude, as: :hidden %>
+                      <%= f.input :latitude, as: :hidden, input_html: {id: 'formLat'}%>
+                      <%= f.input :longitude, as: :hidden, input_html: {id: 'formLng'} %>
                       <%= f.label "location" %>
                       <input type="text" class="form-control" id="exp-location">
                       <%= f.input :price_level, label: "price", hint: "1 to 4" %>
