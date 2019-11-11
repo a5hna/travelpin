@@ -21,7 +21,7 @@ gem 'cloudinary'
 gem 'dotenv-rails'
 gem 'gon'
 gem 'faker'
-
+gem 'acts_as_votable'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

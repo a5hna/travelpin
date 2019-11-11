@@ -123,14 +123,12 @@
         <button type="button" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
           <%= experience.title %>
         </button>
-        <i class="fas fa-heart heart-like">
-          <% if experience.vote != nil %>
-          <% if experience.vote > 0 %>(
-          <%= experience.vote %>)
-          <% end %>
-          <% end %>
-        </i>
-      </p>
+              </p>
+
+        <div class="d-flex">  <p data-id="<%= experience.id %>"><%= experience.votes_for.count %></p>
+        <%= link_to experience_upvote_path(experience),class:"fas fa-heart heart-like",method: :post, remote: true, style:"display: block" do %>
+         <% end %></div>
+
 
     </div>
   <!-- experience card end -->
