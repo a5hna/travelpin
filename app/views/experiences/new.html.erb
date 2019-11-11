@@ -43,33 +43,31 @@
               </button>
             </div>
             <div class="modal-body">
-              <% details_api(each["place_id"]) %>
-              <%=  %>
               <div class="card" style="width: 40rem;">
                 <%# @photos.each do |pic| %>
                 <%#= image_tag pic, alt: "alttext", size: "400x200"%>
                 <%# end %>
                 <div class="card-body">
                   <%= simple_form_for [@board, @experience] do |f| %>
+                  <% modelo = details_api(each["place_id"]) %>
                   <h5 class="card-title">
-                    So we're going to:
-                    <%= f.input :title, label: nil, value: @experience.title %>
+                    <%= f.input :title, label: "So we're going to:" %>
                   </h5>
                   <p class="card-text">
-                    <%= f.input :description, label: "Tell your friends!:", value: @experience.description %>
-                    <%= f.input :address, value: @experience.address, readonly: true %>
-                    <%= f.input :phone_number, value: @experience.phone_number, readonly: true %>
-                    <%= f.input :rating, value: "☆" * @experience.rating.to_i, readonly: true %>
+                    <%= f.input :description, label: "Tell your friends!:" %>
+                    <%= f.association :category %>
+                    <%= f.input :address, input_html: {value: modelo[:address]}, readonly: true %>
+                    <%= f.input :phone_number, input_html: {value: modelo[:phone_number]}, readonly: true %>
+                    <%= f.input :rating, input_html: {value: "☆" * modelo[:rating].to_i}, readonly: true %>
                   </p>
                   <p>Reviews:
-                     <%= f.input :google_url, value: @experience.google_url, readonly: true %>
-                    <% price =  @experience.price_level ? "$" * @experience.price_level.to_i : "n/a"  %>
-                    <%= f.input :price_level, value: price, readonly: true %>
+                     <%= f.input :google_url,input_html: { value: modelo[:google_url]}, readonly: true %>
+                    <% price =  modelo[:price_level] ? "$" * modelo[:price_level].to_i : "n/a"  %>
+                    <%= f.input :price_level, input_html: {value: price}, readonly: true %>
                   </p>
-                    <%= f.input :website, value: @experience.website, readonly: true %>
-                    <%= f.association :category, value: @experience.category %>
-                  <%= f.hidden_field :latitude, value: @experience.latitude %>
-                  <%= f.hidden_field :longitude, value: @experience.latitude %>
+                    <%= f.input :website, input_html: {value: modelo[:website]}, readonly: true %>
+                  <%= f.input :latitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
+                  <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
 
                    <%= f.button :submit, "Confirm", class: "btn-danger" %>
                       <% end %>
@@ -121,8 +119,10 @@
                       <%= f.input :title, placeholder: @experience.title %>
                       <%= f.input :description, placeholder: @experience.description  %>
                       <%= f.input :opening_hours, placeholder: "9 to 22" %>
-                      <%= f.input :latitude, as: :float %>
-                      <%= f.input :longitude, as: :float %>
+                      <%= f.input :latitude, as: :hidden, input_html: {id: 'formLat'}%>
+                      <%= f.input :longitude, as: :hidden, input_html: {id: 'formLng'} %>
+                      <%= f.label "location" %>
+                      <input type="text" class="form-control" id="exp-location">
                       <%= f.input :price_level, label: "price", hint: "1 to 4" %>
                       <%= f.association :category %>
                       <%= f.input :photo %>
@@ -144,76 +144,10 @@
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
   </div>
   <script>
-  var map;
 
-  function initMap() {
-    function clearMarkers() {
-        setMapOnAll(null);
-      }
-    const experiences = document.querySelectorAll('.experience-card')
-    const mapElement = document.getElementById('map')
-    const centerCoords = JSON.parse(mapElement.dataset.center)
-    const markers = JSON.parse(mapElement.dataset.markers)
-    const latForm = document.getElementById('experience_latitude')
-    const lngForm = document.getElementById('experience_longitude')
-    let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
-    map = new google.maps.Map(
-      document.getElementById('map'), {
-        center: mapCenter,
-        zoom: 10
-      });
-    map2 = new google.maps.Map(
-      document.getElementById('small-map'), {
-        center: mapCenter,
-        zoom: 12
-      });
-    google.maps.event.addListener(map2, 'click', function(event) {
-      placeMarker(event.latLng);
-      console.log(event.latLng.lat());
-      console.log(event.latLng.lng());
-      console.log(marker2.getPosition().lat());
-      console.log(marker2.getPosition().lng());
-      latForm.value = event.latLng.lat();
-      lngForm.value = event.latLng.lng();
-    });
-    var marker2;
-
-    function placeMarker(location) {
-      if (marker2) {
-        marker2.setPosition(location);
-      } else {
-          marker2 = new google.maps.Marker({
-          position: location,
-          map: map2,
-          icon: "/assets/_triangle-marker.svg",
-          draggable: true,
-          animation: google.maps.Animation.DROP
-        });
-      }}
-
-
-      markers.forEach(function(pin, i) {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(pin[0], pin[1]),
-          map: map,
-          icon: "<%= asset_path '_triangle-marker.svg' %>",
-          draggable: true
-        });
-        marker.addListener('mouseover', (event) => {
-          experiences[i].classList.add('selected')
-        });
-        marker.addListener('mouseout', (event) => {
-          experiences[i].classList.remove('selected')
-        });
-        marker.addListener('click', (event) => {
-          console.log(i);
-          console.log(experiences[i])
-          console.log(experiences)
-        });
-      });
-    }
   </script>
   <!-- end of map shit -->
 </div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
-</script>
+<%= content_for :map_js do  %>
+<%= javascript_pack_tag 'initMap2' %>
+<% end %>

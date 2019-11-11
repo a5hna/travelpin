@@ -18,12 +18,13 @@
             <%= cl_image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
             <%= board_user.user.name %>
           </div>
-          <a href="#" id="current-user-icon">
-            <i class="fas fa-user"></i>
-          </a>
 
-
-
+          <div>
+            <%= link_to "(leave board)", board_user_path(board_user), method: :delete %>
+            <a href="#" id="current-user-icon">
+              <i class="fas fa-user"></i>
+            </a>
+          </div>
 
         </div>
       </div>
@@ -49,7 +50,7 @@
     </div>
  <!--  </ul> -->
   <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
-  <p class="text-center pt-1"><%= link_to "(leave board)", user_boards_path(current_user), method: :delete %></p>
+
 <!-- </div> -->
 
 

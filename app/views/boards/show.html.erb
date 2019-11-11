@@ -2,42 +2,43 @@
 <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
   <%= @board.title %>
 </div>
-  <div class="d-flex px-3 py-3 align-items-center" style="background: white">
-    <%= link_to board_board_users_path(@board) do  %>
-      <% @board_users.each do |user| %>
-        <%= cl_image_tag user.avatar, class: "avatar" %>
- <!--        <img class="avatar" alt="avatar" src=<%=user.avatar %> /> -->
-      <% end %>
-    <% end %>
-    <%= link_to connections_path(board_id: @board.id) do %>
-      <i class="fas fa-plus-circle avatar"></i>
-    <% end %>
-  </div>
-
+<div class="d-flex px-3 py-3 align-items-center" style="background: white">
+  <%= link_to board_board_users_path(@board) do  %>
+  <% @board_users.each do |user| %>
+  <%= cl_image_tag user.avatar, class: "avatar" %>
+  <!--        <img class="avatar" alt="avatar" src=<%=user.avatar %> /> -->
+  <% end %>
+  <% end %>
+  <%= link_to connections_path(board_id: @board.id) do %>
+  <i class="fas fa-plus-circle avatar"></i>
+  <% end %>
+</div>
 <!--   <div class="turquoise p-3"> -->
-    <div class="text-center p-3" style="background: white">
-    <% if @caption %>
-    <h6><%= @caption %></h6>
-    <% end %>
-    </div>
+<div class="text-center p-3" style="background: white">
+  <% if @board.description %>
+  <h6>
+    <%= @board.description %>
+  </h6>
+  <% end %>
+</div>
 <!--   </div> -->
 <div style="background: white">
-
   <!-- <div class="white p-3"> -->
   <div class="d-flex justify-content-center" style="background: white">
-
     <div class="p-3" style="width: 50vw">
-<!--       <h6 class="text-center">Currency</h6> -->
+      <!--       <h6 class="text-center">Currency</h6> -->
       <div class="d-flex justify-content-around align-items-center flex-column p-2">
         <h6>1 GBP</h6>
         <h6> = </h6>
-        <h6><%= @conversion["GBP_#{@currency_code}"].to_f.round(2) %><%=" #{@currency_code}"%></h6>
+        <h6>
+          <%= @conversion["GBP_#{@currency_code}"].to_f.round(2) %>
+          <%=" #{@currency_code}"%>
+        </h6>
       </div>
     </div>
-
     <div class="p-3" style="width: 50vw">
-     <!--  <h6 class="text-center">Weather</h6> -->
-      <div class="weather-icon d-flex justify-content-around align-items-center p-2" >
+      <!--  <h6 class="text-center">Weather</h6> -->
+      <div class="weather-icon d-flex justify-content-around align-items-center p-2">
         <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
         <div>
           <h5>
@@ -47,77 +48,28 @@
         </div>
       </div>
     </div>
-
   </div>
-<!--   </div> -->
-
+  <!--   </div> -->
 </div>
-
-  <!-- Map Button -->
-  <div id="control-div" class="control-div d-none" data-toggle="modal" data-target="#add-experience-form">
-    <div id="control-ui" class="control-ui" title="Add an Experience">
-      <div id="control-text" class="control-text">
-        +
-      </div>
-    </div>
-  </div>
-  <!-- End of Map Button-->
-<div class="p-3 py-4 peach" >
+<div class="p-3 py-4 peach">
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>">
-    <script>
-      var map;
-      function initMap() {
-      const experiences = document.querySelectorAll('.experience-card')
-      const mapElement = document.getElementById('map')
-      const centerCoords = JSON.parse(mapElement.dataset.center)
-      const markers = JSON.parse(mapElement.dataset.markers)
-      let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
-      map = new google.maps.Map(
-        document.getElementById('map'), {
-          center: mapCenter,
-          zoom: 12
-        });
-      markers.forEach(function (pin, i) {
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(pin[0], pin[1]),
-          map: map,
-          icon: "<%= asset_path '_triangle-marker.svg' %>",
-          draggable: true
-        });
-        marker.addListener('mouseover', (event) => {
-          experiences[i].classList.add('selected')
-        });
-        marker.addListener('mouseout', (event) => {
-          experiences[i].classList.remove('selected')
-        });
-        marker.addListener('click', (event) => {
-          console.log(i);
-          console.log(experiences[i])
-          console.log(experiences)
-        });
-      });
-      var controlDiv = document.querySelector('.control-div');
-      controlDiv.index = 1;
-      map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(controlDiv);
-    }
-    </script>
   </div>
 </div>
 <!-- </div> -->
 <!-- Summary of board location -->
-
 <!-- end of board summary -->
-
-
 <!-- start of iteration for experience cards and modal pop-ups -->
 <div class="card-columns">
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
+
     <div class="experience-card mb-2" data-id="<%= experience.id %>">
       <% if experience.photo %>
       <%= image_tag experience.photo, alt: "alttext" %>
       <% else %>
       <%= image_tag "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", alt: "alttext" %>
+      <% experience.photo = "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" %>
+      <% experience.save %>
       <% end %>
         <div class="d-flex justify-content-between">
       <p class="d-flex justify-content-between mt-1">
@@ -135,7 +87,6 @@
 
     </div>
   <!-- experience card end -->
-
   <!-- modal experience card pop-up -->
   <div class="modal fade" id="experience<%= experience.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -148,10 +99,14 @@
         </div>
         <div class="modal-body">
           <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src=<%= experience.photo %> >
+            <img class="card-img-top" src=<%=experience.photo %> >
             <div class="card-body">
-              <h5 class="card-title"><%= experience.title %></h5>
-              <p class="card-text"><%= experience.description %></p>
+              <h5 class="card-title">
+                <%= experience.title %>
+              </h5>
+              <p class="card-text">
+                <%= experience.description %>
+              </p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
@@ -164,7 +119,6 @@
 </div>
 <!-- end of experience cards and modal pop-up iteration  -->
 </div>
-
 <div class="modal fade" id="add-experience-form" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -184,13 +138,9 @@
       </div>
     </div>
   </div>
-
-
 </div>
 <%= render 'shared/board-footer' %>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_KEY'] %>&callback=initMap">
-</script>
 
-
-
-
+<%= content_for :map_js do  %>
+<%= javascript_pack_tag 'initMap' %>
+<% end %>

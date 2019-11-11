@@ -1,12 +1,11 @@
 class DaySchedulesController < ApplicationController
   def index
-
     @board = Board.find(params[:board_id])
     # raise
     @day_schedules = @board.day_schedules.order(date: :ASC)
     @first_day_schedule = @day_schedules[0]
     @rest_day_schedules = @day_schedules[1..-1]
-    # raise
+     # raise
   end
 
   def show
@@ -25,7 +24,7 @@ class DaySchedulesController < ApplicationController
     experience_ids.each do |id|
       DayScheduleItem.create(experience_id: id, day_schedule: day_schedule)
     end
-
+    session[:date_item] = day_schedule.date
     redirect_to board_day_schedules_path
   end
 end
