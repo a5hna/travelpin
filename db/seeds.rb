@@ -122,15 +122,15 @@ end
 
 # CATEGORIES
 puts "Generating categories seeds"
-Category.create!(name: "food")
-Category.create!(name: "bars")
-Category.create!(name: "outdoor activities")
-Category.create!(name: "night life")
-Category.create!(name: "watersports")
-Category.create!(name: "sighseeing")
-Category.create!(name: "shops/retail")
-Category.create!(name: "museums")
-Category.create!(name: "indoor activities")
+Category.create!(name: "Food")
+Category.create!(name: "Bars")
+Category.create!(name: "Outdoor activities")
+Category.create!(name: "Nightlife")
+Category.create!(name: "Sports")
+Category.create!(name: "Sightseeing")
+Category.create!(name: "Shopping")
+Category.create!(name: "Culture")
+Category.create!(name: "Indoor activities")
 
 @categories = Category.all
 

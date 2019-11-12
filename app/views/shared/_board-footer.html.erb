@@ -18,23 +18,23 @@
     <%= link_to connections_path(board_id: @board.id) do %>
     <i class="fas fa-user-plus footer-link"></i>
     <% end %>
+    <!-- Popover button -->
     <a href="#">
-      <i class="fas fa-search footer-link"
-      data-toggle="popover"
-      data-placement="top"
-      data-html="true"
-      data-content="form on the right goes here but i don't know how">
+      <i class="fas fa-search footer-link" data-toggle="popover">
       </i>
     </a>
-<div>
-      <%= simple_form_for [@board, @experience], method: :get do |f| %>
-      <%= f.association :category %>
-      <%= f.button :submit %>
-      <% end %>
+    <!-- End of popover -->
+    <!-- Popover content -->
+    <div id='search-form' hidden>
+      <div class='popover-div'>
+        <%= simple_form_for [@board, @experience], method: :get do |f| %>
+        <%= f.association :category, label: false %>
+        <%= f.submit "Search", class: "btn-warning" %>
+        <% end %>
+      </div>
+      <!-- End of popover content -->
     </div>
   </div>
-
-</div>
   <div class="modal fade" id="new-schedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
