@@ -28,12 +28,14 @@
         <% end %>
       <% end %>
       </div>
+      <div class="container">
         <p><%= day_schedule.notes %></p>
         <%= simple_form_for day_schedule do |f| %>
-          <%= f.input :notes %>
-          <%= f.submit %>
+          <%= f.input :notes,label: 'Day Notes',input_html:{ value: ''} %>
+          <%= f.submit class: "btn btn-ghost" %>
         <% end %>
-      <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+        </div>
+      <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]), class: "btn btn-ghost"  %></p>
       </div>
       <% end %>
     </div>
@@ -51,7 +53,7 @@
 
 <% if @board.day_schedule_ids == [] %>
 <p>You have not created any itineries yet! Go back to your board to add experiences to a day schedule.</p>
-<p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+<p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]), class: "btn btn-ghost" %></p>
 <% end %>
 
 

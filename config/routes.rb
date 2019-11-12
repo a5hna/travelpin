@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :boards, except: [:index] do
+  resources :boards, except: [:index, :destroy] do
     resources :board_users, only: [:index]
     resources :experiences, only: [:create, :new]
     resources :day_schedules, only: [:index,:show, :new, :create]
   end
 
+  resources :boards, only: [:destroy]
   resources :day_schedules, only: [:destroy, :update]
   resources :day_schedule_items, only: [:destroy]
   resources :board_users, only: [:destroy, :new, :create]

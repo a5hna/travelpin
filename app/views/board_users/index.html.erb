@@ -20,9 +20,9 @@
             <%= board_user.user.name %>
           </div>
           <div>
-            <%= link_to "(leave board)", board_user_path(board_user), method: :delete %>
+            <%= link_to "leave board", board_user_path(board_user), method: :delete, class: "leave-link" %>
             <a href="#" id="current-user-icon">
-              <i class="fas fa-user ml-1"></i>
+              <i class="fas fa-user-cog ml-1"></i>
             </a>
           </div>
         </div>
@@ -36,8 +36,10 @@
             <%= cl_image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
             <%= board_user.user.name %>
           </div>
-          <%= link_to board_user_path(board_user), method: :delete do  %>
-            <i class="fas fa-user-minus"></i>
+          <% if @admin_board_user == current_user %>
+            <%= link_to board_user_path(board_user), method: :delete do  %>
+              <i class="fas fa-user-minus"></i>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -48,7 +50,10 @@
     <% end %>
     </div>
  <!--  </ul> -->
-  <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+  <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]),class: "btn btn-ghost" %></p>
+  <% if @admin_board_user == current_user %>
+    <p class="text-center pt-3"><%= link_to "Delete Board", board_path(params[:board_id]), method: :delete, class: "btn btn-ghost" %></p>
+    <% end %>
   </div>
 <!-- </div> -->
 

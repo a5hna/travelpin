@@ -2,7 +2,7 @@ class BoardUsersController < ApplicationController
   def index
     # @users = Board.find(params[:board_id]).users
     @board_users = BoardUser.where(board_id: params[:board_id])
-
+    @admin_board_user = @board_users.find_by(admin: true).user
   end
 
   def new

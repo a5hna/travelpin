@@ -117,6 +117,7 @@ i = 1
       board_id: board.id,
       user_id: @users.sample.id)
   end
+  board.board_users.first.update(admin: true)
     i += 1
 end
 
