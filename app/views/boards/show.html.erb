@@ -9,7 +9,7 @@
   <!--        <img class="avatar" alt="avatar" src=<%=user.avatar %> /> -->
   <% end %>
   <% end %>
-  <%= link_to connections_path(board_id: @board.id) do %>
+  <%= link_to connections_path(board_id: @board.id), class: "d-none" do %>
   <div class="d-flex justify-content-center align-items-center ml-1"><i class="fas fa-plus-circle add-friend-circle avatar", style="font-size: 40px"></i></div>
   <% end %>
 </div>
