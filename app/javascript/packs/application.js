@@ -1,4 +1,6 @@
 import "bootstrap";
+import "popper.js"
+import "tooltip.js"
 
 const experienceCard = document.querySelectorAll(".experience-card");
 
@@ -20,4 +22,7 @@ const toggleActiveOnClick = (element) => {
 };
 experienceCard.forEach(toggleActiveOnClick);
 
-
+$(function () {
+  $('[data-toggle="popover"]').popover(
+  {html: true})
+})

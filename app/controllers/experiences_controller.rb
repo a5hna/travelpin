@@ -51,13 +51,13 @@ class ExperiencesController < ApplicationController
    @board = Board.find(params[:board_id])
    @experience = Experience.new(experience_params)
    @coords = [@board.latitude, @board.longitude]
-   query = @experience.title
+   query = URI.escape(@experience.title)
    @list = places_api(query, @coords)
    @places = @list.map do |each|
      { title:  @experience.title,
        category_id: @experience.category_id,
        coords: [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f],
-       photos: each["photos"][0]["photo_reference"] }
+       photos: (each["photos"][0]["photo_reference"] if each["photos"]) }
    end
    @markers = @list.map {|each| [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f] }
    @photo_refs = @list.map do |each|
@@ -76,9 +76,16 @@ class ExperiencesController < ApplicationController
     exp.save
     if exp.save!
     redirect_to board_path(exp.board)
-  else
-    raise
+    else
+      raise
+    end
   end
+
+  def index
+    category_id = params["experience"]["category_id"]
+    @category_name = Category.find(category_id).name.capitalize
+    @board = Board.find(params["board_id"])
+    @experiences = @board.experiences.where(category_id: category_id)
   end
 
 
