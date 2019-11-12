@@ -10,13 +10,15 @@
     map = new google.maps.Map(
       document.getElementById('map'), {
         center: mapCenter,
-        zoom: 10
+        zoom: 10,
+        disableDefaultUI: true
       });
 
     map2 = new google.maps.Map(
       document.getElementById('small-map'), {
         center: mapCenter,
-        zoom: 12
+        zoom: 12,
+        disableDefaultUI: true
       });
     google.maps.event.addListener(map2, 'click', function(event) {
       placeMarker(event.latLng);
