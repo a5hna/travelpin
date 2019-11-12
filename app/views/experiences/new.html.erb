@@ -5,7 +5,7 @@
   <p class="text-center">We have found these options for you.</p>
   <div class="card-container">
       <div class="card-columns">
-        <% 3.times do  %>
+
       <% @list.each_with_index do |each, i|  %>
       <div class="experience-card mb-2">
         <% if @photos[i] %>
@@ -82,7 +82,7 @@
       <!-- end of modal shit -->
       <!-- End of loop -->
       <% end %>
-      <% end %>
+
       <div class="experience-card mb-2">
         <%= image_tag "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80", alt: "alttext", style: "background: $peach" %>
         <div>
