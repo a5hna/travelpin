@@ -40,7 +40,7 @@ class ExperiencesController < ApplicationController
    details[:website] = results["website"] || nil
    details[:price_level] = results["price_level"] || nil
    photo_refs = results["photos"].map {|each| each["photo_reference"]}[0..4] if results["photos"]
-   @photos = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"} if photo_refs
+   details[:photos] = photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"} if photo_refs
    return details
   end
 
