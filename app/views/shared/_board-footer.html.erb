@@ -1,28 +1,41 @@
 <div class="board-footer d-flex justify-content-center">
   <div class="board-footer-links">
     <% if params[:controller] == 'boards' && params[:action] == 'show' %>
-      <%= link_to '#', id: 'new-sched', data: { toggle:'modal', target:'#new-schedule'} do %>
-        <i class="far fa-calendar-plus footer-link"></i>
-      <% end %>
+    <%= link_to '#', id: 'new-sched', data: { toggle:'modal', target:'#new-schedule'} do %>
+    <i class="far fa-calendar-plus footer-link"></i>
+    <% end %>
     <% else %>
-      <%= link_to new_board_day_schedule_path(params[:board_id]), id: 'new-sched' do %>
-        <i class="far fa-calendar-plus footer-link"></i>
-      <% end %>
+    <%= link_to new_board_day_schedule_path(params[:board_id]), id: 'new-sched' do %>
+    <i class="far fa-calendar-plus footer-link"></i>
+    <% end %>
     <% end %>
     <%= link_to board_day_schedules_path(board_id: params[:id]) do  %>
-      <i class="fas fa-route footer-link"></i>
+    <i class="fas fa-route footer-link"></i>
     <% end %>
     <div id="control-div" class="control-div" data-toggle="modal" data-target="#add-experience-form">
       <a id="add-experience-link"><i class="fas fa-plus footer-link"></i></a>
     </div>
     <%= link_to connections_path(board_id: @board.id) do %>
-      <i class="fas fa-user-plus footer-link"></i>
+    <i class="fas fa-user-plus footer-link"></i>
     <% end %>
-    <a href="#"><i class="fas fa-heart footer-link"></i></a>
+    <a href="#">
+      <i class="fas fa-search footer-link"
+      data-toggle="popover"
+      data-placement="top"
+      data-html="true"
+      data-content="form on the right goes here but i don't know how">
+      </i>
+    </a>
+<div>
+      <%= simple_form_for [@board, @experience], method: :get do |f| %>
+      <%= f.association :category %>
+      <%= f.button :submit %>
+      <% end %>
+    </div>
   </div>
-</div>
 
-<div class="modal fade" id="new-schedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+</div>
+  <div class="modal fade" id="new-schedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -33,9 +46,9 @@
         </div>
         <div class="modal-body">
           <%= simple_form_for [@board, DaySchedule.new] do |f| %>
-            <%= f.input :date, html5: true, as: :date %>
-            <%= hidden_field_tag 'experiences', 'ids=' %>
-            <%= f.submit %>
+          <%= f.input :date, html5: true, as: :date %>
+          <%= hidden_field_tag 'experiences', 'ids=' %>
+          <%= f.submit %>
           <% end %>
         </div>
       </div>
