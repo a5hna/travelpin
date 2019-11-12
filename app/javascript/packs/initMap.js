@@ -35,7 +35,7 @@ var map;
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(pin.coords[0], pin.coords[1]),
       map: map,
-      icon: `/assets/triangle${pin.category_id}.svg`,
+      icon: "/assets/_triangle-marker.svg",
     });
     marker.addListener('mouseover', (event) => {
       experiences[i].classList.add('selected')
