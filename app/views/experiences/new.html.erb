@@ -1,35 +1,36 @@
-<div class="lol-container">
-  <h1>
+<div class="lol-container turquoise">
+  <h2 class="text-center py-2">
     <%= @experience.title %>
-  </h1>
-  <p>We have found these options for you.</p>
+  </h2>
+  <p class="text-center">We have found these options for you.</p>
   <div class="card-container">
-    <div class="row">
+      <div class="card-columns">
+        <% 3.times do  %>
       <% @list.each_with_index do |each, i|  %>
-      <div class="card experience-card" style="width: 16.6%;">
+      <div class="experience-card mb-2">
         <% if @photos[i] %>
-        <%= image_tag @photos[i], alt: "alttext", size: "400x200" %>
+        <%= image_tag @photos[i], alt: "alttext" %>
         <% else %>
-        <h2> No pic</h2>
+        <%= image_tag "https://www.battlegroundindy.com/wp-content/uploads/2019/01/no-image-770x466.jpg", alt: "alttext" %>
         <% end %>
-        <div class="card-body">
-          <p>Name:
-            <%= each["name"] %>
-          </p>
-          <h5 class="card-title">
-          </h5>
-          <p class="card-text"></p>
-          <p>Address:</p>
-          <%= each["vicinity"] %>
-          <p>Price Level:
-            <%= each["price_level"] %>
-          </p>
-          <%= link_to "Create", "#", class: "btn-warning",
+        <div>
+          <div>
+            <div class="text-center m-0" style="font-size: 12px, font-weight: bolder;"><%= each["name"] %></div>
+          </div>
+          <div class="d-flex justify-content-between", style="font-size: 12px;">
+            <div class="text-center"><%= each["vicinity"] %></div>
+          </div>
+<!--           <p>Price Level:
+            <%#= each["price_level"] %>
+          </p> -->
+          <div class="w-100 d-flex justify-content-center mt-1">
+          <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1",
            data: {
             toggle: "modal",
             target: "#confirm-experience"
             }
            %>
+         </div>
         </div>
       </div>
       <!-- Confirm modal -->
@@ -69,7 +70,7 @@
                   <%= f.input :latitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
                   <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
 
-                   <%= f.button :submit, "Confirm", class: "btn-danger" %>
+                   <%= f.button :submit, "Confirm", class: "btn btn-ghost" %>
                       <% end %>
                   <%#= button_to "Confirm", board_experiences_path %>
                 </div>
@@ -81,20 +82,19 @@
       <!-- end of modal shit -->
       <!-- End of loop -->
       <% end %>
-      <div class="card experience-card" style="width: 16%;">
-        <h1> ¿?</h1>
-        <div class="card-body">
-          <p>None of these?
-          </p>
-          <h5 class="card-title">
-          </h5>
-          <p class="card-text"></p>
-          <p>Click below to make your own</p>
-          <%= link_to "Create", "#", class: "btn-danger",
+      <% end %>
+      <div class="experience-card mb-2">
+        <%= image_tag "https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80", alt: "alttext", style: "background: $peach" %>
+        <div>
+          <p class="text-center m-0" style="font-size: 12px">None of these?</p>
+          <p class="text-center m-0" style="font-size: 12px">Click below to make your own</p>
+          <div class="w-100 d-flex justify-content-center">
+          <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1 text-center",
           data: {
             toggle: "modal",
             target: "#create-experience"
             } %>
+          </div>
         </div>
       </div>
       <!-- Confirm modal -->
@@ -102,6 +102,7 @@
         <div class="modal-dialog modal-huge modal-dialog-centered" style="max-width: 1600px; width: 1600px" role="document">
           <div class="modal-content">
             <div class="modal-header">
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <h5 class="modal-title" id="exampleModalLongTitle">Please Confirm</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

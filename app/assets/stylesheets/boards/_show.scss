@@ -23,7 +23,7 @@
   height: auto;
   object-fit:  cover;
   border-radius: 0%;
-  background-color: teal;
+  background-color: $peach;
 
 }
 
@@ -44,10 +44,9 @@
   padding-bottom: 5px;
 }
 
-// .heart-like {
-//   position: relative;
-//   top: 5px;
-// }
+.heart-like {
+  color: $peach;
+}
 
 
 .fa-user-minus, .add-bu {
@@ -110,4 +109,8 @@
   padding-top: 15px;
   background: $turquoise;
   padding: 12px;
+}
+
+.add-friend-circle {
+  color: $peach;
 }

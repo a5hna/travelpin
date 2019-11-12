@@ -98,3 +98,25 @@
 .btn-ghost:hover {
   background-color: rgba(150, 209, 199, 0.6);
 }
+
+
+.btn-ghost-small {
+  font-size: 12px;
+  color: white;
+  // border: 1px solid black;
+  padding: 2px 4px;
+  border-radius: 8px;
+  font-weight: lighter;
+  // opacity: 0.6;
+  transition: opacity 0.3s ease;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  background-color: rgba(150, 209, 199, 1);
+  box-shadow: 1px 2px 4px gray;
+}
+
+.btn-ghost-small:hover {
+  background-color: rgba(150, 209, 199, 0.6);
+}
