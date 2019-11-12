@@ -28,9 +28,9 @@
 <div class="p-3 new-board-form text-center">
   <div class="p-3 mt-5" style="background: white">
   <%= simple_form_for @board do |f| %>
-      <%= image_tag "_triangle-marker", alt: "alttext" %>
+      <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
     <%= f.input :place, label: "Destination" %>
-      <%= image_tag "_triangle-marker", alt: "alttext" %>
+      <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
     <%= f.input :title, label: "Name your Board" %>
     <%= f.submit "Create Board", class: "btn btn-ghost" %>
   <% end %>
