@@ -4,7 +4,8 @@
   </h2>
   <p class="text-center">We have found these options for you.</p>
   <div class="card-container">
-      <div class="card-columns">
+
+    <div class="card-columns">
 
       <% @list.each_with_index do |each, i|  %>
       <div class="experience-card mb-2">
@@ -15,22 +16,26 @@
         <% end %>
         <div>
           <div>
-            <div class="text-center m-0" style="font-size: 12px, font-weight: bolder;"><%= each["name"] %></div>
+            <div class="text-center m-0" style="font-size: 12px, font-weight: bolder;">
+              <%= each["name"] %>
+            </div>
           </div>
-          <div class="d-flex justify-content-between", style="font-size: 12px;">
-            <div class="text-center"><%= each["vicinity"] %></div>
+          <div class="d-flex justify-content-between" , style="font-size: 12px;">
+            <div class="text-center">
+              <%= each["vicinity"] %>
+            </div>
           </div>
-<!--           <p>Price Level:
+          <!--           <p>Price Level:
             <%#= each["price_level"] %>
           </p> -->
           <div class="w-100 d-flex justify-content-center mt-1">
-          <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1",
+            <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1",
            data: {
             toggle: "modal",
             target: "#confirm-experience"
             }
            %>
-         </div>
+          </div>
         </div>
       </div>
       <!-- Confirm modal -->
@@ -59,20 +64,25 @@
                     <%= f.association :category %>
                     <%= f.input :address, input_html: {value: modelo[:address]}, readonly: true %>
                     <%= f.input :phone_number, input_html: {value: modelo[:phone_number]}, readonly: true %>
-                    <%= f.input :rating, input_html: {value: "☆" * modelo[:rating].to_i}, readonly: true %>
-                  </p>
-                  <p>Reviews:
-                     <%= f.input :google_url,input_html: { value: modelo[:google_url]}, readonly: true %>
+                    <% exp_rating = modelo[:rating] ? "☆" * modelo[:rating].to_i : "n/a" %>
+                    <%= f.input :rating, as: :hidden, input_html: {value: modelo[:rating]}, readonly: true %>
+                    <%= f.label :rating %>
+                    <input type="text" readonly="readonly" class="form-control readonly" id="exp-rating" value="<%= exp_rating %>">
                     <% price =  modelo[:price_level] ? "$" * modelo[:price_level].to_i : "n/a"  %>
-                    <%= f.input :price_level, input_html: {value: price}, readonly: true %>
-                  </p>
-                    <%= f.input :website, input_html: {value: modelo[:website]}, readonly: true %>
-                  <%= f.input :latitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
-                  <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
-
-                   <%= f.button :submit, "Confirm", class: "btn btn-ghost" %>
-                      <% end %>
-                  <%#= button_to "Confirm", board_experiences_path %>
+                    <%= f.input :price_level, as: :hidden, input_html: {value: modelo[:price_level]}, readonly: true %>
+                    <%= f.label :price_level %>
+                    <input type="text" readonly="readonly" class="form-control readonly" id="exp-price-level" value="<%= price %>">
+                    <%= f.input :google_url, as: :hidden, input_html: { value: modelo[:google_url]}, readonly: true %>
+                    <input type="text" readonly="readonly" class="form-control readonly" id="exp-googleurl" value="">
+                    <%= f.input :website, as: :hidden, input_html: {value: modelo[:website]}, readonly: true %>
+                    <input type="text" readonly="readonly" class="form-control readonly" id="exp-website" value="">
+                    <%= f.input :latitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
+                    <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
+                    <% exp_pic = modelo[:photos] ? modelo[:photos].sample : "https://www.battlegroundindy.com/wp-content/uploads/2019/01/no-image-770x466.jpg"  %>
+                    <%= f.input :photo, as: :hidden, input_html:{value: exp_pic} %>
+                    <%= f.button :submit, "Confirm", class: "btn btn-ghost" %>
+                    <% end %>
+                    <%#= button_to "Confirm", board_experiences_path %>
                 </div>
               </div>
             </div>
@@ -89,7 +99,7 @@
           <p class="text-center m-0" style="font-size: 12px">None of these?</p>
           <p class="text-center m-0" style="font-size: 12px">Click below to make your own</p>
           <div class="w-100 d-flex justify-content-center">
-          <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1 text-center",
+            <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1 text-center",
           data: {
             toggle: "modal",
             target: "#create-experience"
@@ -145,7 +155,6 @@
   <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
   </div>
   <script>
-
   </script>
   <!-- end of map shit -->
 </div>

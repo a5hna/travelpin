@@ -60,9 +60,13 @@
 <!-- end of board summary -->
 <!-- start of iteration for experience cards and modal pop-ups -->
 <div class="card-columns">
+  <%  if params[:experience] %>
+  <h4>All experiences of Category: <%= Category.find(params[:experience][:category_id]).name %></h4>
+  <% else %>
+  <h4>All Experiences</h4>
+  <% end %>
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
-
     <div class="experience-card mb-2" data-id="<%= experience.id %>">
       <% if experience.photo %>
       <%= image_tag experience.photo, alt: "alttext" %>

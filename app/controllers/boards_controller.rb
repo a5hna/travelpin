@@ -5,10 +5,15 @@ class BoardsController < ApplicationController
   before_action :set_board, except: [:new, :create]
 
   def show
+    category_icons = ['🍺', '🧗‍♀️', '👯‍♀️', '🏀', '🗼', '🎁', '⛩', '📺']
     session[:language] = 'en'
     @coords = [@board.latitude.to_f, @board.longitude.to_f]
     @board_users = @board.users
-    @experiences = @board.experiences
+    if params[:experience]
+      @experiences = @board.experiences.where(category_id: params[:experience][:category_id])
+    else
+      @experiences = @board.experiences
+    end
     @experience = Experience.new
     @experience.board_id = @board
     @experience.user_id = current_user
