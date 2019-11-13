@@ -1,11 +1,15 @@
 <div class="lol-container turquoise">
   <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
     <div class="banner-text"><%= @experience.title %><br>
-    <p class="text-center" style="font-weight: lighter;">We have found these options for you.</p>
     </div>
 
   </div>
   <div class="card-container">
+  <div class="d-flex align-items-center justify-content-center" style="height: 70px; background: white">
+    <h6 class="text-center" style="font-weight: lighter;">We have found these options for you.</h6>
+  </div>
+  <div id="map" style="height: 30vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
+  </div>
 
     <div class="card-columns">
 
@@ -31,7 +35,7 @@
             <%#= each["price_level"] %>
           </p> -->
           <div class="w-100 d-flex justify-content-center mt-1">
-            <a href="#" data-toggle="modal" data-target="#confirm-experience" ><i class="fas fa-plus"></i></a>
+            <a href="#" data-toggle="modal" data-target="#confirm-experience" ><i class="fas fa-plus add-experience"></i></a>
             <%#= link_to "create", "#", class: "btn btn-ghost-small mt-1",
            data: {
             toggle: "modal",
@@ -76,9 +80,11 @@
                     <%= f.label :price_level %>
                     <input type="text" readonly="readonly" class="form-control readonly" id="exp-price-level" value="<%= price %>">
                     <%= f.input :google_url, as: :hidden, input_html: { value: modelo[:google_url]}, readonly: true %>
-                    <input type="text" readonly="readonly" class="form-control readonly" id="exp-googleurl" value="">
+                    <%= link_to "reviews", modelo[:google_url] %>
+                    <i class="fas fa-external-link-alt"></i>
                     <%= f.input :website, as: :hidden, input_html: {value: modelo[:website]}, readonly: true %>
-                    <input type="text" readonly="readonly" class="form-control readonly" id="exp-website" value="">
+                    <%= link_to "website", modelo[:website] %>
+                    <i class="fas fa-external-link-alt"></i>
                     <%= f.input :latitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
                     <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
                     <% exp_pic = modelo[:photos] ? modelo[:photos].sample : "https://www.battlegroundindy.com/wp-content/uploads/2019/01/no-image-770x466.jpg"  %>
@@ -103,7 +109,7 @@
           <p class="text-center m-0" style="font-size: 12px">None of these?</p>
           <p class="text-center m-0" style="font-size: 12px">Click below to make your own</p>
           <div class="w-100 d-flex justify-content-center">
-            <a href="#" data-toggle="modal" data-target="#create-experience"><i class="fas fa-plus"></i></a>
+            <a href="#" data-toggle="modal" data-target="#create-experience"><i class="fas fa-plus add-experience"></i></a>
             <%#= link_to "Create", "#", class: "btn btn-ghost-small mt-1 text-center",
           data: {
             toggle: "modal",
@@ -156,8 +162,6 @@
     </div>
   </div>
   <!-- map shit -->
-  <div id="map" style="height: 30vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
-  </div>
   <script>
   </script>
   <!-- end of map shit -->
