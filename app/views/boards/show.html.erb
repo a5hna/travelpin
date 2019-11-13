@@ -1,6 +1,8 @@
 <!-- <div class="container"> -->
 <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
-  <div class="banner-text"><%= @board.title %></div>
+  <div class="banner-text">
+    <%= @board.title %>
+  </div>
 </div>
 <div class="d-none" id="board-show"></div>
 <div class="d-flex px-3 py-3 justify-content-center align-items-center" style="background: white">
@@ -11,7 +13,7 @@
   <% end %>
   <% end %>
   <%= link_to connections_path(board_id: @board.id), class: "d-none" do %>
-  <div class="d-flex justify-content-center align-items-center ml-1"><i class="fas fa-plus-circle add-friend-circle avatar", style="font-size: 40px"></i></div>
+  <div class="d-flex justify-content-center align-items-center ml-1"><i class="fas fa-plus-circle add-friend-circle avatar" , style="font-size: 40px"></i></div>
   <% end %>
 </div>
 <!--   <div class="turquoise p-3"> -->
@@ -25,22 +27,21 @@
 <!--   </div> -->
 <div>
   <!-- <div class="white p-3"> -->
-  <div class="weather-currency d-flex justify-content-center", style="background-color: white" >
+  <div class="weather-currency d-flex justify-content-center" , style="background-color: white">
     <div class="p-3" style="width: 50vw">
       <!--       <h6 class="text-center">Currency</h6> -->
       <div class="d-flex justify-content-around currency-div align-items-center">
-      <%= image_tag "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTti0kg8lO5BfHPIUl3faN76HVqwHewN5hywcENXZ8Gbu9Wf5_L_g&s", alt: "alttext", style: "height:55px; width:55px" %>
-      <div class="d-flex justify-content-around align-items-center flex-column p-2 currency-div w-50">
-        <div>1 GBP</div>
-        <div> = </div>
-        <div>
-          <%= @conversion["GBP_#{@currency_code}"].to_f.round(2) %>
-          <%=" #{@currency_code}"%>
+        <%= image_tag "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTti0kg8lO5BfHPIUl3faN76HVqwHewN5hywcENXZ8Gbu9Wf5_L_g&s", alt: "alttext", style: "height:55px; width:55px" %>
+        <div class="d-flex justify-content-around align-items-center flex-column p-2 currency-div w-50">
+          <div>1 GBP</div>
+          <div> = </div>
+          <div>
+            <%= @conversion["GBP_#{@currency_code}"].to_f.round(2) %>
+            <%=" #{@currency_code}"%>
+          </div>
         </div>
       </div>
-      </div>
     </div>
-
     <div class="p-3" style="width: 50vw">
       <!--  <h6 class="text-center">Weather</h6> -->
       <div class="weather-icon d-flex justify-content-around align-items-center p-2">
@@ -58,43 +59,40 @@
   <!--   </div> -->
 </div>
 <!-- <div class="p-3 py-4 peach"> -->
-  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
-  </div>
+<div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-bounds="<%= @map_bounds.to_json %>"data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
+</div>
 <!-- </div> -->
 <!-- </div> -->
 <!-- Summary of board location -->
 <!-- end of board summary -->
 <!-- start of iteration for experience cards and modal pop-ups -->
 <div class="card-columns">
-
   <% @experiences.each do |experience| %>
   <!-- Experience Cards -->
-    <div class="experience-card mb-2" data-id="<%= experience.id %>">
-      <% if experience.photo %>
-      <%= image_tag experience.photo, alt: "alttext" %>
-      <% else %>
-      <%= image_tag "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", alt: "alttext" %>
-      <% experience.photo = "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" %>
-      <% experience.save %>
-      <% end %>
- <!--      <div class="d-flex justify-content-between"> -->
-        <div class="d-flex justify-content-between mt-1">
-          <p style="font-size: 12px" type="button" id="<%= "button#{experience.id}" %>" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
-            <%= experience.title %>
-          </p>
-        <!--   <div class="d-flex align-items-center" style="font-size: 12px"> -->
-            <p data-id="<%= experience.id %>" class="d-flex align-items-center m-0" style="font-size: 12px">
-              <%= experience.votes_for.count %>
-
-              <%= link_to experience_upvote_path(experience),class:"fas fa-heart heart-like ml-1",method: :post, remote: true, style:"display: block" do %>
-              <% end %>
-            </p>
-       <!--    </div> -->
-        </div>
-<!--       </div> -->
-
-
+  <div class="experience-card mb-2" data-id="<%= experience.id %>">
+    <% if experience.photo %>
+    <%= image_tag experience.photo, alt: "alttext" %>
+    <% else %>
+    <%= image_tag "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", alt: "alttext" %>
+    <% experience.photo = "https://images.unsplash.com/photo-1477505982272-ead89926a577?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" %>
+    <% experience.save %>
+    <% end %>
+    <!--      <div class="d-flex justify-content-between"> -->
+    <div class="d-flex justify-content-between mt-1">
+      <p style="font-size: 12px" type="button" id="<%= " button#{experience.id}" %>" data-toggle="modal" data-target=
+        <%= "#experience#{experience.id}" %>>
+        <%= experience.title %>
+      </p>
+      <!--   <div class="d-flex align-items-center" style="font-size: 12px"> -->
+      <p data-id="<%= experience.id %>" class="d-flex align-items-center m-0" style="font-size: 12px">
+        <%= experience.votes_for.count %>
+        <%= link_to experience_upvote_path(experience),class:"fas fa-heart heart-like ml-1",method: :post, remote: true, style:"display: block" do %>
+        <% end %>
+      </p>
+      <!--    </div> -->
     </div>
+    <!--       </div> -->
+  </div>
   <!-- experience card end -->
   <!-- modal experience card pop-up -->
   <div class="modal fade" id="experience<%= experience.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -102,7 +100,9 @@
       <div class="modal-content">
         <div class="modal-header peach d-flex justify-content-center align-items-center flex-column">
           <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
-          <h5 class="modal-title d-flex justify-content-center align-items-center w-100" id="exampleModalLongTitle"><%= experience.title %></h5>
+          <h5 class="modal-title d-flex justify-content-center align-items-center w-100" id="exampleModalLongTitle">
+            <%= experience.title %>
+          </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -110,80 +110,72 @@
         <div class="modal-body d-flex justify-content-center experience-modal">
           <div class="experience-card shadow p-3 mb-5 bg-white" style="width: 18rem;">
             <%= image_tag experience.photo, alt: "alttext" %>
-
             <div class="card-body">
-            <%= cl_image_tag experience.user.avatar, alt: "alttext", class: "avatar" %>
+              <%= cl_image_tag experience.user.avatar, alt: "alttext", class: "avatar" %>
               <ul class="list-unstyled ">
                 <li class="my-1 pb-3 border-bottom text-center" style="font-weight: bolder">
-                <%= experience.description %>
+                  <%= experience.description %>
                 </li>
-
                 <% if experience.rating %>
                 <li class="border-bottom py-1 my-1 text-center">
                   <% experience.rating.to_i.round(0).times do %>
-                    <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
                   <% end %>
                 </li>
                 <% end %>
-
                 <% if experience.category %>
-                  <li class="d-flex justify-content-between my-1 py-1 text-right border-bottom">
-                    <i class="fas fa-th-large"></i>
-                    <%= experience.category.name %>
-                  </li>
+                <li class="d-flex justify-content-between my-1 py-1 text-right border-bottom">
+                  <i class="fas fa-th-large"></i>
+                  <%= experience.category.name %>
+                </li>
                 <% end %>
-
                 <% if experience.address %>
                 <li class="d-flex justify-content-between my-1 py-1 text-right border-bottom">
-                  <i><%= image_tag "small-triangle.svg", alt: "alttext" %></i>
+                  <i>
+                    <%= image_tag "small-triangle.svg", alt: "alttext" %></i>
                   <!-- <i class="fas fa-caret-down"></i> -->
                   <%= experience.address %>
                 </li>
                 <% end %>
-
                 <% if experience.opening_hours %>
                 <li class="d-flex justify-content-between my-1 border-bottom">
                   <i class="far fa-clock"></i>
                   <%= experience.opening_hours %>
                 </li>
                 <% end %>
-
-
                 <% if experience.price_level && experience.price_level.to_i > 0 %>
                 <li class="border-bottom py-1 my-1">
                   <% experience.price_level.to_i.times do %>
-                    <i class="fas fa-dollar-sign"></i>
+                  <i class="fas fa-dollar-sign"></i>
                   <% end %>
                 </li>
                 <% end %>
-
                 <% if experience.phone_number %>
                 <li class="d-flex justify-content-between align-items-center my-1 py-1 border-bottom">
                   <i class="fas fa-phone"></i>
                   <%= experience.phone_number %>
                 </li>
                 <% end %>
-
                 <% if experience.google_url %>
                 <li class="d-flex justify-content-between align-items-center border-bottom my-1 py-1">
-                <i class="far fa-comments"></i>
-                <div><%= link_to "reviews", experience.google_url %><i class="fas fa-external-link-alt ml-1"></i></div>
+                  <i class="far fa-comments"></i>
+                  <div>
+                    <%= link_to "reviews", experience.google_url %><i class="fas fa-external-link-alt ml-1"></i></div>
                 </li>
                 <% end %>
-
                 <% if experience.website %>
                 <li class="d-flex justify-content-between align-items-center border-bottom my-1 py-1">
                   <i class="fas fa-globe"></i>
-                  <div><%= link_to "website", experience.website %><i class="fas fa-external-link-alt ml-1"></i></div>
+                  <div>
+                    <%= link_to "website", experience.website %><i class="fas fa-external-link-alt ml-1"></i></div>
                 </li>
                 <% end %>
-
                 <li class="d-flex justify-content-between align-items-center border-bottom my-1 py-1">
                   <i class="fas fa-heart"></i>
-                  <p class="m-0"><%= experience.votes_for.count %>friends liked this</p>
+                  <p class="m-0">
+                    <%= experience.votes_for.count %>friends liked this</p>
                 </li>
               </ul>
-
             </div>
           </div>
         </div>
@@ -210,6 +202,9 @@
         <%= f.input :title, label: "What are we doing?" %>
         <%= f.input :description, label: "Convince your friends!" %>
         <%= f.association :category, include_blank: false %>
+        <%= simple_fields_for :other do |o| %>
+        <%= o.input :level, as: :radio_buttons, collection: [['City', 'city'],['Whole map', 'map']],label: 'Where to look?' %>
+        <% end %>
         <%= f.button :submit, class: "btn btn-ghost-small" %>
         <% end %>
       </div>
@@ -218,11 +213,11 @@
 </div>
 <%  if params[:experience] && params[:experience]["category_id"].present? %>
 <div class="category-search-div w-100">
-  <div class="text-center search-footer">All <%= Category.find(params[:experience][:category_id]).name %> experiences</div>
+  <div class="text-center search-footer">All
+    <%= Category.find(params[:experience][:category_id]).name %> experiences</div>
 </div>
 <% end %>
 <%= render 'shared/board-footer' %>
-
 <%= content_for :map_js do  %>
 <%= javascript_pack_tag 'initMap' %>
 <% end %>
