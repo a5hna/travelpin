@@ -1,15 +1,24 @@
+
+
 <% icon_sizes = Rails.configuration.serviceworker.icon_sizes %>
 {
-  "name": "My Progressive Rails App",
-  "short_name": "Progressive",
+  "name": "Shitty Reddit",
+  "short_name": "Shitty Reddit",
   "start_url": "/",
   "icons": [
   <% icon_sizes.map { |s| "#{s}x#{s}" }.each.with_index do |dim, i| %>
     {
-      "src": "<%= image_path "serviceworker-rails/heart-#{dim}.png" %>",
+      "src": "<%= image_path "icons/android-icon-#{dim}.png" %>",
       "sizes": "<%= dim %>",
       "type": "image/png"
-    }<%= i == (icon_sizes.length - 1) ? '' : ',' %>
+    }
+    {
+      "src": "<%= image_path "icons/apple-icon-#{dim}.png" %>",
+      "sizes": "<%= dim %>",
+      "type": "image/png"
+    }
+    <%= i == (icon_sizes.length - 1) ? '' : ',' %>
+
   <% end %>
   ],
   "theme_color": "#000000",
