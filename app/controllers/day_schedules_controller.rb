@@ -1,4 +1,6 @@
 class DaySchedulesController < ApplicationController
+  before_action :pundit_sucks
+
   def index
     @board = Board.find(params[:board_id])
     # raise
@@ -33,4 +35,9 @@ class DaySchedulesController < ApplicationController
     session[:date_item] = day_schedule.date
     redirect_to board_day_schedules_path
   end
+
+   def pundit_sucks
+    authorize current_user
+  end
+
 end

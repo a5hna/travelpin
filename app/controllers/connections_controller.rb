@@ -1,4 +1,6 @@
 class ConnectionsController < ApplicationController
+  before_action :pundit_sucks
+
   def index
     if params[:board_id]
       @board = Board.find(params[:board_id])
@@ -45,5 +47,9 @@ class ConnectionsController < ApplicationController
         connection.user_one
       end
     end
+  end
+
+   def pundit_sucks
+    authorize current_user
   end
 end

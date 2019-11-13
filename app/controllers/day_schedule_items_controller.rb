@@ -1,4 +1,6 @@
 class DayScheduleItemsController < ApplicationController
+  before_action :pundit_sucks
+
   def destroy
     @day_schedule_item = DayScheduleItem.find(params[:id])
     @board = @day_schedule_item.day_schedule.board
@@ -12,5 +14,9 @@ class DayScheduleItemsController < ApplicationController
       end
     end
     redirect_to board_day_schedules_path(@board)
+  end
+  private
+   def pundit_sucks
+    authorize current_user
   end
 end
