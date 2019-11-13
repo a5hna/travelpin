@@ -26,10 +26,10 @@
     <!-- End of popover -->
     <!-- Popover content -->
     <div id='search-form' hidden>
-      <div class='popover-div'>
+      <div class='popover-div text-center'>
         <%= simple_form_for [@board, @experience], url: board_path(@board), method: :get do |f| %>
         <%= f.association :category, label: false %>
-        <%= f.submit "Search", class: "btn-warning" %>
+        <%= f.submit "Search", class: " btn btn-ghost-small" %>
         <% end %>
       </div>
       <!-- End of popover content -->

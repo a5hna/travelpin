@@ -4,11 +4,11 @@
   padding: 150px 0;
 }
 
-.banner h1 {
+.banner-text {
   margin: 0;
   color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  font-size: 32px;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
 }
@@ -50,7 +50,7 @@
 
 .destinations {
   // background-color: $peach;
-
+  border-radius: 12px;
   a {
     color: black;
     text-decoration: none;
@@ -81,8 +81,9 @@
 }
 
 .btn-ghost {
-  color: black;
-  border: 1px solid black;
+  color: white;
+  font-weight: bolder;
+  // border: 1px solid black;
   padding: 8px 24px;
   border-radius: 50px;
   font-weight: lighter;
@@ -90,9 +91,10 @@
   transition: opacity 0.3s ease;
   a {
     text-decoration: none;
-    color: black;
+    color: white;
   }
   background-color: rgba(150, 209, 199, 1);
+  box-shadow: 2px 3px 6px gray;
 }
 
 .btn-ghost:hover {
@@ -119,4 +121,8 @@
 
 .btn-ghost-small:hover {
   background-color: rgba(150, 209, 199, 0.6);
+}
+
+.user-board-container {
+  height: calc(100vh - 60px);
 }
