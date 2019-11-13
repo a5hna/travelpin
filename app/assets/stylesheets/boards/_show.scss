@@ -6,6 +6,7 @@
   border-radius: 0%;
   background-color: white;
   display: inline-block;
+  position: relative;
   // box-shadow: 3px 3px 3px gray;
 }
 
@@ -27,10 +28,19 @@
 
 }
 
-.experience-card > p {
+.experience-card p {
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: lighter;
   font-size: 12px;
   padding: 0;
+}
+
+.experience-card .avatar {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  box-shadow: 1px 1px 1px gray;
 }
 
 // .map-placeholder > img {
@@ -147,3 +157,7 @@
   font-family: 'Saira Extra Condensed', sans-serif;
   font-weight: bold;
 }
+
+
+
+

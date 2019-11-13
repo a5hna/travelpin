@@ -1,3 +1,20 @@
-.modal-open {
-  border-radius: 30px;
+
+.modal-title {
+  font-size: 28px;
+  font-family: 'Saira Extra Condensed', sans-serif;
+}
+
+.modal-header {
+  border-top-right-radius: 15px;
+  border-top-left-radius:  15px;
+}
+
+.modal-content {
+  border-radius: 15px;
+}
+
+.experience-modal li {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: lighter;
+  font-size: 12px;
 }
