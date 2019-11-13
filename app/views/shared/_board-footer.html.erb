@@ -28,7 +28,7 @@
     <div id='search-form' hidden>
       <div class='popover-div text-center'>
         <%= simple_form_for [@board, @experience], url: board_path(@board), method: :get do |f| %>
-        <%= f.association :category, label: false %>
+        <%= f.association :category, label: false, :include_blank => "See all" %>
         <%= f.submit "Search", class: " btn btn-ghost-small" %>
         <% end %>
       </div>

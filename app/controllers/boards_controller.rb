@@ -9,7 +9,8 @@ class BoardsController < ApplicationController
     session[:language] = 'en'
     @coords = [@board.latitude.to_f, @board.longitude.to_f]
     @board_users = @board.users
-    if params[:experience]
+
+    if params[:experience] && params[:experience]["category_id"].present?
       @experiences = @board.experiences.where(category_id: params[:experience][:category_id])
     else
       @experiences = @board.experiences
