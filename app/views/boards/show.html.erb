@@ -206,7 +206,7 @@
     </div>
   </div>
 </div>
-<%  if params[:experience] %>
+<%  if params[:experience] && params[:experience]["category_id"].present? %>
 <div class="category-search-div w-100">
   <div class="text-center">All <%= Category.find(params[:experience][:category_id]).name %> experiences</div>
   <%# else %>
