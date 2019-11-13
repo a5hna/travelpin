@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .board-footer-links .footer-link {
     color: gray;
@@ -26,6 +27,19 @@
 
 .board-footer-links .footer-link:hover {
   color: black;
+}
+
+.notification {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  border-radius: 15%;
+  background-color: red;
+  top: -12px;
+  left: 41px;
+  color: white;
+  font-size: 12px;
+  font-weight: bolder;
 }
 
 
