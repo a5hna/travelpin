@@ -18,11 +18,11 @@
         <% end %>
         <div>
           <div>
-            <div class="text-center m-0" style="font-size: 12px, font-weight: bolder;">
+            <div class="text-center m-0" style="font-size: 14px">
               <%= each["name"] %>
             </div>
           </div>
-          <div class="d-flex justify-content-between" , style="font-size: 12px;">
+          <div class="" , style="font-size: 12px; font-weight: lighter;">
             <div class="text-center">
               <%= each["vicinity"] %>
             </div>
@@ -31,26 +31,27 @@
             <%#= each["price_level"] %>
           </p> -->
           <div class="w-100 d-flex justify-content-center mt-1">
-            <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1",
+            <a href="#" data-toggle="modal" data-target="#confirm-experience" ><i class="fas fa-plus"></i></a>
+            <%#= link_to "create", "#", class: "btn btn-ghost-small mt-1",
            data: {
             toggle: "modal",
             target: "#confirm-experience"
-            }
-           %>
+            } %>
           </div>
         </div>
       </div>
       <!-- Confirm modal -->
       <div class="modal fade" id="confirm-experience" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content text-center">
+            <div class="modal-header turquoise d-flex justify-content-center align-items-center flex-column">
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <h5 class="modal-title" id="exampleModalLongTitle">Please Confirm</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
              <!--  <div class="card vw-100" > -->
                 <%# @photos.each do |pic| %>
                 <%#= image_tag pic, alt: "alttext", size: "400x200"%>
@@ -102,7 +103,8 @@
           <p class="text-center m-0" style="font-size: 12px">None of these?</p>
           <p class="text-center m-0" style="font-size: 12px">Click below to make your own</p>
           <div class="w-100 d-flex justify-content-center">
-            <%= link_to "Create", "#", class: "btn btn-ghost-small mt-1 text-center",
+            <a href="#" data-toggle="modal" data-target="#create-experience"><i class="fas fa-plus"></i></a>
+            <%#= link_to "Create", "#", class: "btn btn-ghost-small mt-1 text-center",
           data: {
             toggle: "modal",
             target: "#create-experience"
@@ -154,7 +156,7 @@
     </div>
   </div>
   <!-- map shit -->
-  <div id="map" style="height: 70vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
+  <div id="map" style="height: 30vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
   </div>
   <script>
   </script>

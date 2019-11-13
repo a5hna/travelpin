@@ -38,9 +38,10 @@
 </div>
   <div class="modal fade" id="new-schedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">title</h5>
+      <div class="modal-content text-center">
+        <div class="modal-header turquoise d-flex justify-content-center align-items-center flex-column text-center">
+          <div><%= image_tag "_triangle-marker.svg", alt: "alttext" %></div>
+          <h5 class="modal-title" id="exampleModalLongTitle">Pick a date</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -49,7 +50,7 @@
           <%= simple_form_for [@board, DaySchedule.new] do |f| %>
           <%= f.input :date, html5: true, as: :date %>
           <%= hidden_field_tag 'experiences', 'ids=' %>
-          <%= f.submit %>
+          <%= f.submit class: "btn btn-ghost-small" %>
           <% end %>
         </div>
       </div>
