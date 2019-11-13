@@ -36,7 +36,7 @@
           marker2 = new google.maps.Marker({
           position: location,
           map: map2,
-          icon: `/assets/triangle${pin.category_id}.svg`,
+          icon: `/assets/triangle1.svg`,
           draggable: true,
           animation: google.maps.Animation.DROP
         });
