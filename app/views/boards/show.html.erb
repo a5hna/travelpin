@@ -178,7 +178,11 @@
 
                 <li class="d-flex justify-content-between align-items-center border-bottom my-1 py-1">
                   <i class="fas fa-heart"></i>
-                  <p class="m-0"><%= experience.vote %> liked this</p>
+                  <% if experience.vote %>
+                  <p class="m-0"><%= experience.vote %>friends liked this</p>
+                  <% else %>
+                  <p class="m-0">0 friends liked this</p>
+                  <% end %>
                 </li>
               </ul>
 
@@ -208,7 +212,7 @@
         <%= f.input :title, label: "What are we doing?" %>
         <%= f.input :description, label: "Convince your friends!" %>
         <%= f.association :category %>
-        <%= f.button :submit %>
+        <%= f.button :submit, class: "btn btn-ghost-small" %>
         <% end %>
       </div>
     </div>
