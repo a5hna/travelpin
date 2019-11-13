@@ -2,6 +2,9 @@
   position: relative;
 }
 
-div > .day-schedule-item-delete {
+.day-schedule-item-card .fa-times {
   position: absolute;
+  top: 1px;
+  right: 1px;
+  color: #dddddd;
 }
