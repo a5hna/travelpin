@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'json'
-
+require 'pry-byebug'
 class ExperiencesController < ApplicationController
 
 
@@ -96,8 +96,15 @@ class ExperiencesController < ApplicationController
   end
 
   def upvote
+
     @experience = Experience.find(params[:id])
+    old_count = @experience.votes_for.count
+
     @experience.vote_by :voter => current_user
+    new_count = @experience.votes_for.count
+
+    @voted = old_count != new_count
+
     respond_to do |format|
         # format.html { redirect_to restaurant_path(@restaurant) }
         format.js
