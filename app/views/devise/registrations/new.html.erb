@@ -8,29 +8,29 @@
             <%= f.error_notification %>
 
             <div class="form-inputs text-center">
-              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <%= f.input :name,
                           required: true,
                           input_html: { autocomplete: "name"} %>
-              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <%= f.input :home_location,
                           required: true,
                           input_html: { autocomplete: "home location"} %>
-              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <%= f.input :email,
                           required: true,
                           autofocus: true,
                           input_html: { autocomplete: "email" }%>
-              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <%= f.input :password,
                           required: true,
                           hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                           input_html: { autocomplete: "new-password" } %>
-              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <%= f.input :password_confirmation,
                           required: true,
                           input_html: { autocomplete: "new-password" } %>
-              <%= image_tag "_triangle-marker", alt: "alttext" %>
+              <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
               <%= f.input :avatar, label: "Photo" %>
               <%= f.input :avatar_cache, as: :hidden %>
             </div>

@@ -1,14 +1,33 @@
 // Specific CSS for your home-page
 
-.purple {
-  background-color: $peach;
-  height: 50vh;
+.peach-half {
+
+  background: $peach;
+  width: 100%;
+  height: calc(50vh - 30px);
   padding-top: 230px;
 }
 
-.map-homepage-placeholder {
-  height: 50vh;
-  background-color: $turquoise;
+.turquoise-half {
+
+  height: calc(50vh - 30px);
+  background: $turquoise;
+  width: 100%;
 }
 
+.logo-div {
+  height: calc(100vh - 60px)
+}
 
+.logo {
+  position: absolute;
+  border-radius: 12px;
+}
+
+.full-screen-with-banner {
+  height: calc(100vh - 200px);
+}
+
+.full-screen {
+  height: calc(100vh - 60px)
+}

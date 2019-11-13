@@ -49,17 +49,17 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="card" style="width: 40rem;">
+             <!--  <div class="card vw-100" > -->
                 <%# @photos.each do |pic| %>
                 <%#= image_tag pic, alt: "alttext", size: "400x200"%>
                 <%# end %>
-                <div class="card-body">
+             <!--    <div class="card-body"> -->
                   <%= simple_form_for [@board, @experience] do |f| %>
                   <% modelo = details_api(each["place_id"]) %>
                   <h5 class="card-title">
                     <%= f.input :title, label: "So we're going to:" %>
                   </h5>
-                  <p class="card-text">
+                  <div class="card-text">
                     <%= f.input :description, label: "Tell your friends!:" %>
                     <%= f.association :category %>
                     <%= f.input :address, input_html: {value: modelo[:address]}, readonly: true %>
@@ -82,9 +82,10 @@
                     <%= f.input :photo, as: :hidden, input_html:{value: exp_pic} %>
                     <%= f.button :submit, "Confirm", class: "btn btn-ghost" %>
                     <% end %>
+                  </div>
                     <%#= button_to "Confirm", board_experiences_path %>
-                </div>
-              </div>
+           <!--      </div> -->
+          <!--     </div> -->
             </div>
           </div>
         </div>
@@ -119,13 +120,12 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="row">
-                <div class="card" style="width: 50%;">
+              <!-- <div class="row"> -->
+             <!--    <div class="" style="width: 50%;"> -->
                   <%# @photos.each do |pic| %>
                   <%#= image_tag pic, alt: "alttext", size: "400x200"%>
                   <%# end %>
-                  <div class="card-body">
-                    <h5 class="card-title">
+                  <div>
                       <%= simple_form_for [@board, @experience] do |f| %>
                       <%= f.input :title, placeholder: @experience.title %>
                       <%= f.input :description, placeholder: @experience.description  %>
@@ -140,11 +140,11 @@
                       <%= f.button :submit %>
                       <% end %>
                   </div>
-                </div>
-                <div id="small-map" style="width: 50%">
-                </div>
-              </div>
-            </div>
+             <!--    </div> -->
+<!--                 <div id="small-map" >
+                </div> -->
+            <!--   </div> -->
+           <!--  </div> -->
           </div>
         </div>
       </div>
