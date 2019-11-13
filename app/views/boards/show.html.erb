@@ -220,9 +220,7 @@
 </div>
 <%  if params[:experience] && params[:experience]["category_id"].present? %>
 <div class="category-search-div w-100">
-  <div class="text-center">All <%= Category.find(params[:experience][:category_id]).name %> experiences</div>
-  <%# else %>
-<!--   <h4>All Experiences</h4> -->
+  <div class="text-center search-footer">All <%= Category.find(params[:experience][:category_id]).name %> experiences</div>
 </div>
 <% end %>
 <%= render 'shared/board-footer' %>
