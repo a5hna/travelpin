@@ -1,5 +1,8 @@
 <div class="board-footer d-flex justify-content-center">
   <div class="board-footer-links">
+    <div class="notification justify-content-center align-items-center" id="notification" style="display: none">
+      0
+    </div>
     <% if params[:controller] == 'boards' && params[:action] == 'show' %>
     <%= link_to '#', id: 'new-sched', data: { toggle:'modal', target:'#new-schedule'} do %>
     <i class="far fa-calendar-plus footer-link"></i>
