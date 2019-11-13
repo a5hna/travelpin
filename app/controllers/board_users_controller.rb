@@ -1,4 +1,6 @@
 class BoardUsersController < ApplicationController
+  before_action :pundit_sucks
+
   def index
     # @users = Board.find(params[:board_id]).users
     @board_users = BoardUser.where(board_id: params[:board_id])
@@ -31,4 +33,9 @@ class BoardUsersController < ApplicationController
   def board_user_params
     params.require(:board_user).permit(:user_id, :board_id, :admin)
   end
+
+   def pundit_sucks
+    authorize current_user
+  end
+
 end

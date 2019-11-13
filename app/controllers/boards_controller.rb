@@ -5,6 +5,7 @@ class BoardsController < ApplicationController
   before_action :set_board, except: [:new, :create]
 
   def show
+    authorize @board
     category_icons = ['🍺', '🧗‍♀️', '👯‍♀️', '🏀', '🗼', '🎁', '⛩', '📺']
     session[:language] = 'en'
     @coords = [@board.latitude.to_f, @board.longitude.to_f]
@@ -57,10 +58,10 @@ class BoardsController < ApplicationController
 
   def new
     @board = Board.new
-
   end
 
   def create
+    authorize current_user
     @board = Board.new
     @board.place = params[:board]["place"]
     @board.title = params[:board]["title"]

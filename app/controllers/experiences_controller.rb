@@ -2,7 +2,7 @@ require 'open-uri'
 require 'json'
 
 class ExperiencesController < ApplicationController
-
+before_action :pundit_sucks
 
 
   def places_api(query, coords)
@@ -106,6 +106,10 @@ class ExperiencesController < ApplicationController
   end
 
   private
+
+  def pundit_sucks
+    authorize current_user
+  end
 
   def experience_params
     params.require(:experience).permit(:longitude, :latitude, :title, :description, :photo, :board_id, :user_id, :category_id, :address, :rating, :opening_hours, :price_level, :phone_number, :website, :google_url)
