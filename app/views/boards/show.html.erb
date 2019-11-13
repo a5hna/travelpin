@@ -78,9 +78,9 @@
       <% end %>
  <!--      <div class="d-flex justify-content-between"> -->
         <div class="d-flex justify-content-between mt-1">
-          <button style="font-size: 12px" type="button" id="<%= "button#{experience.id}" %>" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
+          <p style="font-size: 12px" type="button" id="<%= "button#{experience.id}" %>" data-toggle="modal" data-target=<%= "#experience#{experience.id}" %>>
             <%= experience.title %>
-          </button>
+          </p>
         <!--   <div class="d-flex align-items-center" style="font-size: 12px"> -->
             <p data-id="<%= experience.id %>" class="d-flex align-items-center m-0" style="font-size: 12px">
               <%= experience.votes_for.count %>
@@ -98,22 +98,31 @@
   <div class="modal fade" id="experience<%= experience.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header peach d-flex justify-content-center align-items-center flex-column">
+          <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
           <h5 class="modal-title d-flex justify-content-center align-items-center w-100" id="exampleModalLongTitle"><%= experience.title %></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body d-flex justify-content-center">
+        <div class="modal-body d-flex justify-content-center experience-modal">
           <div class="experience-card shadow p-3 mb-5 bg-white" style="width: 18rem;">
             <%= image_tag experience.photo, alt: "alttext" %>
 
             <div class="card-body">
             <%= cl_image_tag experience.user.avatar, alt: "alttext", class: "avatar" %>
               <ul class="list-unstyled ">
-                <li class="my-1 pb-3 border-bottom text-center">
+                <li class="my-1 pb-3 border-bottom text-center" style="font-weight: bolder">
                 <%= experience.description %>
                 </li>
+
+                <% if experience.rating %>
+                <li class="border-bottom py-1 my-1 text-center">
+                  <% experience.rating.to_i.round(0).times do %>
+                    <i class="fas fa-star"></i>
+                  <% end %>
+                </li>
+                <% end %>
 
                 <% if experience.category %>
                   <li class="d-flex justify-content-between my-1 py-1 text-right border-bottom">
@@ -124,7 +133,8 @@
 
                 <% if experience.address %>
                 <li class="d-flex justify-content-between my-1 py-1 text-right border-bottom">
-                  <i class="fas fa-map-pin mr-1"></i>
+                  <i><%= image_tag "small-triangle.svg", alt: "alttext" %></i>
+                  <!-- <i class="fas fa-caret-down"></i> -->
                   <%= experience.address %>
                 </li>
                 <% end %>
@@ -136,13 +146,6 @@
                 </li>
                 <% end %>
 
-                <% if experience.rating %>
-                <li class="border-bottom py-1 my-1">
-                  <%= experience.rating.to_i.round(0).times do %>
-                  <i class="fas fa-star"></i>
-                <% end %>
-                </li>
-                <% end %>
 
                 <% if experience.price_level && experience.price_level.to_i > 0 %>
                 <li class="border-bottom py-1 my-1">
