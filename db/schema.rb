@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_091209) do
+ActiveRecord::Schema.define(version: 2019_11_13_163417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 2019_11_13_091209) do
     t.string "city"
     t.float "latitude"
     t.float "longitude"
+    t.float "ne_lat"
+    t.float "ne_lng"
+    t.float "sw_lat"
+    t.float "sw_lng"
+    t.string "level"
   end
 
   create_table "categories", force: :cascade do |t|

@@ -20,6 +20,7 @@ class BoardsController < ApplicationController
     @experience.board_id = @board
     @experience.user_id = current_user
     @map_center = [@board.latitude.to_f, @board.longitude.to_f]
+    @map_bounds = [[@board.ne_lat, @board.ne_lng],[@board.sw_lat, @board.sw_lng]]
     @markers = []
     @places = @experiences.map do |each|
       {title: each.title,
@@ -57,7 +58,25 @@ class BoardsController < ApplicationController
   end
 
   def new
+    authorize current_user
     @board = Board.new
+  end
+
+  def geocode(place)
+    result = Geocoder.search(place)
+    data = {}
+    data[:ne_lat] = result[0].data["geometry"]["bounds"]["northeast"]["lat"]
+    data[:ne_lng] = result[0].data["geometry"]["bounds"]["northeast"]["lng"]
+    data[:sw_lat] = result[0].data["geometry"]["bounds"]["southwest"]["lat"]
+    data[:sw_lng] = result[0].data["geometry"]["bounds"]["southwest"]["lng"]
+    case result[0].data["types"][0]
+    when "locality" then data[:level] = "city"
+    when "country" then data[:level] = "country"
+    when "continent" then data[:level] = "continent"
+    when "administrative_area_level_1" then data[:level] = "city"
+    when "establishment" then data[:level] = "geographic area"
+    end
+    return data
   end
 
   def create
@@ -65,6 +84,12 @@ class BoardsController < ApplicationController
     @board = Board.new
     @board.place = params[:board]["place"]
     @board.title = params[:board]["title"]
+    data = geocode(@board.place)
+    @board.ne_lat = data[:ne_lat]
+    @board.ne_lng = data[:ne_lng]
+    @board.sw_lat = data[:sw_lat]
+    @board.sw_lng = data[:sw_lng]
+    @board.level = data[:level]
     if @board.valid?
     @board.save
     @board_user = BoardUser.create(board_id: @board.id, user_id: current_user.id, admin: true)
