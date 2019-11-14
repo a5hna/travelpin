@@ -34,6 +34,7 @@ var map;
         position: location,
         map: map,
         draggable: true,
+        icon: '/assets/pin-drop-marker.svg',
         animation: google.maps.Animation.DROP
       });
     }

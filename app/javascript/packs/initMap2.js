@@ -44,7 +44,7 @@
           marker2 = new google.maps.Marker({
           position: location,
           map: map2,
-          icon: `/assets/triangle1.svg`,
+          icon: '/assets/pin-drop-marker.svg',
           draggable: true,
           animation: google.maps.Animation.DROP
         });
