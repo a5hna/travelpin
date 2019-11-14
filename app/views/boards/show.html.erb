@@ -210,11 +210,16 @@
 
 
         <%#= o.input :level, as: :radio_buttons, collection: [['City' , 'city'],['Whole map', 'map']],label: 'Where to look?' %>
-        <input type="radio" name="level" value="map" checked>Whole map<br>
-        <input type="radio" name="level" value="city">City <input type="text" name="cityname" /><br><br>
+        <p>Where should i search?</p>
+  <div class="d-flex justify-content-center">
+        <div  class="text-left">
+        <input type="radio" name="level" value="map" checked> Whole map<br><br>
+        <input type="radio" name="level" value="city"> City <input type="text" name="cityname" class="city-input-field" /><br><br>
+        </div>
+  </div>
 
 
-        <%= f.button :submit, class: "btn btn-ghost" %>
+        <%= f.button :submit, class: "btn btn-ghost mb-3" %>
         <% end %>
 
 
