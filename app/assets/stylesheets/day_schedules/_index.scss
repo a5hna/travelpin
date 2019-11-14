@@ -1,5 +1,6 @@
 .day-schedule-item-card {
   position: relative;
+  width: 70%;
 }
 
 .day-schedule-item-card .fa-times {
@@ -7,4 +8,25 @@
   top: 1px;
   right: 1px;
   color: #dddddd;
+  font-size: 20px;
+}
+
+.notes {
+  border: 1px solid $turquoise;
+  width: 70vw;
+  padding: 5px;
+  font-weight: lighter;
+  background-color: #dbf9f3;
+  color: #419987;
+  position: relative;
+}
+
+.edit-note-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.carousel-control-next, .carousel-control-prev {
+  width: 5% !important;
 }

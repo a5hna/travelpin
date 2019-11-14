@@ -32,7 +32,7 @@
       <div class='popover-div text-center'>
         <%= simple_form_for [@board, @experience], url: board_path(@board), method: :get do |f| %>
         <%= f.association :category, label: false, :include_blank => "See all" %>
-        <%= f.submit "Search", class: " btn btn-ghost-small" %>
+        <%= f.submit "Search", class: " btn btn-ghost-peach mb-2" %>
         <% end %>
       </div>
       <!-- End of popover content -->
@@ -53,7 +53,7 @@
           <%= simple_form_for [@board, DaySchedule.new] do |f| %>
           <%= f.input :date, html5: true, as: :date %>
           <%= hidden_field_tag 'experiences', 'ids=' %>
-          <%= f.submit class: "btn btn-ghost-small" %>
+          <%= f.submit class: "btn btn-ghost" %>
           <% end %>
         </div>
       </div>

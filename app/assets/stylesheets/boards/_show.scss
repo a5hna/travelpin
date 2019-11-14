@@ -168,8 +168,25 @@
 }
 
 .search-footer {
-
+  background-color: $peach;
   font-family: 'Open Sans', sans-serif;
+}
+
+
+.top-banner {
+    height: 210px;
+    border-bottom-left-radius: 28px;
+    z-index: 5;
+    position: relative;
+    /* overflow: hidden; */
+    /* background-color: pink; */
+    border-bottom-right-radius: 28px;
+    box-shadow: 4px 8px 5px -3px #b66963;
+
+}
+
+.avatar-div {
+  margin-top: -20px;
 }
 
 

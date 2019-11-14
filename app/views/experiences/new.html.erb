@@ -1,14 +1,14 @@
 <div class="lol-container turquoise">
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
+  <div class="card-category top-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
     <div class="banner-text"><%= @experience.title %><br>
     </div>
 
   </div>
   <div class="card-container">
-  <div class="d-flex align-items-center justify-content-center" style="height: 70px; background: white">
-    <h6 class="text-center" style="font-weight: lighter;">We have found these options for you.</h6>
-  </div>
   <div id="map" style="height: 30vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
+  </div>
+  <div class="d-flex align-items-center justify-content-center turquoise" style="height: 70px;">
+    <h6 class="text-center" style=" font-family: 'open sans'; font-weight: bolder; color: white; font-size: 18px;">We have found these options for you.</h6>
   </div>
 
     <div class="card-columns">
@@ -152,7 +152,7 @@
                       <%= f.input :price_level, label: "price", hint: "1 to 4", class: "mt-3" %>
                       <%= f.association :category %>
                       <%= f.input :photo %>
-                      <%= f.button :submit, class: "btn btn-ghost-small" %>
+                      <%= f.button :submit, class: "btn btn-ghost" %>
                       <% end %>
                     </div>
                   <!-- end of form--></div>
