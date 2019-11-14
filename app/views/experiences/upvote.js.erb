@@ -1,11 +1,11 @@
 function upvote(){
-
-let id = "<%= @experience.id %>"
-let counter = document.querySelector(`p[data-id='${id}']`)
-let value = parseInt(counter.innerText, 10)
-counter.innerText = value + 1
-console.log(counter)
-
+  if ( <%= @voted %> ) {
+    let id = "<%= @experience.id %>"
+    let counter = document.querySelector(`p[data-id='${id}']`)
+    let value = parseInt(counter.innerText, 10)
+    counter.innerText = value + 1
+    console.log(counter)
+  }
 }
 
 upvote()

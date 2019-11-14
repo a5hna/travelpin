@@ -90,14 +90,21 @@ end
 
 puts "Generating board seeds"
 i = 1
-10.times do
-  destination = ["London", "Beijing", "Singapore", "Bali"].sample
+20.times do
+  destination = ["London", "Beijing", "Singapore", "Bali", "Spain", "Hindu Kush"].sample
   title_ending = ["Trip", "Adventure", "Girls On Tour", "Board"].sample
   puts "creating board: #{i}"
-  Board.create!(
+  board = Board.new(
     place: destination,
     title: "#{destination} #{title_ending}"
     )
+  result = Geocoder.search(destination)
+  board.ne_lat = result[0].data["geometry"]["bounds"]["northeast"]["lat"]
+  board.ne_lng = result[0].data["geometry"]["bounds"]["northeast"]["lng"]
+  board.sw_lat = result[0].data["geometry"]["bounds"]["southwest"]["lat"]
+  board.sw_lng = result[0].data["geometry"]["bounds"]["southwest"]["lng"]
+  board.level = result[0].data["types"][0]
+  board.save!
   i += 1
 end
 

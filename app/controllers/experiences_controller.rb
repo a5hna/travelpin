@@ -1,11 +1,11 @@
 require 'open-uri'
 require 'json'
-
+require 'pry-byebug'
 class ExperiencesController < ApplicationController
 before_action :pundit_sucks
 
 
-  def places_api(query, coords)
+  def nearby_search_api(query, coords)
     key = "&key=#{ENV['GOOGLE_MAPS_KEY']}"
     location = "&location=#{coords[0]},#{coords[1]}"
     radius = "&radius=50000"
@@ -15,6 +15,18 @@ before_action :pundit_sucks
     results = JSON.parse(api_call)
     list = results["results"][0..4]
     return list
+  end
+
+  def find_place_api(query, coords)
+    endpoint = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?"
+    search_query = "input=#{query}&inputtype=textquery"
+    fields = "&fields=place_id,name,formatted_address,photos,geometry"
+    location = "&locationbias=point:#{coords[0]},#{coords[1]}"
+    key = "&key=#{ENV['GOOGLE_MAPS_KEY']}"
+    language = "&language=en"
+    api_call = open(endpoint+search_query+fields+location+language+key).read
+    results = JSON.parse(api_call)
+    return results["candidates"]
   end
 
   def details_api(place_id)
@@ -50,9 +62,10 @@ before_action :pundit_sucks
   def new
    @board = Board.find(params[:board_id])
    @experience = Experience.new(experience_params)
-   @coords = [@board.latitude, @board.longitude]
+   city = params[:other][:level] == 'city'
    query = URI.escape(@experience.title)
-   @list = places_api(query, @coords)
+   @coords = [@board.latitude, @board.longitude]
+   @list = city ? nearby_search_api(query, @coords) : find_place_api(query, @coords)
    @places = @list.map do |each|
      { title:  @experience.title,
        category_id: @experience.category_id,
@@ -96,8 +109,15 @@ before_action :pundit_sucks
   end
 
   def upvote
+
     @experience = Experience.find(params[:id])
+    old_count = @experience.votes_for.count
+
     @experience.vote_by :voter => current_user
+    new_count = @experience.votes_for.count
+
+    @voted = old_count != new_count
+
     respond_to do |format|
         # format.html { redirect_to restaurant_path(@restaurant) }
         format.js
