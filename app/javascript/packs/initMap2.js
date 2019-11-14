@@ -29,6 +29,8 @@
         disableDefaultUI: true,
         mapTypeId: 'terrain'
       });
+    map2.fitBounds(bounds, -100);
+
     google.maps.event.addListener(map2, 'click', function(event) {
       placeMarker(event.latLng);
       console.log(event.latLng.lat());
