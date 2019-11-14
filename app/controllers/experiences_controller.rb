@@ -1,8 +1,8 @@
 require 'open-uri'
 require 'json'
-require 'pry-byebug'
+
 class ExperiencesController < ApplicationController
-before_action :pundit_sucks
+  before_action :pundit_sucks
 
 
   def nearby_search_api(query, coords)
