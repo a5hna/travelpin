@@ -49,7 +49,7 @@
 
       <!--  <h6 class="text-center">Weather</h6> -->
       <div class="weather-icon d-flex justify-content-around align-items-center p-1">
-        <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
+        <%= image_tag "https://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
         <div>
           <div>
             <%= (@data['main']['temp'].to_f - 273.15).round(0)%> °C
