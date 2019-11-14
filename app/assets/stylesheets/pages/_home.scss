@@ -25,9 +25,13 @@
 }
 
 .full-screen-with-banner {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 270px);
 }
 
 .full-screen {
   height: calc(100vh - 60px)
+}
+
+.white {
+  background-color: white;
 }

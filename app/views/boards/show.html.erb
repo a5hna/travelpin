@@ -1,9 +1,9 @@
 <!-- <div class="container"> -->
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
+<div class="card-category top-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
   <div class="banner-text"><%= @board.title %></div>
 </div>
 <div class="d-none" id="board-show"></div>
-<div class="d-flex px-3 py-3 justify-content-center align-items-center" style="background: white">
+<div class="d-flex px-3 pb-3 pt-5 justify-content-center align-items-center avatar-div" style="background: white">
   <%= link_to board_board_users_path(@board) do  %>
   <% @board_users.each do |user| %>
   <%= cl_image_tag user.avatar, class: "avatar" %>
@@ -15,9 +15,9 @@
   <% end %>
 </div>
 <!--   <div class="turquoise p-3"> -->
-<div class="text-center p-3" style="background: white">
+<div class="text-center px-3 pt-3 pb-0" style="background: white">
   <% if @board.description %>
-  <p class="board-description">
+  <p class="board-description m-0">
     <%= @board.description %>
   </p>
   <% end %>
@@ -26,7 +26,7 @@
 <div>
   <!-- <div class="white p-3"> -->
   <div class="weather-currency d-flex justify-content-center", style="background-color: white" >
-    <div class="p-3" style="width: 50vw">
+    <div class="pb-3 pr-1 pl-3 pt-3" style="width: 50vw">
       <!--       <h6 class="text-center">Currency</h6> -->
       <div class="d-flex justify-content-around currency-div align-items-center">
       <%= image_tag "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTti0kg8lO5BfHPIUl3faN76HVqwHewN5hywcENXZ8Gbu9Wf5_L_g&s", alt: "alttext", style: "height:55px; width:55px" %>
@@ -41,9 +41,9 @@
       </div>
     </div>
 
-    <div class="p-3" style="width: 50vw">
+    <div class="pb-3 pl-1 pr-3 pt-3" style="width: 50vw">
       <!--  <h6 class="text-center">Weather</h6> -->
-      <div class="weather-icon d-flex justify-content-around align-items-center p-2">
+      <div class="weather-icon d-flex justify-content-around align-items-center p-1">
         <%= image_tag "http://openweathermap.org/img/wn/#{@data['weather'][0]['icon']}@2x.png", alt: "weather icon" %>
         <div>
           <div>
@@ -214,7 +214,7 @@
         <%= f.input :title, label: "What are we doing?" %>
         <%= f.input :description, label: "Convince your friends!" %>
         <%= f.association :category, include_blank: false %>
-        <%= f.button :submit, class: "btn btn-ghost-small" %>
+        <%= f.button :submit, class: "btn btn-ghost" %>
         <% end %>
       </div>
     </div>

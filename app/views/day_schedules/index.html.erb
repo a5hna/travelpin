@@ -1,7 +1,7 @@
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
+<div class="card-category top-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80)">
   <div class="banner-text"><%= @board.title %> Itinerary</div>
 </div>
-<div class="" style="background: white">
+<div class="white vh-100">
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
   <div class="carousel-inner">
@@ -14,11 +14,80 @@
       <% end %>
       <div class="carousel-item <%= date ? 'active' : nil %>">
      <!--  <h3 class="text-center"> <%= @board.title %></h3> -->
-      <h5 class="text-center py-3"><%= day_schedule.date.strftime("%A, %d %b %Y ") %></h5>
+      <h3 class="text-center py-3"><%= day_schedule.date.strftime("%A, %d %b %Y ") %></h3>
+      <!-- notes section -->
+
+      <% if day_schedule.notes %>
+        <div class="d-flex justify-content-center">
+          <div class="notes text-center mb-4">
+            <h6>Day Notes:</h6>
+            <%= day_schedule.notes %>
+            <i class="far fa-edit edit-note-icon" type="button" data-toggle="modal" data-target="#edit-note<%= day_schedule.id %>"></i>
+          </div>
+          <div class="modal fade" id="edit-note<%= day_schedule.id %>" tabindex="-1" role="dialog">
+             <div class="modal-dialog modal-dialog-centered" role="document">
+             <div class="modal-content">
+             <div class="modal-header turquoise  d-flex flex-column align-items-center justify-content-center">
+                  <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
+                  <h5 class="modal-title" id="add-experience-title">Update Day Note</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                  <%= simple_form_for day_schedule do |f| %>
+                    <%= f.input :notes %>
+                    <%= f.submit class: "btn btn-ghost" %>
+                  <% end %>
+                </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="new-note text-center mb-5">
+          <p type="button" class="" data-toggle="modal" data-target="#add-note<%= day_schedule.id %>">
+            Add Day Note <i class="far fa-sticky-note"></i>
+          </p>
+        </div>
+
+        <!-- Modal add -note -->
+        <div class="modal fade" id="add-note<%= day_schedule.id %>" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header turquoise  d-flex flex-column align-items-center justify-content-center">
+                <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
+                <h5 class="modal-title" id="add-experience-title">Add Day Note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <%= simple_form_for day_schedule do |f| %>
+                  <%= f.input :notes %>
+                  <%= f.submit class: "btn btn-ghost" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+
+<!--       modal pop-up edit note -->
+
+
+<!-- end of modal edit note pop up -->
+
+
+
+
+
+      <!-- notes end -->
       <div class="col-xs-12 d-flex flex-column justify-content-center align-items-center">
       <% day_schedule.day_schedule_items.each do |day_schedule_item| %>
           <!-- Experience Cards -->
-        <div class="day-schedule-item-card experience-card mb-2 w-75 shadow p-3 mb-5 bg-white" data-id="<%= day_schedule_item.experience.id %>">
+        <div class="day-schedule-item-card experience-card mb-2 shadow p-3 mb-5 bg-white" data-id="<%= day_schedule_item.experience.id %>">
           <%= image_tag day_schedule_item.experience.photo, alt: "alttext" %>
           <p class="d-flex justify-content-between mt-1">
             <button type="button" data-toggle="modal" data-target=<%= "#experience#{day_schedule_item.experience.id}" %>>
@@ -33,12 +102,9 @@
         </div>
       <% end %>
       </div>
-        <p><%= day_schedule.notes %></p>
-        <%= simple_form_for day_schedule do |f| %>
-          <%= f.input :notes %>
-          <%= f.submit %>
-        <% end %>
-      <p class="text-center pt-3"><%= link_to "back to board", board_path(params[:board_id]) %></p>
+      <div class="d-flex justify-content-center align-items-center mb-5">
+      <%= link_to "back to board", board_path(params[:board_id]), class: "btn btn-ghost" %>
+      </div>
       </div>
       <% end %>
     </div>
@@ -61,6 +127,3 @@
 <% end %>
 </div>
 </div>
-
-<%= render 'shared/day-schedule-footer' %>
-
