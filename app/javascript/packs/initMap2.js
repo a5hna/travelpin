@@ -10,6 +10,7 @@
     const ne_bound = new google.maps.LatLng(limite[0][0], limite[0][1])
     const sw_bound = new google.maps.LatLng(limite[1][0], limite[1][1])
     const bounds = new google.maps.LatLngBounds(sw_bound, ne_bound)
+    const { greenMarker, pinDropMarker } = mapElement.dataset;
 
     let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
     map = new google.maps.Map(
@@ -44,7 +45,7 @@
           marker2 = new google.maps.Marker({
           position: location,
           map: map2,
-          icon: '/assets/pin-drop-marker.svg',
+          icon: pinDropMarker,
           draggable: true,
           animation: google.maps.Animation.DROP
         });
@@ -53,7 +54,7 @@
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(pin[0], pin[1]),
           map: map,
-          icon: "/assets/triangle2.svg",
+          icon: greenMarker,
           draggable: true
         });
         marker.addListener('mouseover', (event) => {
