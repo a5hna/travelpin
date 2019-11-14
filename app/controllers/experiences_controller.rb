@@ -37,7 +37,7 @@ before_action :pundit_sucks
    api_call = details_endpoint+query_fields
    uri = open(api_call).read
    results = JSON.parse(uri)["result"]
-   byebug
+
    details = {}
    details[:user_id] = current_user.id
    details[:board_id] = @experience[:board_id]
