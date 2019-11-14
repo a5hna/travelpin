@@ -78,7 +78,7 @@ class ExperiencesController < ApplicationController
     @map_bounds = params[:cityname].present? ? specified_city_bounds : board_bounds
     query = URI.escape(@experience.title)
     board_coords = [@board.latitude, @board.longitude]
-    @coords = city_all_along ? board_coords : specified_city_coords
+    @coords = !city || city_all_along ? board_coords : specified_city_coords
     @list = city ? nearby_search_api(query, @coords) : find_place_api(query, @coords)
     @places = @list.map do |each|
       { title:  @experience.title,
