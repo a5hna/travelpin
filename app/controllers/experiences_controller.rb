@@ -63,16 +63,19 @@ class ExperiencesController < ApplicationController
     @board = Board.find(params[:board_id])
     @experience = Experience.new(experience_params)
     city = params[:level] == 'city'
-    city_all_along = city && (params[:level] == @board.level)
-    specified_city = Geocoder.search(params[:cityname]) if params[:cityname]
-    specified_city_coords = [specified_city[0].data["geometry"]["location"]["lat"], specified_city[0].data["geometry"]["location"]["lng"]]
+    board_is_city = @board.level == "city" || "locality" ? true : false
+    city_all_along = city && board_is_city
+    if params[:cityname].present?
+      specified_city = Geocoder.search(params[:cityname])
+      specified_city_coords = [specified_city[0].data["geometry"]["location"]["lat"], specified_city[0].data["geometry"]["location"]["lng"]]
+      scnelat = specified_city[0].data["geometry"]["bounds"]["northeast"]["lat"]
+      scnelng = specified_city[0].data["geometry"]["bounds"]["northeast"]["lng"]
+      scswlat = specified_city[0].data["geometry"]["bounds"]["southwest"]["lat"]
+      scswlng = specified_city[0].data["geometry"]["bounds"]["southwest"]["lng"]
+      specified_city_bounds = [[scnelat, scnelng], [scswlat, scswlng]]
+    end
     board_bounds = [[@board.ne_lat, @board.ne_lng],[@board.sw_lat, @board.sw_lng]]
-    scnelat = specified_city[0].data["geometry"]["bounds"]["northeast"]["lat"]
-    scnelng = specified_city[0].data["geometry"]["bounds"]["northeast"]["lng"]
-    scswlat = specified_city[0].data["geometry"]["bounds"]["southwest"]["lat"]
-    scswlng = specified_city[0].data["geometry"]["bounds"]["southwest"]["lng"]
-    specified_city_bounds = [[scnelat, scnelng], [scswlat, scswlng]]
-    @map_bounds = params[:cityname] ? specified_city_bounds : board_bounds
+    @map_bounds = params[:cityname].present? ? specified_city_bounds : board_bounds
     query = URI.escape(@experience.title)
     board_coords = [@board.latitude, @board.longitude]
     @coords = city_all_along ? board_coords : specified_city_coords
