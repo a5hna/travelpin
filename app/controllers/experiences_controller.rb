@@ -37,7 +37,6 @@ class ExperiencesController < ApplicationController
    api_call = details_endpoint+query_fields
    uri = open(api_call).read
    results = JSON.parse(uri)["result"]
-
    details = {}
    details[:user_id] = current_user.id
    details[:board_id] = @experience[:board_id]
@@ -60,29 +59,38 @@ class ExperiencesController < ApplicationController
 
    helper_method :details_api
 
-
   def new
-   @board = Board.find(params[:board_id])
-   @experience = Experience.new(experience_params)
-   city = params[:other][:level] == 'city'
-   query = URI.escape(@experience.title)
-   @coords = [@board.latitude, @board.longitude]
-   @map_bounds = [[@board.ne_lat, @board.ne_lng],[@board.sw_lat, @board.sw_lng]]
-   @list = city ? nearby_search_api(query, @coords) : find_place_api(query, @coords)
-   @places = @list.map do |each|
-     { title:  @experience.title,
-       category_id: @experience.category_id,
-       coords: [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f],
-       photos: (each["photos"][0]["photo_reference"] if each["photos"]) }
-   end
-   @markers = @list.map {|each| [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f] }
-   @photo_refs = @list.map do |each|
-     if each["photos"]
-       each["photos"][0]["photo_reference"]
-     end
-   end
-   @photo_refs.delete(nil)
-   @photos = @photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
+    @board = Board.find(params[:board_id])
+    @experience = Experience.new(experience_params)
+    city = params[:level] == 'city'
+    city_all_along = city && (params[:level] == @board.level)
+    specified_city = Geocoder.search(params[:cityname]) if params[:cityname]
+    specified_city_coords = [specified_city[0].data["geometry"]["location"]["lat"], specified_city[0].data["geometry"]["location"]["lng"]]
+    board_bounds = [[@board.ne_lat, @board.ne_lng],[@board.sw_lat, @board.sw_lng]]
+    scnelat = specified_city[0].data["geometry"]["bounds"]["northeast"]["lat"]
+    scnelng = specified_city[0].data["geometry"]["bounds"]["northeast"]["lng"]
+    scswlat = specified_city[0].data["geometry"]["bounds"]["southwest"]["lat"]
+    scswlng = specified_city[0].data["geometry"]["bounds"]["southwest"]["lng"]
+    specified_city_bounds = [[scnelat, scnelng], [scswlat, scswlng]]
+    @map_bounds = params[:cityname] ? specified_city_bounds : board_bounds
+    query = URI.escape(@experience.title)
+    board_coords = [@board.latitude, @board.longitude]
+    @coords = city_all_along ? board_coords : specified_city_coords
+    @list = city ? nearby_search_api(query, @coords) : find_place_api(query, @coords)
+    @places = @list.map do |each|
+      { title:  @experience.title,
+        category_id: @experience.category_id,
+        coords: [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f],
+        photos: (each["photos"][0]["photo_reference"] if each["photos"]) }
+    end
+    @markers = @list.map {|each| [each["geometry"]["location"]["lat"].to_f, each["geometry"]["location"]["lng"].to_f] }
+    @photo_refs = @list.map do |each|
+      if each["photos"]
+        each["photos"][0]["photo_reference"]
+      end
+    end
+    @photo_refs.delete(nil)
+    @photos = @photo_refs.map {|pic| "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{pic}&key=#{ENV['GOOGLE_MAPS_KEY']}"}
   end
 
   def create

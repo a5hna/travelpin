@@ -202,15 +202,22 @@
         </button>
       </div>
       <div class="modal-body text-center">
+
         <%= simple_form_for [@board, @experience], method: :get, url: new_board_experience_path(@board) do |f| %>
         <%= f.input :title, label: "What are we doing?" %>
         <%= f.input :description, label: "Convince your friends!" %>
         <%= f.association :category, include_blank: false %>
-        <%= simple_fields_for :other do |o| %>
-        <%= o.input :level, as: :radio_buttons, collection: [['City', 'city'],['Whole map', 'map']],label: 'Where to look?' %>
-        <% end %>
+
+
+        <%#= o.input :level, as: :radio_buttons, collection: [['City' , 'city'],['Whole map', 'map']],label: 'Where to look?' %>
+        <input type="radio" name="level" value="map">Whole map<br>
+        <input type="radio" name="level" value="city">City <input type="text" name="cityname" /><br><br>
+
+
         <%= f.button :submit, class: "btn btn-ghost" %>
         <% end %>
+
+
       </div>
     </div>
   </div>
@@ -225,3 +232,4 @@
 <%= content_for :map_js do  %>
 <%= javascript_pack_tag 'initMap' %>
 <% end %>
+
