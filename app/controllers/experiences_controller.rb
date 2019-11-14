@@ -24,8 +24,9 @@ before_action :pundit_sucks
     location = "&locationbias=point:#{coords[0]},#{coords[1]}"
     key = "&key=#{ENV['GOOGLE_MAPS_KEY']}"
     language = "&language=en"
-    api_call = open(endpoint+search_query+fields+location+language+key).read
-    results = JSON.parse(api_call)
+    api_call = endpoint+search_query+fields+location+language+key
+    uri = open(api_call).read
+    results = JSON.parse(uri)
     return results["candidates"]
   end
 
@@ -33,9 +34,10 @@ before_action :pundit_sucks
    key = "&key=#{ENV['GOOGLE_MAPS_KEY']}"
    details_endpoint = "https://maps.googleapis.com/maps/api/place/details/json?place_id=#{place_id}&key=#{ENV['GOOGLE_MAPS_KEY']}"
    query_fields = "&fields=name,geometry,formatted_address,photos,rating,opening_hours,website,url,price_level,international_phone_number"
-   language = "&language=#{session["language"]}"
-   uri = open(details_endpoint+query_fields+language).read
+   api_call = details_endpoint+query_fields
+   uri = open(api_call).read
    results = JSON.parse(uri)["result"]
+   byebug
    details = {}
    details[:user_id] = current_user.id
    details[:board_id] = @experience[:board_id]
@@ -65,6 +67,7 @@ before_action :pundit_sucks
    city = params[:other][:level] == 'city'
    query = URI.escape(@experience.title)
    @coords = [@board.latitude, @board.longitude]
+   @map_bounds = [[@board.ne_lat, @board.ne_lng],[@board.sw_lat, @board.sw_lng]]
    @list = city ? nearby_search_api(query, @coords) : find_place_api(query, @coords)
    @places = @list.map do |each|
      { title:  @experience.title,
