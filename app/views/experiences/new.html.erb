@@ -5,7 +5,8 @@
 
   </div>
   <div class="card-container">
-  <div  id="map" style="height: 30vh; width: 100%; overflow: hidden;" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
+
+  <div id="map" style="height: 30vh; width: 100%; overflow: hidden;" data-bounds="<%= @map_bounds.to_json %>" data-center="<%= @coords.to_json %>" data-markers="<%= @markers.to_json %>" data-places="<%= @places.to_json %>">
   </div>
   <div class="d-flex align-items-center justify-content-center turquoise" style="height: 70px;">
     <h6 class="text-center" style=" font-family: 'open sans'; font-weight: bolder; color: white; font-size: 18px;">We have found these options for you.</h6>
@@ -86,7 +87,7 @@
                     <%= link_to "website", modelo[:website] %>
                     <i class="fas fa-external-link-alt"></i>
                     <%= f.input :latitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
-                    <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:latitude]} %>
+                    <%= f.input :longitude, as: :hidden, input_html: {value: modelo[:longitude]} %>
                     <% exp_pic = modelo[:photos] ? modelo[:photos].sample : "https://www.battlegroundindy.com/wp-content/uploads/2019/01/no-image-770x466.jpg"  %>
                     <%= f.input :photo, as: :hidden, input_html:{value: exp_pic} %>
                     <%= f.button :submit, "Confirm", class: "btn btn-ghost" %>
