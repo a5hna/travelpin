@@ -11,8 +11,9 @@ class ExperiencesController < ApplicationController
     radius = "&radius=50000"
     language = "&language=#{session["language"]}"
     places_endpoint = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword="
-    api_call = open(places_endpoint+query+location+radius+language+key).read
-    results = JSON.parse(api_call)
+    api_call = places_endpoint+query+location+radius+language+key
+    uri = open(api_call).read
+    results = JSON.parse(uri)
     list = results["results"][0..4]
     return list
   end
@@ -63,7 +64,7 @@ class ExperiencesController < ApplicationController
     @board = Board.find(params[:board_id])
     @experience = Experience.new(experience_params)
     city = params[:level] == 'city'
-    board_is_city = @board.level == "city" || "locality" ? true : false
+    board_is_city = @board.level == ("city" || "locality") ? true : false
     city_all_along = city && board_is_city
     if params[:cityname].present?
       specified_city = Geocoder.search(params[:cityname])
