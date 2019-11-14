@@ -18,9 +18,6 @@ var map;
       mapTypeId: 'terrain'
     });
   map.fitBounds(bounds, -100);
-  console.log(map.getZoom());
-  console.log(zoomOverride);
-
 
   google.maps.event.addListener(map, 'click', function(event) {
     placeMarker(event.latLng);

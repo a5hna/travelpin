@@ -6,19 +6,27 @@
     const location = document.getElementById('exp-location')
     const formLat = document.getElementById('formLat')
     const formLng = document.getElementById('formLng')
+    const limite = JSON.parse(mapElement.dataset.bounds)
+    const ne_bound = new google.maps.LatLng(limite[0][0], limite[0][1])
+    const sw_bound = new google.maps.LatLng(limite[1][0], limite[1][1])
+    const bounds = new google.maps.LatLngBounds(sw_bound, ne_bound)
+
     let mapCenter = new google.maps.LatLng(centerCoords[0], centerCoords[1]);
     map = new google.maps.Map(
       document.getElementById('map'), {
         center: mapCenter,
         zoom: 10,
-        disableDefaultUI: true
+        disableDefaultUI: true,
+        mapTypeId: 'terrain'
       });
+    map.fitBounds(bounds, -100);
 
     map2 = new google.maps.Map(
       document.getElementById('small-map'), {
         center: mapCenter,
         zoom: 12,
-        disableDefaultUI: true
+        disableDefaultUI: true,
+        mapTypeId: 'terrain'
       });
     google.maps.event.addListener(map2, 'click', function(event) {
       placeMarker(event.latLng);
