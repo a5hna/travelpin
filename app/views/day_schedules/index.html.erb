@@ -22,7 +22,7 @@
           <div class="notes text-center mb-4">
             <h6>Day Notes:</h6>
             <%= day_schedule.notes %>
-            <i class="far fa-edit edit-note-icon" type="button" data-toggle="modal" data-target="#edit-note<%= day_schedule.id %>"></i>
+            <i class="far fa-edit edit-note-icon" type="text" data-toggle="modal" data-target="#edit-note<%= day_schedule.id %>"></i>
           </div>
           <div class="modal fade" id="edit-note<%= day_schedule.id %>" tabindex="-1" role="dialog">
              <div class="modal-dialog modal-dialog-centered" role="document">
@@ -30,7 +30,7 @@
              <div class="modal-header turquoise  d-flex flex-column align-items-center justify-content-center">
                   <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
                   <h5 class="modal-title" id="add-experience-title">Update Day Note</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <button type="text" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -46,7 +46,7 @@
         </div>
       <% else %>
         <div class="new-note text-center mb-5">
-          <p type="button" class="" data-toggle="modal" data-target="#add-note<%= day_schedule.id %>">
+          <p type="text" class="" data-toggle="modal" data-target="#add-note<%= day_schedule.id %>">
             Add Day Note <i class="far fa-sticky-note"></i>
           </p>
         </div>
@@ -58,7 +58,7 @@
               <div class="modal-header turquoise  d-flex flex-column align-items-center justify-content-center">
                 <%= image_tag "_triangle-marker.svg", alt: "alttext" %>
                 <h5 class="modal-title" id="add-experience-title">Add Day Note</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="text" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -90,9 +90,9 @@
         <div class="day-schedule-item-card experience-card mb-2 shadow p-3 mb-5 bg-white" data-id="<%= day_schedule_item.experience.id %>">
           <%= image_tag day_schedule_item.experience.photo, alt: "alttext" %>
           <p class="d-flex justify-content-between mt-1">
-            <button type="button" data-toggle="modal" data-target=<%= "#experience#{day_schedule_item.experience.id}" %>>
+            <p type="text" data-toggle="modal" data-target=<%= "#experience#{day_schedule_item.experience.id}" %>>
               <%= day_schedule_item.experience.title %>
-            </button>
+            </p>
             <div class="day-schedule-item-delete">
               <%= link_to day_schedule_item_path(day_schedule_item), method: :delete do %>
                 <i class="fas fa-times"></i>
