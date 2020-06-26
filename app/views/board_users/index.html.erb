@@ -21,12 +21,14 @@
             <%= cl_image_tag board_user.user.avatar, class: "avatar", alt: "avatar" %>
             <%= board_user.user.name %>
           </div>
+
           <div>
             <%= link_to "(leave board)", board_user_path(board_user), method: :delete %>
             <a href="#" id="current-user-icon">
               <i class="fas fa-user ml-1"></i>
             </a>
           </div>
+
         </div>
       </div>
 
